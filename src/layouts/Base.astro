@@ -65,5 +65,15 @@ const fontCss = `
     <div class="grain" aria-hidden="true"></div>
 
     <script src="../scripts/motion.js"></script>
+
+    {/* Cloudflare Web Analytics: cookieless, no consent banner. Production only. */}
+    {import.meta.env.PROD && (
+      <script
+        is:inline
+        defer
+        src="https://static.cloudflareinsights.com/beacon.min.js"
+        data-cf-beacon='{"token": "7c376a26eaec422f9a2e49ca32f83341"}'
+      ></script>
+    )}
   </body>
 </html>
