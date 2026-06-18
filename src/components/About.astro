@@ -1,0 +1,164 @@
+---
+import { Image } from 'astro:assets';
+import portrait from '../assets/liz-portrait.png';
+
+// MODULAR provider section. Today it holds one provider; as the practice grows,
+// add more entries to `providers` and the layout becomes a card grid with no
+// redesign. The (deferred) living-portrait video lives on each provider's photo.
+const providers = [
+  {
+    name: 'Elizabeth Hanke',
+    credentials: 'APRN, FNP-BC',
+    photo: portrait,
+    tags: ['Autonomous Florida APRN', 'Women’s health focus', 'Functional medicine'],
+    bio: [
+      'Liz is an autonomous Florida nurse practitioner who founded Primary Care and Beyond to practice medicine the way it should feel: unhurried, personal, and honest about cost.',
+      'She spent years inside the rushed, insurance-driven system and watched patients, women especially, get brushed off, told it was just stress or just their age, and handed a prescription instead of an answer. She built this practice so that would not be the experience here.',
+    ],
+  },
+];
+
+const single = providers.length === 1;
+---
+
+<section id="about" class="section about">
+  <div class="wrap">
+    <div class="about-head" data-reveal>
+      <p class="eyebrow about-eyebrow">Your provider</p>
+      <h2 class="display-l">{single ? 'Meet your provider.' : 'Meet your care team.'}</h2>
+      <p class="about-lead prose-measure">
+        Direct care means one provider who actually knows you, and stays with you. Here is
+        who you will be working with.
+      </p>
+    </div>
+
+    <ul class={`providers ${single ? 'is-single' : ''}`}>
+      {
+        providers.map((p) => (
+          <li class="provider-card" data-reveal>
+            <div class="provider-photo">
+              <Image
+                src={p.photo}
+                alt={`${p.name}, ${p.credentials}`}
+                widths={[360, 560, 720]}
+                sizes="(min-width: 880px) 22rem, 80vw"
+                class="provider-media"
+              />
+              {/* Living-portrait video (enable later, per provider):
+              <video class="provider-media" autoplay loop muted playsinline preload="metadata"
+                poster="/media/liz-living-poster.jpg" aria-label={`${p.name}, ${p.credentials}`} data-living>
+                <source src="/media/liz-living.webm" type="video/webm" />
+                <source src="/media/liz-living.mp4" type="video/mp4" />
+              </video> */}
+            </div>
+
+            <div class="provider-body">
+              <h3 class="provider-name">
+                {p.name}<span class="provider-cred">{p.credentials}</span>
+              </h3>
+              <ul class="provider-tags">
+                {p.tags.map((t) => <li>{t}</li>)}
+              </ul>
+              {p.bio.map((para) => <p class="provider-para">{para}</p>)}
+              <p class="provider-promise">
+                The same provider, every visit, with the time to look for the root cause,
+                not just write a script.
+              </p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .about { background: var(--color-cream-soft); }
+  .about-eyebrow { color: var(--color-sage-deep); margin-bottom: 1rem; }
+  .about-lead { margin-top: 1.3rem; font-size: 1.15rem; color: var(--color-pine-ink); }
+
+  .providers {
+    list-style: none;
+    margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  /* Multiple providers -> responsive card grid (no redesign needed) */
+  .providers:not(.is-single) {
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  }
+
+  .provider-card {
+    background: var(--color-cream);
+    border: 1px solid color-mix(in srgb, var(--color-tan) 50%, transparent);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  /* Single provider: portrait beside the bio, editorial and prominent */
+  .is-single .provider-card { grid-template-columns: 1fr; }
+
+  .provider-photo {
+    position: relative;
+    background:
+      radial-gradient(120% 100% at 50% 0%, var(--color-cream) 0%, var(--color-sage-wash) 100%);
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+  }
+  .provider-media { width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; display: block; }
+
+  .provider-body { padding: clamp(1.75rem, 3vw, 2.5rem); }
+  .provider-name {
+    margin: 0;
+    font-size: clamp(1.7rem, 2.6vw, 2.25rem);
+    display: flex;
+    flex-direction: column;
+  }
+  .provider-cred {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-terracotta-deep);
+    margin-top: 0.4rem;
+  }
+  .provider-tags {
+    list-style: none;
+    margin: 1rem 0 1.4rem;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .provider-tags li {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-pine);
+    background: var(--color-sage-wash);
+    border-radius: 999px;
+    padding: 0.34rem 0.8rem;
+  }
+  .provider-para { margin: 0 0 1rem; color: var(--color-pine-ink); }
+  .provider-promise {
+    margin: 1.25rem 0 0;
+    padding-left: 1rem;
+    border-left: 2px solid var(--color-terracotta);
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--color-pine);
+  }
+
+  @media (min-width: 880px) {
+    .is-single .provider-card {
+      grid-template-columns: 0.85fr 1.15fr;
+      align-items: stretch;
+    }
+    .is-single .provider-photo { aspect-ratio: auto; height: 100%; min-height: 26rem; }
+  }
+</style>

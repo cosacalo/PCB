@@ -1,0 +1,113 @@
+---
+const pillars = [
+  {
+    name: 'Primary Care',
+    body: 'Preventive care, chronic disease management, and comprehensive women’s health. Medication management and refills, lab orders when indicated, and unhurried messaging between visits.',
+    items: ['Preventive & chronic care', 'Women’s health', 'Medication management', 'Labs when indicated'],
+  },
+  {
+    name: 'Functional Medicine',
+    body: 'Root-cause consultations for the things busy visits brush off: perimenopause, thyroid, hormones, gut health, autoimmune, and chronic fatigue. Priced openly, quoted before any care.',
+    items: ['Root-cause consultations', 'Perimenopause & thyroid', 'Gut & hormone health', 'Targeted lab review'],
+  },
+  {
+    name: 'Weight Loss',
+    body: 'Medically supervised weight care, including GLP-1 medication management when it is right for you. A personalized plan that treats weight as the complex thing it is.',
+    items: ['Medically supervised', 'GLP-1 management', 'Personalized plan', 'Sustainable goals'],
+  },
+];
+
+const icons = ['leaf', 'root', 'balance'];
+---
+
+<section id="services" class="section services">
+  <div class="wrap">
+    <div class="services-head" data-reveal>
+      <p class="eyebrow services-eyebrow">What we do</p>
+      <h2 class="display-l">Three ways we care for you.</h2>
+      <p class="services-lead prose-measure">
+        One practice, one provider, for the whole arc of your health. Start with primary
+        care and go beyond it as you need to.
+      </p>
+    </div>
+
+    <div class="services-grid">
+      {
+        pillars.map((p, i) => (
+          <article class="service-card" data-reveal style={`transition-delay:${i * 70}ms`}>
+            <span class="service-icon" aria-hidden="true">
+              {icons[i] === 'leaf' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg>
+              )}
+              {icons[i] === 'root' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="6" r="3"/><path d="M12 9v6"/><path d="M12 15c-2 0-3 1-3 3M12 15c2 0 3 1 3 3"/><path d="M9 18v3M15 18v3M12 15v6"/></svg>
+              )}
+              {icons[i] === 'balance' && (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 21h14"/><path d="m3 7 9-2 9 2"/><path d="M3 7l-2 5a4 4 0 0 0 8 0L7 7M21 7l-2 5a4 4 0 0 1-8 0"/></svg>
+              )}
+            </span>
+            <h3 class="service-name">{p.name}</h3>
+            <p class="service-body">{p.body}</p>
+            <ul class="service-items">
+              {p.items.map((it) => <li>{it}</li>)}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .services { background: var(--color-cream-soft); }
+  .services-eyebrow { color: var(--color-sage-deep); margin-bottom: 1rem; }
+  .services-lead { margin-top: 1.3rem; font-size: 1.15rem; color: var(--color-pine-ink); }
+
+  .services-grid {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .service-card {
+    background: var(--color-cream);
+    border: 1px solid color-mix(in srgb, var(--color-tan) 45%, transparent);
+    border-radius: var(--radius-card);
+    padding: 2.1rem 1.9rem;
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.25s var(--ease-out), transform 0.25s var(--ease-out);
+  }
+  .service-card:hover { box-shadow: var(--shadow-card-hover); transform: translateY(-2px); }
+  .service-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 999px;
+    background: var(--color-sage-wash);
+    color: var(--color-pine);
+  }
+  .service-icon svg { width: 1.5rem; height: 1.5rem; }
+  .service-name { margin: 1.1rem 0 0.6rem; font-size: 1.7rem; }
+  .service-body { margin: 0; color: var(--color-pine-ink); }
+  .service-items {
+    margin: 1.25rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .service-items li {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-pine-ink);
+    background: var(--color-sage-wash);
+    border-radius: 999px;
+    padding: 0.32rem 0.75rem;
+  }
+
+  @media (min-width: 820px) {
+    .services-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>

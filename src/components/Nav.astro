@@ -1,0 +1,128 @@
+---
+import { Image } from 'astro:assets';
+import icon from '../assets/logo-icon.png';
+
+const links = [
+  { href: '#approach', label: 'Approach' },
+  { href: '#services', label: 'Services' },
+  { href: '#pricing', label: 'Pricing' },
+  { href: '#about', label: 'About' },
+  { href: '#faq', label: 'FAQ' },
+];
+---
+
+<nav id="site-nav" class="site-nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-brand" aria-label="Primary Care and Beyond, home">
+      <Image src={icon} alt="" class="nav-icon" widths={[56, 112]} loading="eager" aria-hidden="true" />
+      <span class="nav-wordmark">
+        <span class="nav-name">Primary Care</span>
+        <span class="nav-sub">and Beyond</span>
+      </span>
+    </a>
+
+    <ul class="nav-links">
+      {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+    </ul>
+
+    <a href="tel:+19412506561" class="btn btn-primary nav-cta">
+      <span aria-hidden="true">&#9742;</span> Call Liz
+    </a>
+  </div>
+</nav>
+
+<style>
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: color-mix(in srgb, var(--color-cream) 82%, transparent);
+    backdrop-filter: saturate(1.1) blur(10px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s var(--ease-out), background-color 0.3s var(--ease-out);
+  }
+  .site-nav.is-scrolled {
+    border-bottom-color: color-mix(in srgb, var(--color-tan) 50%, transparent);
+    background: color-mix(in srgb, var(--color-cream) 92%, transparent);
+  }
+  .nav-inner {
+    max-width: 75rem;
+    margin: 0 auto;
+    padding: 0.8rem clamp(1.25rem, 4vw, 2rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .nav-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-decoration: none;
+    flex: 0 0 auto;
+  }
+  .nav-icon {
+    height: 3rem;
+    width: auto;
+    transition: height 0.3s var(--ease-out);
+  }
+  .is-scrolled .nav-icon { height: 2.6rem; }
+  .nav-wordmark {
+    display: flex;
+    flex-direction: column;
+    line-height: 0.96;
+  }
+  .nav-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--color-pine);
+    letter-spacing: 0.01em;
+  }
+  .nav-sub {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--color-terracotta-deep);
+  }
+
+  .nav-links {
+    display: none;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-links a {
+    font-weight: 500;
+    font-size: 0.98rem;
+    color: var(--color-pine-ink);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 2px;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 1px;
+    width: 0;
+    background: var(--color-terracotta);
+    transition: width 0.2s var(--ease-out);
+  }
+  .nav-links a:hover { color: var(--color-pine); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-cta { padding: 0.65rem 1.15rem; font-size: 0.95rem; }
+
+  /* On small screens keep the icon + name, drop the italic line if cramped */
+  @media (max-width: 420px) {
+    .nav-sub { display: none; }
+    .nav-name { font-size: 1.3rem; }
+  }
+  @media (min-width: 880px) {
+    .nav-links { display: flex; }
+  }
+</style>

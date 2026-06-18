@@ -1,0 +1,130 @@
+---
+const faqs = [
+  {
+    q: 'Is this insurance?',
+    a: 'No. Primary Care and Beyond is a direct health care membership under Florida Statute 624.27, not insurance. It is not a substitute for major medical coverage. Keep your insurance for specialists, hospital care, imaging, and emergencies, and use your membership for unhurried primary care.',
+  },
+  {
+    q: 'Why pay a membership if I already have insurance?',
+    a: 'The membership covers the day-to-day primary care your plan rushes: longer visits, direct access to your provider, and root-cause attention. It complements your insurance rather than replacing it. For many people it also replaces the urgent-care runs and repeat visits that add up.',
+  },
+  {
+    q: 'Is a nurse practitioner enough, or do I need a doctor?',
+    a: 'Liz is an autonomous Florida APRN (FNP-BC) practicing independently under state law, fully able to diagnose, treat, and prescribe within her scope. What she offers that rushed physician visits rarely can is time: the time to actually know you and dig into the cause.',
+  },
+  {
+    q: 'Where do you practice, and who can join?',
+    a: 'Care is delivered by telehealth across Florida, so you must be physically located in Florida during each visit. The practice serves adults 18 and older. A Sarasota and Lakewood Ranch in-person location is on the way.',
+  },
+  {
+    q: 'What is included for $150 a month?',
+    a: 'Your membership includes a weekly telehealth visit when needed, preventive and chronic disease care, comprehensive women’s health, medication management and refills for non-controlled medications, lab orders when indicated, medically supervised weight care including GLP-1 management, care coordination, and non-urgent messaging.',
+  },
+  {
+    q: 'What is not included?',
+    a: 'The membership does not cover emergency, urgent, or after-hours care, hospital care, specialist, lab, imaging, or pharmacy fees, controlled substances, hormone therapy at this time, in-person procedures, or the completion of disability, employment, or legal forms. Functional medicine and weight programs are quoted separately, before care.',
+  },
+  {
+    q: 'How do I get started?',
+    a: 'Call 941.250.6561 or email Elizabeth@primarycareandbeyond.com. Enrollment always happens through a direct conversation with Liz, never through an online checkout.',
+  },
+];
+---
+
+<section id="faq" class="section faq">
+  <div class="wrap faq-grid">
+    <div class="faq-head" data-reveal>
+      <p class="eyebrow faq-eyebrow">Good questions</p>
+      <h2 class="display-l">The honest answers.</h2>
+      <p class="faq-lead">
+        The things people actually want to know before they pick up the phone.
+      </p>
+    </div>
+
+    <div class="faq-list" data-reveal>
+      {
+        faqs.map((f) => (
+          <details class="faq-item" name="faq">
+            <summary>
+              <span class="faq-q">{f.q}</span>
+              <span class="faq-mark" aria-hidden="true"></span>
+            </summary>
+            <div class="faq-a"><p>{f.a}</p></div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq { background: var(--color-cream); }
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 4vw, 3rem);
+    align-items: start;
+  }
+  .faq-eyebrow { color: var(--color-sage-deep); margin-bottom: 1rem; }
+  .faq-lead { margin-top: 1rem; max-width: 22rem; color: var(--color-pine-ink); }
+
+  .faq-item {
+    border-bottom: 1px solid color-mix(in srgb, var(--color-tan) 40%, transparent);
+  }
+  .faq-item:first-child { border-top: 1px solid color-mix(in srgb, var(--color-tan) 40%, transparent); }
+  .faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 0;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-q {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--color-pine);
+  }
+  .faq-mark {
+    flex: 0 0 auto;
+    position: relative;
+    width: 18px;
+    height: 18px;
+  }
+  .faq-mark::before,
+  .faq-mark::after {
+    content: '';
+    position: absolute;
+    background: var(--color-terracotta);
+    transition: transform 0.25s var(--ease-out), opacity 0.25s var(--ease-out);
+  }
+  .faq-mark::before { top: 8px; left: 0; width: 18px; height: 2px; }
+  .faq-mark::after { left: 8px; top: 0; width: 2px; height: 18px; }
+  .faq-item[open] .faq-mark::after { transform: scaleY(0); opacity: 0; }
+
+  .faq-a {
+    padding: 0 0 1.4rem;
+    max-width: 44rem;
+  }
+  .faq-a p { margin: 0; color: var(--color-pine-ink); }
+  .faq-item summary:focus-visible {
+    outline: 2px solid var(--color-terracotta);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .faq-item[open] .faq-a { animation: faq-open 0.3s var(--ease-out); }
+    @keyframes faq-open {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: none; }
+    }
+  }
+
+  @media (min-width: 900px) {
+    .faq-grid { grid-template-columns: 0.7fr 1.3fr; }
+  }
+</style>

@@ -1,0 +1,48 @@
+---
+---
+
+<section class="pq">
+  <div class="wrap pq-inner">
+    <svg class="pq-mark" viewBox="0 0 140 90" fill="none" aria-hidden="true" data-draw>
+      <path d="M20 72 A50 50 0 0 1 120 72" stroke="var(--color-terracotta)" stroke-width="2.5" stroke-linecap="round" />
+      <path d="M70 72 C70 52 56 44 42 44 C42 64 56 72 70 72 Z" stroke="var(--color-sage)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M70 72 C70 52 84 44 98 44 C98 64 84 72 70 72 Z" stroke="var(--color-pine)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M70 72 L70 40" stroke="var(--color-pine)" stroke-width="2.5" stroke-linecap="round" />
+    </svg>
+
+    <blockquote class="pq-quote" data-reveal>
+      You deserve a provider who remembers your name, your history, and
+      <em>exactly</em> what you are working toward.
+    </blockquote>
+    <p class="pq-by" data-reveal>The whole reason this practice exists.</p>
+  </div>
+</section>
+
+<style>
+  .pq { background: var(--color-cream-soft); }
+  .pq-inner {
+    padding-top: clamp(4rem, 9vw, 7rem);
+    padding-bottom: clamp(4rem, 9vw, 7rem);
+    text-align: center;
+  }
+  .pq-mark { width: 88px; height: auto; margin: 0 auto 2rem; display: block; }
+  .pq-quote {
+    margin: 0 auto;
+    max-width: 26ch;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2rem, 4.6vw, 3.6rem);
+    line-height: 1.12;
+    color: var(--color-pine-deep);
+    letter-spacing: -0.01em;
+  }
+  .pq-quote em { font-style: italic; color: var(--color-terracotta-deep); }
+  .pq-by {
+    margin: 1.75rem 0 0;
+    font-size: 0.85rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--color-sage-deep);
+  }
+</style>

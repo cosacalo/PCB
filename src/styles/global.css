@@ -1,0 +1,201 @@
+@import 'tailwindcss';
+
+/* Self-hosted variable @font-face declarations are injected from Base.astro so
+   their URLs respect the configured `base` path on GitHub Pages. */
+
+/* ----------------------------------------------------------------------------
+   Design tokens. Exactly the 5 core hex values + same-hue shades.
+   Pine / Cream / Terracotta / Sage / Warm Tan.
+---------------------------------------------------------------------------- */
+@theme {
+  --color-pine: #33402a;
+  --color-pine-ink: #3f4137;
+  --color-pine-deep: #1e2716;
+  --color-cream: #fbf7f1;
+  --color-cream-soft: #efe6d8;
+  --color-terracotta: #c2603c;
+  --color-terracotta-deep: #a8492a;
+  --color-sage: #869b85;
+  --color-sage-deep: #54624f;
+  --color-sage-light: #9cb09a;
+  --color-sage-wash: #e7ece2;
+  --color-tan: #b7a88f;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Source Sans 3', system-ui, sans-serif;
+
+  --radius-btn: 4px;
+  --radius-card: 8px;
+
+  --shadow-card: 0 1px 2px rgba(30, 39, 22, 0.04);
+  --shadow-card-hover: 0 8px 24px rgba(30, 39, 22, 0.07);
+
+  --ease-out: cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+
+/* ----------------------------------------------------------------------------
+   Base
+---------------------------------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 5.5rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-pine-deep);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.08;
+  color: var(--color-pine);
+  letter-spacing: -0.01em;
+}
+
+::selection {
+  background: var(--color-terracotta);
+  color: var(--color-cream);
+}
+
+/* Layout containers (GLOBAL so every section is centered and padded,
+   not just the one component they were first defined in) */
+.section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
+.wrap {
+  max-width: 75rem;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 2rem);
+  width: 100%;
+}
+
+/* Editorial display sizes */
+.display-xl { font-size: clamp(2.75rem, 6vw, 5.5rem); line-height: 1.04; }
+.display-l  { font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.1; }
+.display-m  { font-size: clamp(1.6rem, 2.4vw, 2.25rem); line-height: 1.12; }
+
+/* Uppercase tracked eyebrow label */
+.eyebrow {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Reading column */
+.prose-measure { max-width: 42rem; }
+
+/* ----------------------------------------------------------------------------
+   Buttons
+---------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0.95rem 1.6rem;
+  border-radius: var(--radius-btn);
+  transition: transform 0.15s var(--ease-out), background-color 0.15s var(--ease-out),
+    color 0.15s var(--ease-out), border-color 0.15s var(--ease-out);
+  white-space: nowrap;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 3px;
+}
+
+/* Consistent visible focus for every link (nav, footer, brand, anchors) */
+a:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.btn-primary {
+  /* terracotta-deep clears AA (cream on #a8492a ~= 5.4:1); base terracotta did not */
+  background: var(--color-terracotta-deep);
+  color: var(--color-cream);
+}
+.btn-primary:hover { background: color-mix(in srgb, var(--color-terracotta-deep) 88%, #000); }
+.btn-outline {
+  background: transparent;
+  color: var(--color-pine);
+  border: 1px solid var(--color-tan);
+}
+.btn-outline:hover { border-color: var(--color-pine); background: var(--color-cream-soft); }
+.btn-on-pine {
+  background: var(--color-cream);
+  color: var(--color-pine);
+}
+.btn-on-pine:hover { background: #fff; }
+.btn-ghost-pine {
+  background: transparent;
+  color: var(--color-cream);
+  border: 1px solid rgba(251, 247, 241, 0.35);
+}
+.btn-ghost-pine:hover { border-color: var(--color-cream); }
+
+/* ----------------------------------------------------------------------------
+   Cinematic motion. Initial hidden states are gated behind `.anim-ready`,
+   which is added to <html> by an inline head script ONLY when motion is
+   allowed and JS runs. So no-JS and reduced-motion users see everything,
+   instantly, with zero layout shift.
+---------------------------------------------------------------------------- */
+.anim-ready [data-reveal] { opacity: 0; will-change: transform, opacity; }
+
+/* Hero load: hide animated parts until the timeline runs (flash-free) */
+.anim-ready [data-hero-eyebrow],
+.anim-ready [data-hero-sub],
+.anim-ready [data-hero-cta] > *,
+.anim-ready [data-hero-note],
+.anim-ready [data-hero-figure],
+.anim-ready [data-hero-cred] { opacity: 0; }
+
+/* Masked line reveal for display headlines */
+.reveal-lines .line { display: block; overflow: hidden; }
+.reveal-lines .line > span { display: block; }
+.anim-ready .reveal-lines .line > span { transform: translateY(112%); }
+
+/* Film grain: static texture overlay, on for everyone (no motion) */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Magnetic / shine on primary buttons */
+.btn-primary { position: relative; overflow: hidden; }
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.6s var(--ease-out);
+}
+.btn-primary:hover::after { left: 150%; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary::after { display: none; }
+}

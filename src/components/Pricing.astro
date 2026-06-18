@@ -1,0 +1,154 @@
+---
+const included = [
+  'A weekly telehealth visit when you need it',
+  'Preventive care and chronic disease management',
+  'Comprehensive women’s health',
+  'Medication management and refills (non-controlled)',
+  'Lab orders when medically indicated',
+  'Medically supervised weight care, including GLP-1',
+  'Care coordination and non-urgent messaging',
+];
+
+const fmRates = [
+  { name: 'Initial consultation', detail: '90 minutes', price: '$375' },
+  { name: 'Follow-up', detail: '30 minutes', price: '$200' },
+  { name: 'Extended follow-up', detail: '60 minutes', price: '$300' },
+  { name: 'Lab review', detail: 'results and plan', price: '$150' },
+];
+---
+
+<section id="pricing" class="section pricing">
+  <div class="wrap">
+    <div class="pricing-head" data-reveal>
+      <p class="eyebrow pricing-eyebrow">Transparent pricing</p>
+      <h2 class="display-l">Know the price before you start.</h2>
+      <p class="pricing-lead prose-measure">
+        No competitor in the area publishes their prices. We do. Here is exactly what
+        membership costs and what functional medicine adds, with an estimate before any
+        added care.
+      </p>
+    </div>
+
+    <div class="pricing-grid">
+      <article class="plan" data-reveal>
+        <div class="plan-top">
+          <h3 class="plan-name">Membership</h3>
+          <p class="plan-price"><span class="amount">$150</span><span class="per">/ month</span></p>
+          <p class="plan-tag">Telehealth direct primary care</p>
+        </div>
+        <ul class="plan-list">
+          {included.map((it) => (
+            <li>
+              <svg class="check" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m5 10.5 3.2 3L15 6.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>{it}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="plan-foot">
+          No copays. No surprise bills. Auto-renews monthly, cancel anytime with 30 days
+          notice.
+        </p>
+        <a href="tel:+19412506561" class="btn btn-primary plan-cta">
+          <span aria-hidden="true">&#9742;</span> Call to join
+        </a>
+      </article>
+
+      <aside class="addon" data-reveal style="transition-delay:80ms">
+        <h3 class="addon-name">Functional medicine</h3>
+        <p class="addon-intro">
+          Optional, deeper root-cause work, billed per visit and always quoted before you
+          begin.
+        </p>
+        <ul class="rate-list">
+          {fmRates.map((r) => (
+            <li class="rate">
+              <span class="rate-name">{r.name}<em>{r.detail}</em></span>
+              <span class="rate-price">{r.price}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="promise">
+          <strong>Our promise:</strong> you always get a written estimate before any
+          functional medicine or weight-loss care. No surprises.
+        </p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pricing { background: var(--color-cream); }
+  .pricing-eyebrow { color: var(--color-terracotta-deep); margin-bottom: 1rem; }
+  .pricing-lead { margin-top: 1.3rem; font-size: 1.15rem; color: var(--color-pine-ink); }
+
+  .pricing-grid {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .plan {
+    background: var(--color-pine);
+    color: var(--color-cream);
+    border-radius: 12px;
+    padding: 2.4rem 2.1rem;
+    box-shadow: var(--shadow-card-hover);
+  }
+  .plan-name {
+    color: var(--color-sage-light);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .plan-price { margin: 0.5rem 0 0; display: flex; align-items: baseline; gap: 0.4rem; }
+  .amount { font-family: var(--font-display); font-size: clamp(3rem, 6vw, 4rem); font-weight: 600; color: var(--color-cream); line-height: 1; }
+  .per { color: color-mix(in srgb, var(--color-cream) 70%, transparent); font-size: 1.05rem; }
+  .plan-tag { margin: 0.35rem 0 0; color: color-mix(in srgb, var(--color-cream) 80%, transparent); }
+
+  .plan-list { list-style: none; margin: 1.75rem 0 0; padding: 1.75rem 0 0; border-top: 1px solid rgba(251,247,241,0.16); display: grid; gap: 0.7rem; }
+  .plan-list li { display: flex; gap: 0.7rem; align-items: flex-start; color: color-mix(in srgb, var(--color-cream) 90%, transparent); }
+  .check { width: 1.25rem; height: 1.25rem; flex: 0 0 auto; color: var(--color-terracotta); margin-top: 0.15rem; }
+
+  .plan-foot { margin: 1.5rem 0 0; font-size: 0.9rem; color: color-mix(in srgb, var(--color-cream) 72%, transparent); }
+  .plan-cta { margin-top: 1.5rem; width: 100%; justify-content: center; }
+
+  .addon {
+    background: var(--color-cream);
+    border: 1px solid color-mix(in srgb, var(--color-tan) 50%, transparent);
+    border-radius: 12px;
+    padding: 2.4rem 2.1rem;
+  }
+  .addon-name { margin: 0; font-size: 1.7rem; }
+  .addon-intro { margin: 0.6rem 0 0; color: var(--color-pine-ink); }
+  .rate-list { list-style: none; margin: 1.5rem 0 0; padding: 0; }
+  .rate {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.95rem 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-tan) 35%, transparent);
+  }
+  .rate-name { display: flex; flex-direction: column; font-weight: 600; color: var(--color-pine); }
+  .rate-name em { font-style: normal; font-weight: 400; font-size: 0.85rem; color: var(--color-pine-ink); opacity: 0.75; }
+  .rate-price { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; color: var(--color-terracotta-deep); }
+
+  .promise {
+    margin: 1.5rem 0 0;
+    padding: 1.1rem 1.2rem;
+    background: var(--color-sage-wash);
+    border-radius: var(--radius-card);
+    font-size: 0.95rem;
+    color: var(--color-pine-ink);
+  }
+  .promise strong { color: var(--color-pine); }
+
+  @media (min-width: 880px) {
+    .pricing-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
