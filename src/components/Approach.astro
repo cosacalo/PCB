@@ -2,15 +2,15 @@
 const points = [
   {
     title: 'One provider who knows you',
-    body: 'The same nurse practitioner every visit, who remembers your history, your goals, and your life. No rotating faces, no starting over each time.',
+    body: 'The same nurse practitioner every visit, who remembers your history, your goals, and your life. No rotating faces, no starting over.',
   },
   {
     title: 'Transparent, flat-fee pricing',
-    body: 'One clear membership price, posted right here. No copays, no surprise bills, and an estimate before any added care. You always know the cost first.',
+    body: 'One clear membership price, posted right here. No copays, no surprise bills, and an estimate before any added care.',
   },
   {
     title: 'Care beyond the prescription pad',
-    body: 'Time to look for the root cause, not just write a script and move on. Primary care, functional medicine, and weight care under one roof.',
+    body: 'Time to look for the root cause, not just write a script and move on. Primary care, functional medicine, and weight care, together.',
   },
 ];
 ---
@@ -18,23 +18,20 @@ const points = [
 <section id="approach" class="section approach">
   <div class="wrap">
     <div class="approach-head" data-reveal>
-      <p class="eyebrow approach-eyebrow">The difference</p>
       <h2 class="display-l">Beyond the seven-minute visit.</h2>
       <p class="approach-lead prose-measure">
-        Conventional primary care is built around volume: short visits, long waits, and a
-        different provider each time. Primary Care and Beyond is built around you. It is a
-        direct membership, so the time you get is real time, and the relationship is the
-        point.
+        Conventional primary care runs on volume: short visits, long waits, a different
+        provider each time. This is built around you instead. A direct membership, so the
+        time you get is real time and the relationship is the point.
       </p>
     </div>
 
-    <ul class="approach-grid">
+    <ul class="approach-points">
       {
-        points.map((p, i) => (
-          <li class="approach-card" data-reveal style={`transition-delay:${i * 70}ms`}>
-            <span class="approach-num">{String(i + 1).padStart(2, '0')}</span>
-            <h3 class="approach-card-title">{p.title}</h3>
-            <p class="approach-card-body">{p.body}</p>
+        points.map((p) => (
+          <li class="approach-point" data-reveal>
+            <h3 class="approach-point-title">{p.title}</h3>
+            <p class="approach-point-body">{p.body}</p>
           </li>
         ))
       }
@@ -43,40 +40,45 @@ const points = [
 </section>
 
 <style>
-  .approach-eyebrow { color: var(--color-sage-deep); margin-bottom: 1rem; }
   .approach-lead {
     margin-top: 1.4rem;
     font-size: 1.15rem;
     color: var(--color-pine-ink);
   }
 
-  .approach-grid {
+  /* Divided editorial row, not cards: hairlines do the grouping */
+  .approach-points {
     list-style: none;
-    margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+    margin: clamp(2.75rem, 5vw, 4rem) 0 0;
     padding: 0;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.25rem;
+    gap: 0;
   }
-  .approach-card {
-    background: var(--color-cream);
-    border: 1px solid color-mix(in srgb, var(--color-tan) 45%, transparent);
-    border-radius: var(--radius-card);
-    padding: 2rem 1.85rem;
+  .approach-point {
+    padding: 1.75rem 0;
+    border-top: 1px solid color-mix(in srgb, var(--color-tan) 50%, transparent);
   }
-  .approach-num {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    color: var(--color-terracotta);
-    font-weight: 600;
+  .approach-point-title {
+    margin: 0 0 0.6rem;
+    font-size: clamp(1.35rem, 2vw, 1.6rem);
+    color: var(--color-pine);
   }
-  .approach-card-title {
-    margin: 0.7rem 0 0.6rem;
-    font-size: 1.5rem;
-  }
-  .approach-card-body { margin: 0; color: var(--color-pine-ink); }
+  .approach-point-body { margin: 0; color: var(--color-pine-ink); }
 
   @media (min-width: 760px) {
-    .approach-grid { grid-template-columns: repeat(3, 1fr); }
+    .approach-points {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .approach-point {
+      padding: 0 2.25rem;
+      border-top: none;
+      border-left: 1px solid color-mix(in srgb, var(--color-tan) 50%, transparent);
+    }
+    .approach-point:first-child {
+      padding-left: 0;
+      border-left: none;
+    }
+    .approach-point:last-child { padding-right: 0; }
   }
 </style>

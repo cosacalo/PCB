@@ -17,15 +17,13 @@ const pillars = ['Primary Care', 'Functional Medicine', 'Weight Loss'];
       <p class="eyebrow hero-eyebrow" data-hero-eyebrow>
         <span class="dot" aria-hidden="true"></span> Now accepting new patients
       </p>
-      <h1 class="display-xl hero-title reveal-lines">
-        <span class="line"><span>Finally, a</span></span>
-        <span class="line"><span>provider who</span></span>
-        <span class="line"><span>actually listens.</span></span>
+      <h1 class="hero-title reveal-lines">
+        <span class="line"><span>Your health,</span></span>
+        <span class="line"><span>beyond the basics.</span></span>
       </h1>
       <p class="hero-sub" data-hero-sub>
-        Membership primary care, functional medicine, and medically supervised weight
-        care, unhurried and relationship-based, from a Florida practice that has the time
-        to know you. Telehealth across the state, a flat $150 a month.
+        Unhurried membership care from one Florida nurse practitioner. Primary care,
+        functional medicine, and weight loss, by telehealth statewide.
       </p>
       <div class="hero-actions" data-hero-cta>
         <a href="tel:+19412506561" class="btn btn-primary" data-magnetic>
@@ -35,15 +33,11 @@ const pillars = ['Primary Care', 'Functional Medicine', 'Weight Loss'];
           Email us
         </a>
       </div>
-      <p class="hero-note" data-hero-note>
-        Telehealth statewide today, with a Sarasota and Lakewood Ranch location on the way.
-      </p>
     </div>
 
     <div class="hero-figure" data-hero-figure>
       <aside class="brand-panel" aria-label="Primary Care and Beyond at a glance">
         <Image src={iconCream} alt="" widths={[88, 176]} class="bp-mark" aria-hidden="true" />
-        <p class="bp-tagline">Your health, beyond the basics.</p>
         <ul class="bp-pillars">
           {pillars.map((p) => (
             <li><span class="bp-dot" aria-hidden="true"></span>{p}</li>
@@ -52,7 +46,7 @@ const pillars = ['Primary Care', 'Functional Medicine', 'Weight Loss'];
         <div class="bp-foot">
           <span>Telehealth across Florida</span>
           <span class="bp-sep" aria-hidden="true"></span>
-          <span>One flat membership</span>
+          <span>$150 a month</span>
         </div>
       </aside>
     </div>
@@ -115,7 +109,16 @@ const pillars = ['Primary Care', 'Functional Medicine', 'Weight Loss'];
     100% { box-shadow: 0 0 0 0 transparent; }
   }
 
-  .hero-title { margin: 0; max-width: 14ch; color: var(--color-pine-deep); }
+  .hero-title {
+    margin: 0;
+    max-width: 18ch;
+    color: var(--color-pine-deep);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2.6rem, 5.4vw, 4.4rem);
+    line-height: 1.04;
+    letter-spacing: -0.015em;
+  }
   .hero-sub { margin: 1.5rem 0 0; max-width: 34rem; font-size: 1.2rem; color: var(--color-pine-ink); }
   .hero-actions { display: flex; flex-wrap: wrap; gap: 0.85rem; margin-top: 2rem; }
   .hero-note { margin-top: 1.5rem; font-size: 0.95rem; color: var(--color-pine-ink); opacity: 0.8; }
@@ -142,16 +145,7 @@ const pillars = ['Primary Care', 'Functional Medicine', 'Weight Loss'];
     border-radius: inherit;
     pointer-events: none;
   }
-  .bp-mark { width: 4.5rem; height: auto; margin: 0 auto 1.25rem; display: block; }
-  .bp-tagline {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: clamp(1.5rem, 2.6vw, 2rem);
-    line-height: 1.15;
-    color: var(--color-cream);
-    margin: 0 auto;
-    max-width: 18ch;
-  }
+  .bp-mark { width: 4.5rem; height: auto; margin: 0 auto 1.75rem; display: block; }
   .bp-pillars {
     list-style: none;
     margin: 1.75rem 0 0;
