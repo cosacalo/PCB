@@ -191,7 +191,8 @@ html.anim-ready .brand-intro { display: grid; }
 html.anim-ready .brand-intro-word { opacity: 0; }
 html.anim-ready .brand-intro-icon svg path { fill-opacity: 0; }
 
-.reveal-lines .line { display: block; overflow: hidden; padding-bottom: 0.05em; }
+/* Bottom padding keeps descenders (g, y, p) inside the overflow:hidden mask. */
+.reveal-lines .line { display: block; overflow: hidden; padding-bottom: 0.2em; }
 .reveal-lines .line > span { display: block; }
 .anim-ready .reveal-lines .line > span { transform: translateY(110%); }
 
