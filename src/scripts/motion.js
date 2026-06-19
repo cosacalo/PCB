@@ -52,9 +52,18 @@ ready(() => {
       .fromTo(hero.querySelector('[data-hero-sub]'), { y: 18 }, { y: 0, opacity: 1, duration: 0.8 }, '-=0.7')
       .fromTo(hero.querySelectorAll('[data-hero-cta] > *'), { y: 16 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.1 }, '-=0.55');
 
-    // The logo mark materializes color-layer by color-layer, building while the copy animates in.
+    // The logo mark draws itself in like a wireframe, then inks to full color.
     if (logoPaths.length) {
-      tl.to(logoPaths, { opacity: 1, duration: 0.7, stagger: 0.12, ease: 'power2.out' }, 0.55);
+      logoPaths.forEach((p) => {
+        const len = p.getTotalLength ? p.getTotalLength() : 0;
+        p.style.stroke = p.getAttribute('fill');
+        p.style.strokeWidth = '1.6';
+        p.style.fillOpacity = '0';
+        if (len) { p.style.strokeDasharray = len; p.style.strokeDashoffset = len; }
+      });
+      tl.to(logoPaths, { strokeDashoffset: 0, duration: 1.1, stagger: 0.14, ease: 'power2.inOut' }, 0.4)
+        .to(logoPaths, { fillOpacity: 1, duration: 0.6, stagger: 0.1, ease: 'power2.out' }, '-=0.45')
+        .to(logoPaths, { strokeWidth: 0, duration: 0.5, stagger: 0.05, ease: 'power1.out' }, '-=0.35');
     }
   }
 

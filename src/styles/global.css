@@ -181,8 +181,8 @@ a:focus-visible { outline: 2px solid var(--color-terracotta); outline-offset: 3p
 .anim-ready [data-hero-sub],
 .anim-ready [data-hero-cta] > *,
 .anim-ready [data-hero-rule] { opacity: 0; }
-/* The logo mark materializes (paths fade in, staggered) on load */
-.anim-ready [data-hero-logo] svg path { opacity: 0; }
+/* The logo mark draws itself in (outline then fill) on load */
+.anim-ready [data-hero-logo] svg path { fill-opacity: 0; }
 
 .reveal-lines .line { display: block; overflow: hidden; padding-bottom: 0.05em; }
 .reveal-lines .line > span { display: block; }

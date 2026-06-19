@@ -89,9 +89,9 @@ const t = useT(lang).hero;
     z-index: 0;
     pointer-events: none;
     background:
-      radial-gradient(circle at 50% 46%, color-mix(in srgb, var(--color-sage) 42%, transparent) 0%, transparent 62%),
-      radial-gradient(circle at 64% 30%, color-mix(in srgb, var(--color-terracotta) 22%, transparent) 0%, transparent 55%);
-    filter: blur(18px);
+      radial-gradient(circle at 50% 48%, color-mix(in srgb, var(--color-sage) 30%, transparent) 0%, transparent 60%),
+      radial-gradient(circle at 64% 32%, color-mix(in srgb, var(--color-terracotta) 14%, transparent) 0%, transparent 52%);
+    filter: blur(14px);
   }
 
   .hero-logo-tilt { position: relative; z-index: 1; will-change: transform; transform-style: preserve-3d; }
@@ -99,7 +99,8 @@ const t = useT(lang).hero;
     display: block;
     width: 100%;
     height: auto;
-    filter: drop-shadow(0 12px 28px color-mix(in srgb, var(--color-pine) 16%, transparent));
+    overflow: visible;
+    filter: drop-shadow(0 8px 18px color-mix(in srgb, var(--color-pine) 10%, transparent));
   }
 
   @media (prefers-reduced-motion: no-preference) {
