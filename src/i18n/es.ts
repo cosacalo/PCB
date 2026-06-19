@@ -22,7 +22,7 @@ export const es = {
   hero: {
     kicker: 'Telesalud para adultos en Florida',
     headlineLines: ['Atención primaria con', 'tiempo de ir <em>más allá de lo básico.</em>'],
-    sub: 'Trabaja con un profesional de salud en Florida que tiene el tiempo para escucharte, conocer tu historia y explorar lo que tus síntomas realmente te están diciendo.',
+    sub: 'Trabaja con una enfermera practicante de Florida que tiene el tiempo para escucharte, conocer tu historia y entender lo que tus síntomas podrían estar diciéndote.',
     call: 'Llama al 941.250.6561',
     email: 'Escríbele a Liz',
   },
