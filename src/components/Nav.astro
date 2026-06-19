@@ -79,7 +79,7 @@ const links = [
   .nav-links a:hover::after { width: 100%; }
 
   .nav-right { display: flex; align-items: center; gap: 0.5rem; }
-  .nav-cta { padding: 0.58rem 1.1rem; font-size: 0.9rem; }
+  .nav-cta { padding: 0.58rem 1.1rem; font-size: 0.9rem; min-height: 2.75rem; }
 
   /* Mobile menu: native <details> disclosure, no JS required to open */
   .nav-menu { position: relative; }
@@ -88,8 +88,8 @@ const links = [
     cursor: pointer;
     display: inline-grid;
     place-items: center;
-    width: 2.6rem;
-    height: 2.6rem;
+    width: 2.75rem;
+    height: 2.75rem;
     border-radius: var(--radius);
     border: 1px solid var(--hair-strong);
   }
