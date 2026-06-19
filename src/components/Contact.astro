@@ -1,22 +1,23 @@
 ---
 import { Image } from 'astro:assets';
 import iconCream from '../assets/logo-icon-cream.png';
+import { useT, type Lang } from '../i18n';
+interface Props { lang?: Lang }
+const { lang = 'en' } = Astro.props;
+const t = useT(lang).contact;
 ---
 
 <section id="contact" class="section contact">
   <div class="wrap contact-inner" data-reveal>
     <Image src={iconCream} alt="" width={50} height={41} class="contact-mark" aria-hidden="true" />
-    <h2 class="display-l contact-title">Start with a&nbsp;conversation.</h2>
-    <p class="contact-sub">
-      No checkout. No pressure. Call or email Liz, ask your questions, and find out whether
-      Primary Care and Beyond is the right fit.
-    </p>
+    <h2 class="display-l contact-title" set:html={t.heading} />
+    <p class="contact-sub">{t.sub}</p>
     <div class="contact-actions">
       <a href="tel:+19412506561" class="btn btn-on-pine" data-magnetic>
-        <span aria-hidden="true">&#9742;</span> 941.250.6561
+        <span aria-hidden="true">&#9742;</span> {t.phone}
       </a>
       <a href="mailto:Elizabeth@primarycareandbeyond.com" class="btn btn-ghost-pine">
-        Elizabeth@primarycareandbeyond.com
+        {t.email}
       </a>
     </div>
   </div>

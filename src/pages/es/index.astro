@@ -1,0 +1,30 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Hero from '../../components/Hero.astro';
+import Empathy from '../../components/Empathy.astro';
+import Beyond from '../../components/Beyond.astro';
+import HowItWorks from '../../components/HowItWorks.astro';
+import Pricing from '../../components/Pricing.astro';
+import About from '../../components/About.astro';
+import Faq from '../../components/Faq.astro';
+import Contact from '../../components/Contact.astro';
+import Footer from '../../components/Footer.astro';
+
+const lang = 'es';
+---
+
+<Base lang={lang}>
+  <Nav lang={lang} />
+  <main id="main">
+    <Hero lang={lang} />
+    <Empathy lang={lang} />
+    <Beyond lang={lang} />
+    <HowItWorks lang={lang} />
+    <Pricing lang={lang} />
+    <About lang={lang} />
+    <Faq lang={lang} />
+    <Contact lang={lang} />
+  </main>
+  <Footer lang={lang} />
+</Base>

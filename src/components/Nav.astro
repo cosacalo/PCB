@@ -1,14 +1,12 @@
 ---
 import { Image } from 'astro:assets';
 import icon from '../assets/logo-icon.png';
+import { useT, otherLang, routes, type Lang } from '../i18n';
 
-const links = [
-  { href: '#care', label: 'Care' },
-  { href: '#how', label: 'How it works' },
-  { href: '#pricing', label: 'Pricing' },
-  { href: '#about', label: 'Provider' },
-  { href: '#faq', label: 'FAQ' },
-];
+interface Props { lang?: Lang }
+const { lang = 'en' } = Astro.props;
+const t = useT(lang).nav;
+const otherHref = routes[otherLang(lang)];
 ---
 
 <nav id="site-nav" class="site-nav">
@@ -22,22 +20,25 @@ const links = [
     </a>
 
     <ul class="nav-links">
-      {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      {t.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
     </ul>
 
     <div class="nav-right">
+      <a class="nav-lang" href={otherHref} hreflang={otherLang(lang)} aria-label={t.toggleAria}>{t.toggle}</a>
+
       <a href="tel:+19412506561" class="btn btn-primary nav-cta">
-        <span aria-hidden="true">&#9742;</span> Call Liz
+        <span aria-hidden="true">&#9742;</span> {t.cta}
       </a>
 
       <details class="nav-menu" id="nav-menu">
-        <summary class="nav-toggle" aria-label="Open menu">
+        <summary class="nav-toggle" aria-label="Menu">
           <span class="nav-burger" aria-hidden="true"></span>
         </summary>
         <div class="nav-sheet">
           <ul>
-            {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+            {t.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
           </ul>
+          <a class="nav-sheet-lang" href={otherHref} hreflang={otherLang(lang)} aria-label={t.toggleAria}>{t.toggle}</a>
         </div>
       </details>
     </div>
@@ -78,10 +79,28 @@ const links = [
   .nav-links a:hover { color: var(--color-pine); }
   .nav-links a:hover::after { width: 100%; }
 
-  .nav-right { display: flex; align-items: center; gap: 0.5rem; }
+  .nav-right { display: flex; align-items: center; gap: 0.6rem; }
   .nav-cta { padding: 0.58rem 1.1rem; font-size: 0.9rem; min-height: 2.75rem; }
 
-  /* Mobile menu: native <details> disclosure, no JS required to open */
+  /* Language toggle: quiet pill in the bar (desktop), and as a row in the sheet (mobile) */
+  .nav-lang {
+    display: none;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0 0.85rem;
+    border: 1px solid var(--hair-strong);
+    border-radius: 999px;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    color: var(--color-pine);
+    text-decoration: none;
+    transition: border-color var(--dur) var(--ease), background-color var(--dur) var(--ease);
+  }
+  .nav-lang:hover { border-color: var(--color-pine); background: color-mix(in srgb, var(--color-pine) 5%, transparent); }
+
+  /* Mobile menu */
   .nav-menu { position: relative; }
   .nav-toggle {
     list-style: none;
@@ -122,19 +141,14 @@ const links = [
     padding: 0.5rem;
   }
   .nav-sheet ul { list-style: none; margin: 0; padding: 0; display: grid; }
-  .nav-sheet a {
-    display: block;
-    padding: 0.8rem 0.9rem;
-    border-radius: 3px;
-    font-weight: 600;
-    color: var(--color-pine);
-    text-decoration: none;
-  }
+  .nav-sheet a { display: block; padding: 0.8rem 0.9rem; border-radius: 3px; font-weight: 600; color: var(--color-pine); text-decoration: none; }
   .nav-sheet a:hover { background: var(--color-sage-wash); }
+  .nav-sheet-lang { margin-top: 0.3rem; border-top: 1px solid var(--hair); color: var(--color-terracotta-deep) !important; }
 
   @media (max-width: 420px) { .nav-sub { display: none; } .nav-name { font-size: 1.25rem; } }
   @media (min-width: 900px) {
     .nav-links { display: flex; }
+    .nav-lang { display: inline-flex; }
     .nav-menu { display: none; }
   }
 </style>

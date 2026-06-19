@@ -1,33 +1,20 @@
 ---
-const steps = [
-  {
-    title: 'Reach out',
-    body: 'Call or email Liz. You can ask questions, share what you are looking for, and find out whether primary care, functional medicine, or weight care is the right fit.',
-  },
-  {
-    title: 'Talk it through',
-    body: 'You will talk through your health history, current concerns, goals, and care options. If a service has a separate cost, you will know the price before care begins.',
-  },
-  {
-    title: 'Begin care',
-    body: 'Start with the service that fits your needs. You may choose ongoing primary care membership, a functional medicine visit, or standalone weight care.',
-  },
-];
+import { useT, type Lang } from '../i18n';
+interface Props { lang?: Lang }
+const { lang = 'en' } = Astro.props;
+const t = useT(lang).how;
 ---
 
 <section id="how" class="section how">
   <div class="wrap how-grid">
     <div class="how-head" data-reveal>
-      <h2 class="display-l how-title">Starting care is a&nbsp;conversation.</h2>
-      <p class="how-foot prose">
-        Telehealth is available for adults 18 and older who are located in Florida at the time
-        of each visit. Sarasota and Lakewood Ranch in-person care is planned.
-      </p>
+      <h2 class="display-l how-title" set:html={t.heading} />
+      <p class="how-foot prose">{t.foot}</p>
     </div>
 
     <div class="how-steps">
       {
-        steps.map((s, i) => (
+        t.steps.map((s, i) => (
           <div class="how-step" data-reveal style={`transition-delay:${i * 90}ms`}>
             <h3 class="how-step-title display-s">{s.title}</h3>
             <p class="how-step-body">{s.body}</p>

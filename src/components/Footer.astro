@@ -1,7 +1,10 @@
 ---
 import { Image } from 'astro:assets';
 import iconCream from '../assets/logo-icon-cream.png';
-
+import { useT, type Lang } from '../i18n';
+interface Props { lang?: Lang }
+const { lang = 'en' } = Astro.props;
+const t = useT(lang).footer;
 const year = new Date().getFullYear();
 ---
 
@@ -15,29 +18,24 @@ const year = new Date().getFullYear();
           <span class="footer-sub">and Beyond</span>
         </span>
       </a>
-      <p class="footer-tag">Primary care with time to go beyond the basics.</p>
-      <p class="footer-pillars">Primary Care &middot; Functional Medicine &middot; Weight Care</p>
+      <p class="footer-tag">{t.tagline}</p>
+      <p class="footer-pillars" set:html={t.pillars} />
     </div>
 
     <div class="footer-contact">
-      <h3 class="footer-h">Get in touch</h3>
+      <h3 class="footer-h">{t.getInTouch}</h3>
       <ul>
-        <li><span>Tel</span> <a href="tel:+19412506561">941.250.6561</a></li>
-        <li><span>Fax</span> <span>941.907.8686</span></li>
-        <li><span>Email</span> <a href="mailto:Elizabeth@primarycareandbeyond.com">Elizabeth@primarycareandbeyond.com</a></li>
-        <li><span>Web</span> <a href="https://primarycareandbeyond.com">primarycareandbeyond.com</a></li>
+        <li><span>{t.labels.tel}</span> <a href="tel:+19412506561">941.250.6561</a></li>
+        <li><span>{t.labels.fax}</span> <span>941.907.8686</span></li>
+        <li><span>{t.labels.email}</span> <a href="mailto:Elizabeth@primarycareandbeyond.com">Elizabeth@primarycareandbeyond.com</a></li>
+        <li><span>{t.labels.web}</span> <a href="https://primarycareandbeyond.com">primarycareandbeyond.com</a></li>
       </ul>
     </div>
   </div>
 
   <div class="wrap footer-legal">
-    <p>
-      Primary Care and Beyond LLC. This membership is a direct health care agreement under
-      Fla. Stat. 624.27 and is not insurance, and not minimum essential coverage under the
-      ACA. Telehealth services are for adults 18 and older who are physically located in
-      Florida. Functional medicine and standalone weight care services are quoted before care.
-    </p>
-    <p class="footer-copy">&copy; {year} Primary Care and Beyond LLC. All rights reserved.</p>
+    <p>{t.legal}</p>
+    <p class="footer-copy">&copy; {year} Primary Care and Beyond LLC. {t.rights}</p>
   </div>
 </footer>
 

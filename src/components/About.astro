@@ -1,66 +1,45 @@
 ---
 import { Image } from 'astro:assets';
 import portrait from '../assets/liz-portrait.png';
-
-// Modular: add entries to `providers` and the layout becomes a grid, no
-// rebrand needed. The (deferred) living-portrait video lives on the figure.
-const providers = [
-  {
-    name: 'Elizabeth Hanke',
-    credentials: 'APRN, FNP-BC',
-    photo: portrait,
-    meta: ['Autonomous Florida APRN', 'Functional medicine', 'Weight care'],
-    bio: [
-      'Liz is an autonomous Florida nurse practitioner and the founder of Primary Care and Beyond. She created the practice to offer care that feels personal, thoughtful, and honest about cost.',
-      'She built Primary Care and Beyond on a simple belief: when symptoms do not fit a simple answer, they deserve a closer look, not just another prescription. Here there is time to take your whole history seriously and keep looking until things make sense.',
-    ],
-    quote: 'The same provider, with time to understand the full picture.',
-  },
-];
-
-const single = providers.length === 1;
+import { useT, type Lang } from '../i18n';
+interface Props { lang?: Lang }
+const { lang = 'en' } = Astro.props;
+const t = useT(lang).about;
 ---
 
 <section id="about" class="section about">
   <div class="wrap">
     <header class="about-head" data-reveal>
-      <h2 class="display-l about-title">{single ? 'Meet your provider.' : 'Meet your care team.'}</h2>
-      <p class="lead prose about-lead">
-        Direct care means you work with one provider who knows your history, your goals, and
-        what has already been tried.
-      </p>
+      <h2 class="display-l about-title">{t.heading}</h2>
+      <p class="lead prose about-lead">{t.lead}</p>
     </header>
 
-    <ul class={`providers ${single ? 'is-single' : ''}`}>
-      {
-        providers.map((p) => (
-          <li class="provider" data-reveal>
-            <figure class="provider-figure">
-              <Image
-                src={p.photo}
-                alt={`${p.name}, ${p.credentials}`}
-                widths={[360, 560, 720]}
-                sizes="(min-width: 880px) 23rem, 80vw"
-                class="provider-media"
-              />
-            </figure>
-            <div class="provider-body">
-              <p class="label provider-cred">{p.credentials}</p>
-              <h3 class="provider-name display-m">{p.name}</h3>
-              <p class="provider-meta">
-                {p.meta.map((t, i) => (
-                  <>
-                    {i > 0 && <span class="provider-dot" aria-hidden="true">/</span>}
-                    <span>{t}</span>
-                  </>
-                ))}
-              </p>
-              {p.bio.map((para) => <p class="provider-para">{para}</p>)}
-              <p class="provider-quote">{p.quote}</p>
-            </div>
-          </li>
-        ))
-      }
+    <ul class="providers is-single">
+      <li class="provider" data-reveal>
+        <figure class="provider-figure">
+          <Image
+            src={portrait}
+            alt={`${t.name}, ${t.credentials}`}
+            widths={[360, 560, 720]}
+            sizes="(min-width: 880px) 23rem, 80vw"
+            class="provider-media"
+          />
+        </figure>
+        <div class="provider-body">
+          <p class="label provider-cred">{t.credentials}</p>
+          <h3 class="provider-name display-m">{t.name}</h3>
+          <p class="provider-meta">
+            {t.meta.map((m, i) => (
+              <>
+                {i > 0 && <span class="provider-dot" aria-hidden="true">/</span>}
+                <span>{m}</span>
+              </>
+            ))}
+          </p>
+          {t.bio.map((para) => <p class="provider-para">{para}</p>)}
+          <p class="provider-quote">{t.quote}</p>
+        </div>
+      </li>
     </ul>
   </div>
 </section>
@@ -71,7 +50,6 @@ const single = providers.length === 1;
   .about-lead { margin-top: 1.3rem; }
 
   .providers { list-style: none; margin: clamp(2.75rem, 6vw, 4.5rem) 0 0; padding: 0; display: grid; gap: 2.5rem; }
-  .providers:not(.is-single) { grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); }
 
   .provider { display: grid; grid-template-columns: 1fr; gap: clamp(1.75rem, 4vw, 3rem); align-items: start; }
 

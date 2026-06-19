@@ -1,51 +1,20 @@
 ---
-// Three CO-EQUAL service paths (no foundation/hierarchy). Primary care
-// membership includes weight care; functional medicine is standalone; weight
-// care is included for members AND available standalone. Cards are equal in
-// visual weight per the brief, but each is genuinely distinct content with a
-// refined hairline treatment, not generic cloned boxes.
-const cards = [
-  {
-    label: 'Primary care membership',
-    title: 'Primary care',
-    body:
-      'Ongoing telehealth primary care for adults in Florida. This includes preventive care, chronic condition support, women’s health, prescriptions and refills for non-controlled medications, lab orders when medically indicated, and medical weight care including GLP-1 medication management when appropriate.',
-    note: '$150 per month.',
-    tags: ['Preventive care', 'Chronic condition support', 'Non-controlled refills', 'Labs when indicated', 'Weight care included', 'GLP-1 when appropriate'],
-  },
-  {
-    label: 'Separate service',
-    title: 'Functional medicine',
-    body:
-      'A deeper look at symptoms that have not been explained or have not improved. This may include hormone concerns, thyroid symptoms, gut health, autoimmune issues, chronic fatigue, and detailed lab review.',
-    note: 'Available without a primary care membership. Quoted before care begins.',
-    tags: ['Hormones', 'Thyroid', 'Gut health', 'Autoimmune concerns', 'Fatigue', 'Lab review'],
-  },
-  {
-    label: 'Included or standalone',
-    title: 'Weight care',
-    body:
-      'Medical weight care for people who want clinical support, not one-size-fits-all advice. Care may include lab review, health history, medication review, lifestyle planning, and GLP-1 medication management when appropriate.',
-    note: 'Included for primary care members. Also available as a standalone service without a primary care membership.',
-    tags: ['Medical weight care', 'GLP-1 when appropriate', 'Health history', 'Lab review', 'Lifestyle planning', 'Follow-up support'],
-  },
-];
+import { useT, type Lang } from '../i18n';
+interface Props { lang?: Lang }
+const { lang = 'en' } = Astro.props;
+const t = useT(lang).care;
 ---
 
 <section id="care" class="section care">
   <div class="wrap">
     <header class="care-head" data-reveal>
-      <h2 class="display-l care-title">Primary care, functional medicine, and weight care.</h2>
-      <p class="lead prose care-lead">
-        You can come to Primary Care and Beyond for ongoing primary care, a deeper functional
-        medicine visit, or medical weight care. Weight care is included for primary care
-        members and is also available as a standalone service.
-      </p>
+      <h2 class="display-l care-title">{t.heading}</h2>
+      <p class="lead prose care-lead">{t.lead}</p>
     </header>
 
     <div class="paths">
       {
-        cards.map((c, i) => (
+        t.cards.map((c, i) => (
           <article class="path" data-reveal style={`transition-delay:${i * 80}ms`}>
             <span class="path-rule" aria-hidden="true"></span>
             <p class="label path-label">{c.label}</p>
@@ -53,7 +22,7 @@ const cards = [
             <p class="path-body">{c.body}</p>
             <p class="path-note">{c.note}</p>
             <ul class="path-tags">
-              {c.tags.map((t) => <li>{t}</li>)}
+              {c.tags.map((tag) => <li>{tag}</li>)}
             </ul>
           </article>
         ))
@@ -76,8 +45,6 @@ const cards = [
     align-items: start;
   }
 
-  /* Equal-weight cards, refined: hairline frame, a thin terracotta top rule,
-     generous internal space. Not heavy filled boxes. */
   .path {
     position: relative;
     border: 1px solid var(--hair);

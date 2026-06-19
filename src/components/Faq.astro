@@ -1,58 +1,20 @@
 ---
-const faqs = [
-  {
-    q: 'Is this insurance?',
-    a: 'No. Primary Care and Beyond is a direct health care membership under Florida Statute 624.27. It is not insurance and does not replace major medical coverage. Keep insurance for emergencies, hospital care, specialists, imaging, pharmacy costs, and services outside the membership.',
-  },
-  {
-    q: 'Do I have to join primary care to get functional medicine or weight care?',
-    a: 'No. Functional medicine and standalone weight care are available without a primary care membership. You can join for ongoing primary care, schedule a functional medicine visit, or start with standalone weight care.',
-  },
-  {
-    q: 'What is included in the $150 primary care membership?',
-    a: 'The $150 monthly membership covers telehealth primary care, including preventive care, chronic condition support, women’s health, medication management and refills for non-controlled medications, lab orders when indicated, medical weight care, GLP-1 medication management when appropriate, care coordination, and messaging. Medication costs, lab fees, imaging fees, pharmacy fees, and outside services are not included.',
-  },
-  {
-    q: 'Can I do weight care without joining primary care?',
-    a: 'Yes. Weight care is included for primary care members and is also available as a standalone service. Standalone weight care has its own pricing, based on the care plan, medication needs, labs, and follow-up schedule. You will know the cost before care begins.',
-  },
-  {
-    q: 'Is GLP-1 care included?',
-    a: 'GLP-1 medication management may be included when appropriate for primary care members. It may also be part of standalone weight care. Medication costs, lab fees, pharmacy fees, and insurance coverage are separate.',
-  },
-  {
-    q: 'Why pay for primary care membership if I already have insurance?',
-    a: 'Insurance covers your major medical needs. The membership adds something different: longer visits, direct access to one provider, and the time to look at your full picture. Most members keep their insurance and use the membership alongside it.',
-  },
-  {
-    q: 'Is a nurse practitioner enough, or do I need a doctor?',
-    a: 'Liz is an autonomous Florida APRN and board-certified family nurse practitioner. She can diagnose, treat, order labs, and prescribe within her scope of practice. If your care requires a specialist or physician, she will help guide that next step.',
-  },
-  {
-    q: 'Where do you practice, and who can join?',
-    a: 'Care is available by telehealth for adults 18 and older across Florida. You must be located in Florida during each visit. Sarasota and Lakewood Ranch in-person care is planned.',
-  },
-  {
-    q: 'What is not included?',
-    a: 'The primary care membership does not include emergency care, urgent care, hospital care, specialist fees, lab fees, imaging fees, pharmacy costs, controlled substances, hormone therapy at this time, in-person procedures, or disability, employment, or legal forms. Functional medicine and standalone weight care may have separate costs and are quoted before care begins.',
-  },
-  {
-    q: 'How do I get started?',
-    a: 'Call 941.250.6561 or email Elizabeth@primarycareandbeyond.com. You can ask questions, talk through your options, and choose the care path that fits your needs.',
-  },
-];
+import { useT, type Lang } from '../i18n';
+interface Props { lang?: Lang }
+const { lang = 'en' } = Astro.props;
+const t = useT(lang).faq;
 ---
 
 <section id="faq" class="section faq">
   <div class="wrap faq-grid">
     <div class="faq-head" data-reveal>
-      <h2 class="display-l faq-title">The honest answers.</h2>
-      <p class="faq-lead">What most people want to know before they call.</p>
+      <h2 class="display-l faq-title">{t.heading}</h2>
+      <p class="faq-lead">{t.lead}</p>
     </div>
 
     <div class="faq-list" data-reveal>
       {
-        faqs.map((f) => (
+        t.items.map((f) => (
           <details class="faq-item" name="faq">
             <summary>
               <span class="faq-q">{f.q}</span>

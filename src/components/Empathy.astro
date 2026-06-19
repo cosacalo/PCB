@@ -1,37 +1,24 @@
 ---
-// Validating, warm, not confrontational. The lines below are paraphrased from
-// voice-of-customer research (copy.md), framed inclusively (not women-only) as
-// what patients often hear. NOT testimonials from this practice's patients.
-const lines = [
-  'Your labs are normal.',
-  'It is probably stress.',
-  'It is probably your age.',
-  'Try eating less and moving more.',
-  'Let’s just see how you feel.',
-];
+import { useT, type Lang } from '../i18n';
+interface Props { lang?: Lang }
+const { lang = 'en' } = Astro.props;
+const t = useT(lang).empathy;
 ---
 
 <section id="heard" class="section empathy">
   <div class="wrap empathy-grid">
     <div class="empathy-head" data-reveal>
-      <h2 class="display-l empathy-title">You know when something feels off.</h2>
-      <p class="empathy-body">
-        Maybe your labs looked normal, but you still felt tired, foggy, uncomfortable, or
-        unlike yourself. Maybe you were told to wait, manage stress, lose weight, or try one
-        more prescription.
-      </p>
-      <p class="empathy-body">
-        At Primary Care and Beyond, you get time to talk through the full picture and decide
-        what kind of care makes sense next.
-      </p>
-      <p class="empathy-strong">You are here to be heard, and to look for what is actually going on.</p>
-      <a href="#care" class="link empathy-link">See how care works <span class="arr" aria-hidden="true">&rarr;</span></a>
+      <h2 class="display-l empathy-title">{t.heading}</h2>
+      <p class="empathy-body">{t.body1}</p>
+      <p class="empathy-body">{t.body2}</p>
+      <p class="empathy-strong">{t.strong}</p>
+      <a href="#care" class="link empathy-link">{t.link} <span class="arr" aria-hidden="true">&rarr;</span></a>
     </div>
 
     <div class="empathy-aside" data-reveal>
-      <p class="empathy-frame">Things patients often hear before they find deeper care</p>
-      <ul class="lines" aria-label="Phrases patients report being told by other providers">
-        {lines.map((d) => <li>&ldquo;{d}&rdquo;</li>)}
+      <p class="empathy-frame">{t.frame}</p>
+      <ul class="lines" aria-label={t.frame}>
+        {t.lines.map((d) => <li>&ldquo;{d}&rdquo;</li>)}
       </ul>
     </div>
   </div>
@@ -62,7 +49,6 @@ const lines = [
   .empathy-link { margin-top: 1.8rem; }
 
   .empathy-frame { margin: 0 0 1.4rem; font-size: var(--text-sm); font-weight: 600; color: var(--color-sage-deep); }
-  /* Warm, soft strike-through: relief, not confrontation */
   .lines { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
   .lines li {
     font-family: var(--font-display);

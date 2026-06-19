@@ -1,34 +1,32 @@
 ---
-// Editorial manifesto hero, type-led and asymmetric. Four elements: kicker,
-// headline, subhead, CTAs. No scroll cue, no boxed panel. (The optional
-// service sub-line was left off to keep the hero a single clean moment; the
-// three paths are spelled out immediately below in the Care section.)
+import { useT, type Lang } from '../i18n';
+interface Props { lang?: Lang }
+const { lang = 'en' } = Astro.props;
+const t = useT(lang).hero;
 ---
 
 <header id="top" class="hero" data-hero>
   <div class="hero-bloom" aria-hidden="true"></div>
 
   <div class="wrap hero-inner">
-    <p class="label hero-kicker" data-hero-kicker>Telehealth care for adults in Florida</p>
+    <p class="label hero-kicker" data-hero-kicker>{t.kicker}</p>
 
     <h1 class="hero-title reveal-lines">
-      <span class="line"><span>Primary care with time</span></span>
-      <span class="line"><span>to go <em>beyond the basics.</em></span></span>
+      {t.headlineLines.map((line) => (
+        <span class="line"><span set:html={line} /></span>
+      ))}
     </h1>
 
     <span class="hero-rule rule-draw" data-hero-rule aria-hidden="true"></span>
 
-    <p class="hero-sub" data-hero-sub>
-      Work with one Florida nurse practitioner who has the time to listen, understand your
-      history, and look deeper when your symptoms call for it.
-    </p>
+    <p class="hero-sub" data-hero-sub>{t.sub}</p>
 
     <div class="hero-actions" data-hero-cta>
       <a href="tel:+19412506561" class="btn btn-primary" data-magnetic>
-        <span aria-hidden="true">&#9742;</span> Call 941.250.6561
+        <span aria-hidden="true">&#9742;</span> {t.call}
       </a>
       <a href="mailto:Elizabeth@primarycareandbeyond.com" class="link">
-        Email Liz <span class="arr" aria-hidden="true">&rarr;</span>
+        {t.email} <span class="arr" aria-hidden="true">&rarr;</span>
       </a>
     </div>
   </div>
@@ -68,7 +66,6 @@
 
   .hero-kicker { margin: 0 0 clamp(1.4rem, 3vw, 2rem); }
 
-  /* Headline is 8 words, so the scale is moderated (per hero font-scale rule) */
   .hero-title {
     margin: 0;
     max-width: 20ch;
@@ -79,7 +76,7 @@
     line-height: 1;
     letter-spacing: -0.02em;
   }
-  .hero-title em { font-style: italic; font-weight: 500; color: var(--color-pine); }
+  .hero-title :global(em) { font-style: italic; font-weight: 500; color: var(--color-pine); }
 
   .hero-rule { width: clamp(4rem, 8vw, 6.5rem); margin-top: clamp(1.4rem, 3vw, 2rem); }
 

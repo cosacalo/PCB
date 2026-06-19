@@ -1,47 +1,27 @@
 ---
-const included = [
-  'One telehealth primary care visit per week when needed',
-  'Preventive and chronic disease care',
-  'Women’s health care',
-  'Prescriptions and refills for non-controlled medications',
-  'Lab orders when medically indicated',
-  'Medical weight care',
-  'GLP-1 medication management when appropriate',
-  'Care coordination',
-  'Messaging between visits',
-];
-
-const fmRates = [
-  { name: 'Initial consultation', detail: '90 minutes', price: '$375' },
-  { name: 'Follow-up', detail: '30 minutes', price: '$200' },
-  { name: 'Extended follow-up', detail: '60 minutes', price: '$300' },
-  { name: 'Lab review', detail: 'results and plan', price: '$150' },
-];
+import { useT, type Lang } from '../i18n';
+interface Props { lang?: Lang }
+const { lang = 'en' } = Astro.props;
+const t = useT(lang).pricing;
 ---
 
 <section id="pricing" class="section pricing">
   <div class="wrap">
     <header class="pricing-head" data-reveal>
-      <p class="label">Clear pricing</p>
-      <h2 class="display-l pricing-title">Know the price <em>before</em> you start.</h2>
-      <p class="lead prose pricing-lead">
-        Primary care membership is $150 per month and includes primary care plus weight care
-        when appropriate. Functional medicine and standalone weight care are also available
-        without a primary care membership, with clear pricing or a written estimate before
-        care begins.
-      </p>
+      <p class="label">{t.label}</p>
+      <h2 class="display-l pricing-title" set:html={t.headingHtml} />
+      <p class="lead prose pricing-lead">{t.lead}</p>
     </header>
 
     <div class="pricing-body">
-      <!-- Block 1: membership -->
       <div class="membership" data-reveal>
-        <p class="label membership-label">Primary care membership</p>
-        <p class="price"><span class="price-amt">$150</span><span class="price-per">per month</span></p>
-        <p class="price-tag">Telehealth direct primary care</p>
+        <p class="label membership-label">{t.membershipLabel}</p>
+        <p class="price"><span class="price-amt">{t.price}</span><span class="price-per">{t.per}</span></p>
+        <p class="price-tag">{t.tag}</p>
 
         <ul class="incl">
           {
-            included.map((it) => (
+            t.included.map((it) => (
               <li>
                 <svg class="tick" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
                   <path d="m5 10.5 3.2 3L15 6.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -52,26 +32,19 @@ const fmRates = [
           }
         </ul>
 
-        <p class="membership-foot">
-          No copays. No surprise bills. Cancel with 30 days notice. Medication costs, lab
-          fees, imaging fees, and pharmacy fees are not included.
-        </p>
+        <p class="membership-foot">{t.membershipFoot}</p>
         <a href="tel:+19412506561" class="btn btn-primary membership-cta">
-          <span aria-hidden="true">&#9742;</span> Call to join
+          <span aria-hidden="true">&#9742;</span> {t.cta}
         </a>
       </div>
 
-      <!-- Blocks 2 and 3: the standalone services -->
       <div class="standalone">
         <div class="block" data-reveal style="transition-delay:80ms">
-          <h3 class="block-title display-s">Functional medicine</h3>
-          <p class="block-intro">
-            Available without a primary care membership. Visits are billed per visit, and you
-            will know the cost before care begins.
-          </p>
+          <h3 class="block-title display-s">{t.fmTitle}</h3>
+          <p class="block-intro">{t.fmIntro}</p>
           <ul class="rate-list">
             {
-              fmRates.map((r) => (
+              t.rates.map((r) => (
                 <li class="rate">
                   <span class="rate-name">{r.name}<em>{r.detail}</em></span>
                   <span class="rate-price">{r.price}</span>
@@ -82,23 +55,14 @@ const fmRates = [
         </div>
 
         <div class="block" data-reveal style="transition-delay:160ms">
-          <h3 class="block-title display-s">Standalone weight care</h3>
-          <p class="block-intro">
-            Weight care is included for primary care members when appropriate. It is also
-            available as a standalone service for patients who do not need a primary care
-            membership.
-          </p>
-          <p class="block-note">
-            Standalone weight care pricing depends on the care plan, medication needs, labs,
-            and follow-up schedule. You will receive a written estimate before care begins.
-          </p>
+          <h3 class="block-title display-s">{t.weightTitle}</h3>
+          <p class="block-intro">{t.weightIntro}</p>
+          <p class="block-note">{t.weightNote}</p>
         </div>
       </div>
     </div>
 
-    <p class="promise" data-reveal>
-      <strong>No surprise billing.</strong> You will know the cost before care begins.
-    </p>
+    <p class="promise" data-reveal set:html={t.promiseHtml} />
   </div>
 </section>
 
@@ -106,7 +70,7 @@ const fmRates = [
   .pricing { background: var(--color-cream); }
   .pricing-head { max-width: 50rem; }
   .pricing-title { margin: 1.1rem 0 0; }
-  .pricing-title em { font-style: italic; color: var(--color-terracotta-deep); }
+  .pricing-title :global(em) { font-style: italic; color: var(--color-terracotta-deep); }
   .pricing-lead { margin-top: 1.3rem; }
 
   .pricing-body {
@@ -157,7 +121,7 @@ const fmRates = [
     font-size: var(--text-base);
     color: var(--color-pine-ink);
   }
-  .promise strong { color: var(--color-pine); font-weight: 700; }
+  .promise :global(strong) { color: var(--color-pine); font-weight: 700; }
 
   @media (min-width: 920px) {
     .pricing-body { grid-template-columns: 0.95fr 1.05fr; gap: clamp(3rem, 6vw, 5rem); }
