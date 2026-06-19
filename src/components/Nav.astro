@@ -67,6 +67,9 @@ const otherHref = routes[otherLang(lang)];
   }
 
   .nav-brand { display: inline-flex; align-items: center; gap: 0.65rem; text-decoration: none; flex: 0 0 auto; }
+  /* `.anim-ready .nav-brand { opacity: 0 }` lives in global.css: the intro flies
+     a twin lockup into this spot, then reveals it. It must be global because
+     scoped styles can't target the `.anim-ready` class on <html>. */
   .nav-icon { height: 2.7rem; width: auto; transition: height var(--dur) var(--ease); }
   .is-scrolled .nav-icon { height: 2.4rem; }
   .nav-wordmark { display: flex; flex-direction: column; line-height: 0.94; }

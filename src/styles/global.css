@@ -181,8 +181,16 @@ a:focus-visible { outline: 2px solid var(--color-terracotta); outline-offset: 3p
 .anim-ready [data-hero-sub],
 .anim-ready [data-hero-cta] > *,
 .anim-ready [data-hero-rule] { opacity: 0; }
-/* The logo mark draws itself in (outline then fill) on load */
-.anim-ready [data-hero-logo] svg path { fill-opacity: 0; }
+
+/* Brand intro entrance + hand-off states. These target elements that carry
+   Astro scoped-style cids (the nav brand, the intro lockup) plus set:html SVG
+   paths, so they must be GLOBAL: a scoped rule can't match `.anim-ready` on
+   <html>. `html.anim-ready` keeps specificity above the components' base rules. */
+html.anim-ready .nav-brand { opacity: 0; }
+html.anim-ready .brand-intro { display: grid; }
+html.anim-ready .brand-intro-lockup { transform: scale(2.6); }
+html.anim-ready .brand-intro-word { opacity: 0; }
+html.anim-ready .brand-intro-icon svg path { fill-opacity: 0; }
 
 .reveal-lines .line { display: block; overflow: hidden; padding-bottom: 0.05em; }
 .reveal-lines .line > span { display: block; }

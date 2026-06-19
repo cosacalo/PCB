@@ -30,12 +30,25 @@ const t = useT(lang).hero;
         </a>
       </div>
     </div>
-
-    <div class="hero-figure" aria-hidden="true" data-hero-logo>
-      <div class="hero-logo-tilt"><Fragment set:html={logoSvg} /></div>
-    </div>
   </div>
 </header>
+
+<!--
+  Brand intro: the logo assembles in open space (icon draws in, the name swoops
+  in from the right), then the whole lockup flies up and shrinks to become the
+  nav logo while the hero content takes its place. The flying lockup is a visual
+  twin of the nav brand so the hand-off is seamless. Runs once on load; skipped
+  entirely for no-JS / reduced-motion (gated by `.anim-ready`).
+-->
+<div class="brand-intro" data-brand-intro aria-hidden="true">
+  <div class="brand-intro-lockup" data-intro-lockup>
+    <span class="brand-intro-icon" data-intro-icon><Fragment set:html={logoSvg} /></span>
+    <span class="brand-intro-word" data-intro-word>
+      <span class="brand-intro-name">Primary Care</span>
+      <span class="brand-intro-sub">and Beyond</span>
+    </span>
+  </div>
+</div>
 
 <style>
   .hero { position: relative; overflow: hidden; background: var(--color-cream); }
@@ -43,24 +56,25 @@ const t = useT(lang).hero;
   .hero-inner {
     position: relative;
     z-index: 2;
-    min-height: min(90vh, 52rem);
-    display: grid;
-    grid-template-columns: 1fr;
-    align-items: center;
-    gap: clamp(2rem, 5vw, 4rem);
+    min-height: min(84vh, 48rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding-top: clamp(3.5rem, 7vw, 6rem);
     padding-bottom: clamp(3.5rem, 7vw, 6rem);
   }
+
+  .hero-copy { max-width: 54rem; }
 
   .hero-kicker { margin: 0 0 clamp(1.4rem, 3vw, 2rem); }
 
   .hero-title {
     margin: 0;
-    max-width: 20ch;
+    max-width: 24ch;
     color: var(--color-pine-deep);
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: clamp(2.5rem, 1.8rem + 3.6vw, 4.6rem);
+    font-size: clamp(2.6rem, 1.5rem + 4.6vw, 5.4rem);
     line-height: 1;
     letter-spacing: -0.02em;
   }
@@ -70,7 +84,7 @@ const t = useT(lang).hero;
 
   .hero-sub {
     margin: clamp(1.4rem, 3vw, 2rem) 0 0;
-    max-width: 36rem;
+    max-width: 38rem;
     font-size: var(--text-lead);
     line-height: 1.5;
     color: var(--color-pine-ink);
@@ -78,40 +92,46 @@ const t = useT(lang).hero;
 
   .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.4rem; margin-top: clamp(1.9rem, 4vw, 2.5rem); }
 
-  /* The living logo mark (hidden on small screens; the hero is type-led there) */
-  .hero-figure { display: none; }
-
-  .hero-logo-tilt { position: relative; z-index: 1; will-change: transform; transform-style: preserve-3d; }
-  .hero-figure :global(.pcb-mark) {
-    display: block;
-    width: 100%;
-    height: auto;
-    overflow: visible;
-    filter: drop-shadow(0 8px 18px color-mix(in srgb, var(--color-pine) 10%, transparent));
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .hero-figure :global(.pcb-mark) { animation: pcb-breathe 7s var(--ease) infinite alternate; transform-origin: 50% 60%; }
-  }
-  @keyframes pcb-breathe {
-    from { transform: translateY(0) scale(1); }
-    to { transform: translateY(-8px) scale(1.035); }
-  }
-
-  @media (min-width: 980px) {
-    .hero-inner { grid-template-columns: 1.05fr 0.95fr; }
-    .hero-figure {
-      display: grid;
-      place-items: center;
-      position: relative;
-      justify-self: end;
-      width: 100%;
-      max-width: 26rem;
-      perspective: 900px;
-    }
-  }
-
   @media (max-width: 560px) {
-    .hero-title { font-size: clamp(2.1rem, 8.5vw, 2.8rem); line-height: 1.03; max-width: 16ch; }
+    .hero-title { font-size: clamp(2.1rem, 8.5vw, 2.9rem); line-height: 1.04; max-width: 16ch; }
+  }
+
+  /* --------------------------------------------------------------------------
+     Brand intro overlay. The lockup is built at the nav's intrinsic size and
+     scaled up for the entrance, so the closing flight lands at scale 1 exactly
+     on the real nav logo. Hidden unless `.anim-ready` (JS + motion allowed).
+  -------------------------------------------------------------------------- */
+  /* NOTE: the `.anim-ready` entrance/hidden states for the intro and nav logo
+     live in global.css. They must be global because `.anim-ready` sits on
+     <html>, and Astro's scoped styles would rewrite it to a cid that <html>
+     never carries, so a scoped rule would silently never apply. */
+  .brand-intro {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: none;
+    place-items: center;
+    pointer-events: none;
+  }
+
+  .brand-intro-lockup {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    transform-origin: 50% 50%;
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+
+  .brand-intro-icon { display: inline-flex; }
+  .brand-intro-icon :global(.pcb-mark) { display: block; height: 2.7rem; width: auto; overflow: visible; }
+
+  .brand-intro-word { display: flex; flex-direction: column; line-height: 0.94; }
+  .brand-intro-name { font-family: var(--font-display); font-weight: 600; font-size: 1.4rem; color: var(--color-pine); }
+  .brand-intro-sub { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 1rem; color: var(--color-terracotta-deep); }
+
+  @media (max-width: 420px) {
+    .brand-intro-sub { display: none; }
+    .brand-intro-name { font-size: 1.25rem; }
   }
 </style>
