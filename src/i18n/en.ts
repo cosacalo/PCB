@@ -23,7 +23,7 @@ export const en = {
   hero: {
     kicker: 'Telehealth care for adults in Florida',
     headlineLines: ['Primary care with time', 'to go <em>beyond the basics.</em>'],
-    sub: 'Work with one Florida nurse practitioner who has the time to listen, understand your history, and look deeper when your symptoms call for it.',
+    sub: 'Work with one Florida provider with the time to listen, learn your history, and explore what your symptoms are really telling you.',
     call: 'Call 941.250.6561',
     email: 'Email Liz',
   },
