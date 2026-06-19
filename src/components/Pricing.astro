@@ -1,12 +1,14 @@
 ---
 const included = [
-  'A weekly telehealth visit when you need it',
-  'Preventive care and chronic disease management',
-  'Comprehensive women’s health',
-  'Medication management and refills (non-controlled)',
+  'One telehealth primary care visit per week when needed',
+  'Preventive and chronic disease care',
+  'Women’s health care',
+  'Prescriptions and refills for non-controlled medications',
   'Lab orders when medically indicated',
-  'Medically supervised weight care, including GLP-1',
-  'Care coordination and non-urgent messaging',
+  'Medical weight care',
+  'GLP-1 medication management when appropriate',
+  'Care coordination',
+  'Messaging between visits',
 ];
 
 const fmRates = [
@@ -19,135 +21,145 @@ const fmRates = [
 
 <section id="pricing" class="section pricing">
   <div class="wrap">
-    <div class="pricing-head" data-reveal>
-      <h2 class="display-l">Know the price before you start.</h2>
-      <p class="pricing-lead prose-measure">
-        No competitor in the area publishes their prices. We do. Here is exactly what
-        membership costs and what functional medicine adds, with an estimate before any
-        added care.
+    <header class="pricing-head" data-reveal>
+      <p class="label">Clear pricing</p>
+      <h2 class="display-l pricing-title">Know the price <em>before</em> you start.</h2>
+      <p class="lead prose pricing-lead">
+        Primary care membership is $150 per month and includes primary care plus weight care
+        when appropriate. Functional medicine and standalone weight care are also available
+        without a primary care membership, with clear pricing or a written estimate before
+        care begins.
       </p>
-    </div>
+    </header>
 
-    <div class="pricing-grid">
-      <article class="plan" data-reveal>
-        <div class="plan-top">
-          <h3 class="plan-name">Membership</h3>
-          <p class="plan-price"><span class="amount">$150</span><span class="per">/ month</span></p>
-          <p class="plan-tag">Telehealth direct primary care</p>
-        </div>
-        <ul class="plan-list">
-          {included.map((it) => (
-            <li>
-              <svg class="check" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m5 10.5 3.2 3L15 6.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <span>{it}</span>
-            </li>
-          ))}
+    <div class="pricing-body">
+      <!-- Block 1: membership -->
+      <div class="membership" data-reveal>
+        <p class="label membership-label">Primary care membership</p>
+        <p class="price"><span class="price-amt">$150</span><span class="price-per">per month</span></p>
+        <p class="price-tag">Telehealth direct primary care</p>
+
+        <ul class="incl">
+          {
+            included.map((it) => (
+              <li>
+                <svg class="tick" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <path d="m5 10.5 3.2 3L15 6.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span>{it}</span>
+              </li>
+            ))
+          }
         </ul>
-        <p class="plan-foot">
-          No copays. No surprise bills. Auto-renews monthly, cancel anytime with 30 days
-          notice.
+
+        <p class="membership-foot">
+          No copays. No surprise bills. Cancel with 30 days notice. Medication costs, lab
+          fees, imaging fees, and pharmacy fees are not included.
         </p>
-        <a href="tel:+19412506561" class="btn btn-primary plan-cta">
+        <a href="tel:+19412506561" class="btn btn-primary membership-cta">
           <span aria-hidden="true">&#9742;</span> Call to join
         </a>
-      </article>
+      </div>
 
-      <aside class="addon" data-reveal style="transition-delay:80ms">
-        <h3 class="addon-name">Functional medicine</h3>
-        <p class="addon-intro">
-          Optional, deeper root-cause work, billed per visit and always quoted before you
-          begin.
-        </p>
-        <ul class="rate-list">
-          {fmRates.map((r) => (
-            <li class="rate">
-              <span class="rate-name">{r.name}<em>{r.detail}</em></span>
-              <span class="rate-price">{r.price}</span>
-            </li>
-          ))}
-        </ul>
-        <p class="promise">
-          <strong>Our promise:</strong> you always get a written estimate before any
-          functional medicine or weight-loss care. No surprises.
-        </p>
-      </aside>
+      <!-- Blocks 2 and 3: the standalone services -->
+      <div class="standalone">
+        <div class="block" data-reveal style="transition-delay:80ms">
+          <h3 class="block-title display-s">Functional medicine</h3>
+          <p class="block-intro">
+            Available without a primary care membership. Visits are billed per visit, and you
+            will know the cost before care begins.
+          </p>
+          <ul class="rate-list">
+            {
+              fmRates.map((r) => (
+                <li class="rate">
+                  <span class="rate-name">{r.name}<em>{r.detail}</em></span>
+                  <span class="rate-price">{r.price}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div class="block" data-reveal style="transition-delay:160ms">
+          <h3 class="block-title display-s">Standalone weight care</h3>
+          <p class="block-intro">
+            Weight care is included for primary care members when appropriate. It is also
+            available as a standalone service for patients who do not need a primary care
+            membership.
+          </p>
+          <p class="block-note">
+            Standalone weight care pricing depends on the care plan, medication needs, labs,
+            and follow-up schedule. You will receive a written estimate before care begins.
+          </p>
+        </div>
+      </div>
     </div>
+
+    <p class="promise" data-reveal>
+      <strong>No surprise billing.</strong> You will know the cost before care begins.
+    </p>
   </div>
 </section>
 
 <style>
   .pricing { background: var(--color-cream); }
-  .pricing-eyebrow { color: var(--color-terracotta-deep); margin-bottom: 1rem; }
-  .pricing-lead { margin-top: 1.3rem; font-size: 1.15rem; color: var(--color-pine-ink); }
+  .pricing-head { max-width: 50rem; }
+  .pricing-title { margin: 1.1rem 0 0; }
+  .pricing-title em { font-style: italic; color: var(--color-terracotta-deep); }
+  .pricing-lead { margin-top: 1.3rem; }
 
-  .pricing-grid {
-    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  .pricing-body {
+    margin-top: clamp(2.75rem, 6vw, 4.5rem);
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: clamp(2rem, 4vw, 3.5rem);
     align-items: start;
   }
 
-  .plan {
-    background: var(--color-pine);
-    color: var(--color-cream);
-    border-radius: 12px;
-    padding: 2.4rem 2.1rem;
-    box-shadow: var(--shadow-card-hover);
+  .membership {
+    border: 1px solid var(--hair);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-frame);
+    background: color-mix(in srgb, #fff 45%, var(--color-cream));
+    padding: clamp(2rem, 4vw, 2.85rem);
   }
-  .plan-name {
-    color: var(--color-sage-light);
-    font-family: var(--font-body);
-    font-weight: 600;
-    font-size: 0.9rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    margin: 0;
-  }
-  .plan-price { margin: 0.5rem 0 0; display: flex; align-items: baseline; gap: 0.4rem; }
-  .amount { font-family: var(--font-display); font-size: clamp(3rem, 6vw, 4rem); font-weight: 600; color: var(--color-cream); line-height: 1; }
-  .per { color: color-mix(in srgb, var(--color-cream) 70%, transparent); font-size: 1.05rem; }
-  .plan-tag { margin: 0.35rem 0 0; color: color-mix(in srgb, var(--color-cream) 80%, transparent); }
+  .membership-label { color: var(--color-sage-deep); }
+  .price { margin: 1rem 0 0; display: flex; align-items: baseline; gap: 0.5rem; }
+  .price-amt { font-family: var(--font-display); font-weight: 500; font-size: clamp(3.5rem, 7vw, 5rem); line-height: 0.9; color: var(--color-pine); font-variant-numeric: lining-nums tabular-nums; letter-spacing: -0.02em; }
+  .price-per { font-size: 1.05rem; color: var(--color-pine-ink); }
+  .price-tag { margin: 0.45rem 0 0; color: var(--color-pine-ink); }
 
-  .plan-list { list-style: none; margin: 1.75rem 0 0; padding: 1.75rem 0 0; border-top: 1px solid rgba(251,247,241,0.16); display: grid; gap: 0.7rem; }
-  .plan-list li { display: flex; gap: 0.7rem; align-items: flex-start; color: color-mix(in srgb, var(--color-cream) 90%, transparent); }
-  .check { width: 1.25rem; height: 1.25rem; flex: 0 0 auto; color: var(--color-terracotta); margin-top: 0.15rem; }
+  .incl { list-style: none; margin: 1.75rem 0 0; padding: 1.75rem 0 0; border-top: 1px solid var(--hair); display: grid; gap: 0.8rem; }
+  .incl li { display: flex; gap: 0.7rem; align-items: flex-start; color: var(--color-pine-ink); font-size: var(--text-sm); }
+  .tick { width: 1.15rem; height: 1.15rem; flex: 0 0 auto; color: var(--color-terracotta); margin-top: 0.15rem; }
 
-  .plan-foot { margin: 1.5rem 0 0; font-size: 0.9rem; color: color-mix(in srgb, var(--color-cream) 72%, transparent); }
-  .plan-cta { margin-top: 1.5rem; width: 100%; justify-content: center; }
+  .membership-foot { margin: 1.5rem 0 0; font-size: var(--text-sm); color: var(--color-pine-ink); opacity: 0.85; line-height: 1.6; }
+  .membership-cta { margin-top: 1.4rem; width: 100%; justify-content: center; }
 
-  .addon {
-    background: var(--color-cream);
-    border: 1px solid color-mix(in srgb, var(--color-tan) 50%, transparent);
-    border-radius: 12px;
-    padding: 2.4rem 2.1rem;
-  }
-  .addon-name { margin: 0; font-size: 1.7rem; }
-  .addon-intro { margin: 0.6rem 0 0; color: var(--color-pine-ink); }
-  .rate-list { list-style: none; margin: 1.5rem 0 0; padding: 0; }
-  .rate {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1rem;
-    padding: 0.95rem 0;
-    border-bottom: 1px solid color-mix(in srgb, var(--color-tan) 35%, transparent);
-  }
+  .standalone { display: grid; gap: clamp(1.75rem, 3.5vw, 2.5rem); align-content: start; }
+  .block { padding-top: 1.4rem; border-top: 1px solid var(--hair); }
+  .block-title { margin: 0; color: var(--color-pine); }
+  .block-intro { margin: 0.7rem 0 0; color: var(--color-pine-ink); font-size: var(--text-sm); line-height: 1.6; }
+
+  .rate-list { list-style: none; margin: 1.3rem 0 0; padding: 0; }
+  .rate { display: flex; justify-content: space-between; align-items: baseline; gap: 1.5rem; padding: 0.95rem 0; border-bottom: 1px solid var(--hair); }
   .rate-name { display: flex; flex-direction: column; font-weight: 600; color: var(--color-pine); }
-  .rate-name em { font-style: normal; font-weight: 400; font-size: 0.85rem; color: var(--color-pine-ink); opacity: 0.75; }
-  .rate-price { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; color: var(--color-terracotta-deep); }
+  .rate-name em { font-style: normal; font-weight: 400; font-size: var(--text-sm); color: var(--color-pine-ink); opacity: 0.75; margin-top: 0.15rem; }
+  .rate-price { font-family: var(--font-display); font-weight: 500; font-size: 1.6rem; color: var(--color-terracotta-deep); font-variant-numeric: lining-nums tabular-nums; }
+
+  .block-note { margin: 1.1rem 0 0; font-size: var(--text-sm); line-height: 1.6; color: var(--color-pine-ink); }
 
   .promise {
-    margin: 1.5rem 0 0;
-    padding: 1.1rem 1.2rem;
-    background: var(--color-sage-wash);
-    border-radius: var(--radius-card);
-    font-size: 0.95rem;
+    margin: clamp(2rem, 4vw, 3rem) 0 0;
+    padding-left: 1.1rem;
+    border-left: 2px solid var(--color-terracotta);
+    font-size: var(--text-base);
     color: var(--color-pine-ink);
   }
-  .promise strong { color: var(--color-pine); }
+  .promise strong { color: var(--color-pine); font-weight: 700; }
 
-  @media (min-width: 880px) {
-    .pricing-grid { grid-template-columns: 1fr 1fr; }
+  @media (min-width: 920px) {
+    .pricing-body { grid-template-columns: 0.95fr 1.05fr; gap: clamp(3rem, 6vw, 5rem); }
   }
 </style>

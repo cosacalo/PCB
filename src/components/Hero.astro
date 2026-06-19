@@ -1,205 +1,99 @@
 ---
-import { Image } from 'astro:assets';
-import iconCream from '../assets/logo-icon-cream.png';
-
-const pillars = ['Primary Care', 'Functional Medicine', 'Weight Loss'];
+// Editorial manifesto hero, type-led and asymmetric. Four elements: kicker,
+// headline, subhead, CTAs. No scroll cue, no boxed panel. (The optional
+// service sub-line was left off to keep the hero a single clean moment; the
+// three paths are spelled out immediately below in the Care section.)
 ---
 
 <header id="top" class="hero" data-hero>
-  <div class="atmos" aria-hidden="true">
-    <span class="blob blob-1"></span>
-    <span class="blob blob-2"></span>
-    <span class="blob blob-3"></span>
-  </div>
+  <div class="hero-bloom" aria-hidden="true"></div>
 
-  <div class="hero-inner">
-    <div class="hero-copy">
-      <p class="eyebrow hero-eyebrow" data-hero-eyebrow>
-        <span class="dot" aria-hidden="true"></span> Now accepting new patients
-      </p>
-      <h1 class="hero-title reveal-lines">
-        <span class="line"><span>Your health,</span></span>
-        <span class="line"><span>beyond the basics.</span></span>
-      </h1>
-      <p class="hero-sub" data-hero-sub>
-        Unhurried membership care from one Florida nurse practitioner. Primary care,
-        functional medicine, and weight loss, by telehealth statewide.
-      </p>
-      <div class="hero-actions" data-hero-cta>
-        <a href="tel:+19412506561" class="btn btn-primary" data-magnetic>
-          <span aria-hidden="true">&#9742;</span> Call 941.250.6561
-        </a>
-        <a href="mailto:Elizabeth@primarycareandbeyond.com" class="btn btn-outline">
-          Email us
-        </a>
-      </div>
-    </div>
+  <div class="wrap hero-inner">
+    <p class="label hero-kicker" data-hero-kicker>Telehealth care for adults in Florida</p>
 
-    <div class="hero-figure" data-hero-figure>
-      <aside class="brand-panel" aria-label="Primary Care and Beyond at a glance">
-        <Image src={iconCream} alt="" widths={[88, 176]} class="bp-mark" aria-hidden="true" />
-        <ul class="bp-pillars">
-          {pillars.map((p) => (
-            <li><span class="bp-dot" aria-hidden="true"></span>{p}</li>
-          ))}
-        </ul>
-        <div class="bp-foot">
-          <span>Telehealth across Florida</span>
-          <span class="bp-sep" aria-hidden="true"></span>
-          <span>$150 a month</span>
-        </div>
-      </aside>
+    <h1 class="hero-title reveal-lines">
+      <span class="line"><span>Primary care with time</span></span>
+      <span class="line"><span>to go <em>beyond the basics.</em></span></span>
+    </h1>
+
+    <span class="hero-rule rule-draw" data-hero-rule aria-hidden="true"></span>
+
+    <p class="hero-sub" data-hero-sub>
+      Work with one Florida nurse practitioner who has time to listen, understand your history,
+      and look deeper when your symptoms need more than a rushed visit.
+    </p>
+
+    <div class="hero-actions" data-hero-cta>
+      <a href="tel:+19412506561" class="btn btn-primary" data-magnetic>
+        <span aria-hidden="true">&#9742;</span> Call 941.250.6561
+      </a>
+      <a href="mailto:Elizabeth@primarycareandbeyond.com" class="link">
+        Email Liz <span class="arr" aria-hidden="true">&rarr;</span>
+      </a>
     </div>
   </div>
-
-  <a href="#approach" class="hero-scroll" aria-label="Scroll to learn more">
-    <span></span>
-  </a>
 </header>
 
 <style>
-  .hero {
-    position: relative;
-    overflow: hidden;
-    background: var(--color-cream);
+  .hero { position: relative; overflow: hidden; background: var(--color-cream); }
+
+  .hero-bloom {
+    position: absolute;
+    top: -30vh;
+    right: -16vw;
+    width: 68vw;
+    height: 68vw;
+    max-width: 58rem;
+    max-height: 58rem;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      circle at center,
+      color-mix(in srgb, var(--color-sage) 26%, transparent) 0%,
+      color-mix(in srgb, var(--color-sage-wash) 50%, transparent) 40%,
+      transparent 68%
+    );
   }
+
   .hero-inner {
     position: relative;
     z-index: 2;
-    max-width: 75rem;
-    margin: 0 auto;
-    padding: clamp(3rem, 7vw, 6rem) clamp(1.25rem, 4vw, 2rem) clamp(4rem, 7vw, 7rem);
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: clamp(2.5rem, 5vw, 4rem);
-    align-items: center;
+    min-height: min(90vh, 52rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: clamp(3.5rem, 7vw, 6rem);
+    padding-bottom: clamp(3.5rem, 7vw, 6rem);
   }
 
-  /* Living atmosphere */
-  .atmos { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
-  .blob { position: absolute; border-radius: 999px; filter: blur(70px); opacity: 0.55; }
-  .blob-1 { width: 46vw; height: 46vw; right: -8vw; top: -10vw; background: var(--color-sage-wash); }
-  .blob-2 { width: 32vw; height: 32vw; right: 18vw; top: 24vw; background: color-mix(in srgb, var(--color-terracotta) 22%, transparent); opacity: 0.35; }
-  .blob-3 { width: 38vw; height: 38vw; left: -12vw; bottom: -14vw; background: color-mix(in srgb, var(--color-sage) 28%, transparent); }
-  @media (prefers-reduced-motion: no-preference) {
-    .blob-1 { animation: drift1 22s ease-in-out infinite alternate; }
-    .blob-2 { animation: drift2 28s ease-in-out infinite alternate; }
-    .blob-3 { animation: drift3 26s ease-in-out infinite alternate; }
-  }
-  @keyframes drift1 { to { transform: translate3d(-4vw, 4vw, 0) scale(1.08); } }
-  @keyframes drift2 { to { transform: translate3d(3vw, -3vw, 0) scale(1.12); } }
-  @keyframes drift3 { to { transform: translate3d(5vw, -3vw, 0) scale(1.06); } }
+  .hero-kicker { margin: 0 0 clamp(1.4rem, 3vw, 2rem); }
 
-  .hero-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
-    color: var(--color-terracotta-deep);
-    margin-bottom: 1.5rem;
-  }
-  .dot {
-    width: 7px; height: 7px; border-radius: 999px;
-    background: var(--color-terracotta);
-    box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-terracotta) 50%, transparent);
-  }
-  @media (prefers-reduced-motion: no-preference) { .dot { animation: pulse 2.4s ease-out infinite; } }
-  @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-terracotta) 45%, transparent); }
-    70% { box-shadow: 0 0 0 9px transparent; }
-    100% { box-shadow: 0 0 0 0 transparent; }
-  }
-
+  /* Headline is 8 words, so the scale is moderated (per hero font-scale rule) */
   .hero-title {
     margin: 0;
-    max-width: 18ch;
+    max-width: 20ch;
     color: var(--color-pine-deep);
     font-family: var(--font-display);
-    font-weight: 600;
-    font-size: clamp(2.6rem, 5.4vw, 4.4rem);
-    line-height: 1.04;
-    letter-spacing: -0.015em;
+    font-weight: 500;
+    font-size: clamp(2.5rem, 1.8rem + 3.6vw, 4.6rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
   }
-  .hero-sub { margin: 1.5rem 0 0; max-width: 34rem; font-size: 1.2rem; color: var(--color-pine-ink); }
-  .hero-actions { display: flex; flex-wrap: wrap; gap: 0.85rem; margin-top: 2rem; }
-  .hero-note { margin-top: 1.5rem; font-size: 0.95rem; color: var(--color-pine-ink); opacity: 0.8; }
+  .hero-title em { font-style: italic; font-weight: 500; color: var(--color-pine); }
 
-  /* Brand panel (brand-led, provider-agnostic) */
-  .hero-figure { justify-self: center; width: 100%; max-width: 30rem; }
-  .brand-panel {
-    position: relative;
-    border-radius: 16px;
-    padding: clamp(2rem, 4vw, 2.75rem);
-    background:
-      radial-gradient(120% 90% at 80% 0%, color-mix(in srgb, var(--color-pine) 86%, #000) 0%, transparent 60%),
-      var(--color-pine);
-    color: var(--color-cream);
-    box-shadow: var(--shadow-card-hover);
-    text-align: center;
-    overflow: hidden;
-  }
-  .brand-panel::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border: 1px solid rgba(251, 247, 241, 0.12);
-    border-radius: inherit;
-    pointer-events: none;
-  }
-  .bp-mark { width: 4.5rem; height: auto; margin: 0 auto 1.75rem; display: block; }
-  .bp-pillars {
-    list-style: none;
-    margin: 1.75rem 0 0;
-    padding: 1.75rem 0 0;
-    border-top: 1px solid rgba(251, 247, 241, 0.16);
-    display: grid;
-    gap: 0.7rem;
-    text-align: left;
-    max-width: 16rem;
-    margin-inline: auto;
-  }
-  .bp-pillars li {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    font-family: var(--font-display);
-    font-size: 1.35rem;
-    font-weight: 600;
-    color: var(--color-cream);
-  }
-  .bp-dot { width: 7px; height: 7px; border-radius: 999px; background: var(--color-terracotta); flex: 0 0 auto; }
-  .bp-foot {
-    margin-top: 1.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    font-size: 0.82rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--color-sage-light);
-  }
-  .bp-sep { width: 4px; height: 4px; border-radius: 999px; background: var(--color-sage); }
+  .hero-rule { width: clamp(4rem, 8vw, 6.5rem); margin-top: clamp(1.4rem, 3vw, 2rem); }
 
-  .hero-scroll {
-    position: absolute; left: 50%; bottom: 1.25rem; transform: translateX(-50%);
-    z-index: 3; width: 26px; height: 42px;
-    border: 1.5px solid color-mix(in srgb, var(--color-pine) 45%, transparent);
-    border-radius: 999px; display: none;
-  }
-  .hero-scroll span {
-    position: absolute; left: 50%; top: 8px; width: 4px; height: 8px; margin-left: -2px;
-    border-radius: 999px; background: var(--color-terracotta);
-  }
-  @media (prefers-reduced-motion: no-preference) { .hero-scroll span { animation: scrollcue 1.8s ease-in-out infinite; } }
-  @keyframes scrollcue {
-    0% { transform: translateY(0); opacity: 1; }
-    70% { transform: translateY(14px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 0; }
+  .hero-sub {
+    margin: clamp(1.4rem, 3vw, 2rem) 0 0;
+    max-width: 36rem;
+    font-size: var(--text-lead);
+    line-height: 1.5;
+    color: var(--color-pine-ink);
   }
 
-  @media (min-width: 980px) {
-    .hero-inner { grid-template-columns: 1.15fr 0.85fr; }
-    .hero-figure { justify-self: end; }
-    .hero-scroll { display: block; }
+  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.4rem; margin-top: clamp(1.9rem, 4vw, 2.5rem); }
+
+  @media (max-width: 560px) {
+    .hero-title { font-size: clamp(2.1rem, 8.5vw, 2.8rem); line-height: 1.03; max-width: 16ch; }
   }
 </style>

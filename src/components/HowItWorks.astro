@@ -2,101 +2,60 @@
 const steps = [
   {
     title: 'Reach out',
-    body: 'Call or email Liz directly. No portals, no phone trees. A real person answers your questions about whether this is the right fit.',
+    body: 'Call or email Liz. You can ask questions, share what you are looking for, and find out whether primary care, functional medicine, or weight care is the right fit.',
   },
   {
     title: 'Talk it through',
-    body: 'Have an honest conversation about your health, your history, and what you want to feel like. Enrollment happens here, in a conversation, never online.',
+    body: 'You will talk through your health history, current concerns, goals, and care options. If a service has a separate cost, you will know the price before care begins.',
   },
   {
-    title: 'Start your care',
-    body: 'Begin telehealth visits from anywhere in Florida, weekly if you need them. Same provider every time, building on what came before.',
+    title: 'Begin care',
+    body: 'Start with the service that fits your needs. You may choose ongoing primary care membership, a functional medicine visit, or standalone weight care.',
   },
 ];
 ---
 
 <section id="how" class="section how">
-  <div class="wrap">
+  <div class="wrap how-grid">
     <div class="how-head" data-reveal>
-      <h2 class="display-l">Starting care is a conversation.</h2>
+      <h2 class="display-l how-title">Starting care is a&nbsp;conversation.</h2>
+      <p class="how-foot prose">
+        Telehealth is available for adults 18 and older who are located in Florida at the time
+        of each visit. Sarasota and Lakewood Ranch in-person care is planned.
+      </p>
     </div>
 
-    <ol class="how-steps">
+    <div class="how-steps">
       {
         steps.map((s, i) => (
-          <li class="how-step" data-reveal style={`transition-delay:${i * 80}ms`}>
-            <span class="how-num">{i + 1}</span>
-            <div>
-              <h3 class="how-step-title">{s.title}</h3>
-              <p class="how-step-body">{s.body}</p>
-            </div>
-          </li>
+          <div class="how-step" data-reveal style={`transition-delay:${i * 90}ms`}>
+            <h3 class="how-step-title display-s">{s.title}</h3>
+            <p class="how-step-body">{s.body}</p>
+          </div>
         ))
       }
-    </ol>
-
-    <p class="how-foot" data-reveal>
-      Telehealth for adults 18 and older, who are physically located in Florida during
-      each visit. A Sarasota and Lakewood Ranch location is on the way.
-    </p>
+    </div>
   </div>
 </section>
 
 <style>
-  .how {
-    background:
-      radial-gradient(110% 80% at 12% 0%, color-mix(in srgb, var(--color-pine) 86%, #000) 0%, transparent 60%),
-      var(--color-pine);
-    color: var(--color-cream);
-  }
-  .how :global(h2) { color: var(--color-cream); }
-  .how-eyebrow { color: var(--color-sage-light); margin-bottom: 1rem; }
-
-  .how-steps {
-    list-style: none;
-    counter-reset: step;
-    margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
-    padding: 0;
+  .how { background: var(--color-cream-soft); }
+  .how-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.75rem;
+    gap: clamp(2.5rem, 5vw, 4rem);
+    align-items: start;
   }
-  .how-step {
-    display: flex;
-    gap: 1.1rem;
-    align-items: flex-start;
-    padding-top: 1.75rem;
-    border-top: 1px solid rgba(251, 247, 241, 0.16);
-  }
-  .how-num {
-    flex: 0 0 auto;
-    width: 2.6rem;
-    height: 2.6rem;
-    display: grid;
-    place-items: center;
-    border-radius: 999px;
-    border: 1px solid var(--color-sage);
-    color: var(--color-sage-light);
-    font-family: var(--font-display);
-    font-size: 1.35rem;
-    font-weight: 600;
-  }
-  .how-step-title {
-    color: var(--color-cream);
-    font-size: 1.5rem;
-    margin: 0.15rem 0 0.45rem;
-  }
-  .how-step-body { margin: 0; color: color-mix(in srgb, var(--color-cream) 82%, transparent); }
+  .how-title { max-width: 12ch; }
+  .how-foot { margin: 1.5rem 0 0; font-size: var(--text-sm); color: var(--color-pine-ink); }
 
-  .how-foot {
-    margin: clamp(2.25rem, 4vw, 3rem) 0 0;
-    max-width: 44rem;
-    color: color-mix(in srgb, var(--color-cream) 75%, transparent);
-    font-size: 0.98rem;
-  }
+  .how-steps { display: grid; gap: 0; }
+  .how-step { padding: clamp(1.5rem, 3vw, 2rem) 0; border-top: 1px solid var(--hair); }
+  .how-step:last-child { border-bottom: 1px solid var(--hair); }
+  .how-step-title { margin: 0; color: var(--color-pine); }
+  .how-step-body { margin: 0.5rem 0 0; color: var(--color-pine-ink); max-width: 40rem; }
 
-  @media (min-width: 820px) {
-    .how-steps { grid-template-columns: repeat(3, 1fr); gap: 2.25rem; }
-    .how-step { flex-direction: column; }
+  @media (min-width: 900px) {
+    .how-grid { grid-template-columns: 0.9fr 1.1fr; gap: clamp(3rem, 6vw, 5rem); }
   }
 </style>

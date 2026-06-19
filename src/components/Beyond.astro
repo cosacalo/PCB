@@ -1,0 +1,118 @@
+---
+// Three CO-EQUAL service paths (no foundation/hierarchy). Primary care
+// membership includes weight care; functional medicine is standalone; weight
+// care is included for members AND available standalone. Cards are equal in
+// visual weight per the brief, but each is genuinely distinct content with a
+// refined hairline treatment, not generic cloned boxes.
+const cards = [
+  {
+    label: 'Primary care membership',
+    title: 'Primary care',
+    body:
+      'Ongoing telehealth primary care for adults in Florida. This includes preventive care, chronic condition support, women’s health, prescriptions and refills for non-controlled medications, lab orders when medically indicated, and medical weight care including GLP-1 medication management when appropriate.',
+    note: '$150 per month.',
+    tags: ['Preventive care', 'Chronic condition support', 'Women’s health', 'Non-controlled refills', 'Labs when indicated', 'Weight care included', 'GLP-1 when appropriate'],
+  },
+  {
+    label: 'Separate service',
+    title: 'Functional medicine',
+    body:
+      'A deeper look at symptoms that have not been explained or have not improved. This may include hormone concerns, thyroid symptoms, gut health, autoimmune issues, chronic fatigue, and detailed lab review.',
+    note: 'Available without a primary care membership. Quoted before care begins.',
+    tags: ['Hormones', 'Thyroid', 'Gut health', 'Autoimmune concerns', 'Fatigue', 'Lab review'],
+  },
+  {
+    label: 'Included or standalone',
+    title: 'Weight care',
+    body:
+      'Medical weight care for people who want clinical support, not one-size-fits-all advice. Care may include lab review, health history, medication review, lifestyle planning, and GLP-1 medication management when appropriate.',
+    note: 'Included for primary care members. Also available as a standalone service without a primary care membership.',
+    tags: ['Medical weight care', 'GLP-1 when appropriate', 'Health history', 'Lab review', 'Lifestyle planning', 'Follow-up support'],
+  },
+];
+---
+
+<section id="care" class="section care">
+  <div class="wrap">
+    <header class="care-head" data-reveal>
+      <h2 class="display-l care-title">Primary care, functional medicine, and weight care.</h2>
+      <p class="lead prose care-lead">
+        You can come to Primary Care and Beyond for ongoing primary care, a deeper functional
+        medicine visit, or medical weight care. Weight care is included for primary care
+        members and is also available as a standalone service.
+      </p>
+    </header>
+
+    <div class="paths">
+      {
+        cards.map((c, i) => (
+          <article class="path" data-reveal style={`transition-delay:${i * 80}ms`}>
+            <span class="path-rule" aria-hidden="true"></span>
+            <p class="label path-label">{c.label}</p>
+            <h3 class="path-title display-s">{c.title}</h3>
+            <p class="path-body">{c.body}</p>
+            <p class="path-note">{c.note}</p>
+            <ul class="path-tags">
+              {c.tags.map((t) => <li>{t}</li>)}
+            </ul>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .care { background: var(--color-cream); }
+  .care-head { max-width: 52rem; }
+  .care-title { max-width: 18ch; }
+  .care-lead { margin-top: 1.3rem; }
+
+  .paths {
+    margin-top: clamp(2.75rem, 6vw, 4.5rem);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* Equal-weight cards, refined: hairline frame, a thin terracotta top rule,
+     generous internal space. Not heavy filled boxes. */
+  .path {
+    position: relative;
+    border: 1px solid var(--hair);
+    border-radius: var(--radius);
+    background: color-mix(in srgb, #fff 35%, var(--color-cream));
+    padding: clamp(1.85rem, 3vw, 2.4rem);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .path-rule { display: block; width: 2.5rem; height: 2px; background: var(--color-terracotta); margin-bottom: 1.4rem; }
+  .path-label { margin: 0 0 0.7rem; color: var(--color-sage-deep); }
+  .path-title { margin: 0; color: var(--color-pine); }
+  .path-body { margin: 0.8rem 0 0; color: var(--color-pine-ink); font-size: var(--text-sm); line-height: 1.6; }
+  .path-note { margin: 1.1rem 0 0; font-size: var(--text-sm); font-weight: 600; color: var(--color-terracotta-deep); }
+
+  .path-tags {
+    list-style: none;
+    margin: 1.3rem 0 0;
+    padding: 1.3rem 0 0;
+    border-top: 1px solid var(--hair);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+  .path-tags li {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-pine);
+    background: var(--color-sage-wash);
+    border-radius: 999px;
+    padding: 0.3rem 0.7rem;
+  }
+
+  @media (min-width: 880px) {
+    .paths { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  }
+</style>

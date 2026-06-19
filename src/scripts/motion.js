@@ -9,7 +9,7 @@ function ready(fn) {
 }
 
 ready(() => {
-  // Nav condense (always, it is not "motion")
+  // Nav condense (not "motion", always on)
   const nav = document.getElementById('site-nav');
   if (nav) {
     const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 24);
@@ -17,124 +17,69 @@ ready(() => {
     window.addEventListener('scroll', onScroll, { passive: true });
   }
 
+  // Close the mobile menu after a link is tapped
+  const navMenu = document.getElementById('nav-menu');
+  if (navMenu) {
+    navMenu.querySelectorAll('.nav-sheet a').forEach((a) =>
+      a.addEventListener('click', () => navMenu.removeAttribute('open'))
+    );
+  }
+
   if (reduce) {
-    // Reveal everything, no animation. Pause the living portrait.
     document.querySelectorAll('[data-reveal]').forEach((el) => (el.style.opacity = '1'));
     document.querySelectorAll('.reveal-lines .line > span').forEach((el) => (el.style.transform = 'none'));
     document.querySelectorAll('[data-living]').forEach((v) => {
       v.removeAttribute('autoplay');
       try { v.pause(); } catch (e) {}
     });
-    runCounts(true);
     return;
   }
 
   gsap.registerPlugin(ScrollTrigger);
 
-  /* ---------------------------------------------------------------
-     Hero load — one orchestrated cinematic beat
-  --------------------------------------------------------------- */
+  /* Hero load: headline mask-reveals, then the terracotta rule draws itself. */
   const hero = document.querySelector('[data-hero]');
   if (hero) {
     const lines = hero.querySelectorAll('.reveal-lines .line > span');
-    const tl = gsap.timeline({ defaults: { ease: 'expo.out' }, delay: 0.12 });
+    const rule = hero.querySelector('[data-hero-rule]');
+    if (rule) gsap.set(rule, { scaleX: 0, opacity: 1, transformOrigin: 'left center' });
 
-    tl.fromTo(hero.querySelector('[data-hero-eyebrow]'), { y: 16 }, { y: 0, opacity: 1, duration: 0.7 })
-      .to(lines, { y: '0%', duration: 1.05, stagger: 0.09 }, '-=0.45')
-      .fromTo(hero.querySelector('[data-hero-sub]'), { y: 18 }, { y: 0, opacity: 1, duration: 0.8 }, '-=0.6')
-      .fromTo(hero.querySelectorAll('[data-hero-cta] > *'), { y: 16 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.1 }, '-=0.5')
-      .fromTo(hero.querySelector('[data-hero-note]'), { y: 12 }, { y: 0, opacity: 1, duration: 0.6 }, '-=0.4')
-      .fromTo(
-        hero.querySelector('[data-hero-figure]'),
-        { y: 44, scale: 0.97 },
-        { y: 0, scale: 1, opacity: 1, duration: 1.2, ease: 'power3.out' },
-        '-=1.2'
-      )
-      .fromTo(hero.querySelector('[data-hero-cred]'), { y: 14 }, { y: 0, opacity: 1, duration: 0.6 }, '-=0.4');
-
-    // Subtle parallax drift on the portrait as you scroll past the hero
-    const fig = hero.querySelector('[data-hero-figure]');
-    if (fig) {
-      gsap.to(fig, {
-        yPercent: -8,
-        ease: 'none',
-        scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 0.6 },
-      });
-    }
+    const tl = gsap.timeline({ defaults: { ease: 'expo.out' }, delay: 0.1 });
+    tl.fromTo(hero.querySelector('[data-hero-kicker]'), { y: 14 }, { y: 0, opacity: 1, duration: 0.7 })
+      .to(lines, { y: '0%', duration: 1.05, stagger: 0.1 }, '-=0.4')
+      .to(rule, { scaleX: 1, duration: 0.9, ease: 'power3.inOut' }, '-=0.55')
+      .fromTo(hero.querySelector('[data-hero-sub]'), { y: 18 }, { y: 0, opacity: 1, duration: 0.8 }, '-=0.7')
+      .fromTo(hero.querySelectorAll('[data-hero-cta] > *'), { y: 16 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.1 }, '-=0.55');
   }
 
-  /* ---------------------------------------------------------------
-     Scroll reveals — batched, directional, staggered
-  --------------------------------------------------------------- */
-  ScrollTrigger.batch('[data-reveal]', {
-    start: 'top 88%',
-    onEnter: (els) =>
-      gsap.to(els, {
-        y: 0,
-        opacity: 1,
-        duration: 0.9,
-        ease: 'power3.out',
-        stagger: 0.08,
-        overwrite: true,
-      }),
-  });
-  gsap.set('[data-reveal]', { y: 26 });
+  /* Scroll reveals via IntersectionObserver. Robust against anchor jumps and
+     reload-at-anchor: any [data-reveal] already in view (or scrolled into view)
+     reveals reliably, so content never stays hidden. */
+  const reveals = document.querySelectorAll('[data-reveal]');
+  gsap.set(reveals, { y: 24 });
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        gsap.to(entry.target, { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out' });
+        io.unobserve(entry.target);
+      });
+    },
+    { rootMargin: '0px 0px -10% 0px', threshold: 0.12 }
+  );
+  reveals.forEach((el) => io.observe(el));
 
-  /* ---------------------------------------------------------------
-     Count-up for any [data-count]
-  --------------------------------------------------------------- */
-  runCounts(false);
-
-  /* ---------------------------------------------------------------
-     Magnetic buttons (pointer-fine devices only)
-  --------------------------------------------------------------- */
+  /* Magnetic primary CTAs (pointer-fine only). Eased, never snaps. */
   if (window.matchMedia('(pointer:fine)').matches) {
     document.querySelectorAll('[data-magnetic]').forEach((btn) => {
-      const strength = 0.35;
+      const strength = 0.3;
       btn.addEventListener('pointermove', (e) => {
         const r = btn.getBoundingClientRect();
-        const x = e.clientX - r.left - r.width / 2;
-        const y = e.clientY - r.top - r.height / 2;
-        gsap.to(btn, { x: x * strength, y: y * strength, duration: 0.4, ease: 'power3.out' });
+        gsap.to(btn, { x: (e.clientX - r.left - r.width / 2) * strength, y: (e.clientY - r.top - r.height / 2) * strength, duration: 0.4, ease: 'power3.out' });
       });
-      btn.addEventListener('pointerleave', () => {
-        gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1,0.4)' });
-      });
+      btn.addEventListener('pointerleave', () => gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1,0.4)' }));
     });
   }
-
-  /* ---------------------------------------------------------------
-     SVG line-draw accents
-  --------------------------------------------------------------- */
-  document.querySelectorAll('[data-draw] path').forEach((path) => {
-    const len = path.getTotalLength();
-    gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
-    gsap.to(path, {
-      strokeDashoffset: 0,
-      duration: 1.6,
-      ease: 'power2.out',
-      scrollTrigger: { trigger: path, start: 'top 85%' },
-    });
-  });
 
   ScrollTrigger.refresh();
 });
-
-function runCounts(instant) {
-  document.querySelectorAll('[data-count]').forEach((el) => {
-    const target = parseFloat(el.getAttribute('data-count'));
-    const prefix = el.getAttribute('data-prefix') || '';
-    if (instant) {
-      el.textContent = prefix + target;
-      return;
-    }
-    const obj = { v: 0 };
-    gsap.to(obj, {
-      v: target,
-      duration: 1.4,
-      ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 90%' },
-      onUpdate: () => (el.textContent = prefix + Math.round(obj.v)),
-    });
-  });
-}

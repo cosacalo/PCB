@@ -5,14 +5,14 @@ import iconCream from '../assets/logo-icon-cream.png';
 
 <section id="contact" class="section contact">
   <div class="wrap contact-inner" data-reveal>
-    <Image src={iconCream} alt="" width={56} height={46} class="contact-mark" aria-hidden="true" />
-    <h2 class="display-l contact-title">Start with a conversation.</h2>
+    <Image src={iconCream} alt="" width={50} height={41} class="contact-mark" aria-hidden="true" />
+    <h2 class="display-l contact-title">Start with a&nbsp;conversation.</h2>
     <p class="contact-sub">
-      No online checkout, no pressure. Call or email Liz, ask anything, and find out
-      whether Primary Care and Beyond is the right fit for you.
+      No checkout. No pressure. Call or email Liz, ask your questions, and find out whether
+      Primary Care and Beyond is the right fit.
     </p>
     <div class="contact-actions">
-      <a href="tel:+19412506561" class="btn btn-on-pine">
+      <a href="tel:+19412506561" class="btn btn-on-pine" data-magnetic>
         <span aria-hidden="true">&#9742;</span> 941.250.6561
       </a>
       <a href="mailto:Elizabeth@primarycareandbeyond.com" class="btn btn-ghost-pine">
@@ -23,40 +23,15 @@ import iconCream from '../assets/logo-icon-cream.png';
 </section>
 
 <style>
-  .contact {
-    background:
-      radial-gradient(100% 120% at 50% 0%, color-mix(in srgb, var(--color-pine) 88%, #000) 0%, transparent 60%),
-      var(--color-pine);
-    color: var(--color-cream);
-    text-align: center;
-  }
-  .contact-inner { max-width: 44rem; margin: 0 auto; }
-  .contact-mark { display: inline-block; margin: 0 auto 1.5rem; }
-  .contact-eyebrow { color: var(--color-sage-light); margin-bottom: 1rem; display: block; }
+  .contact { background: var(--color-pine); color: var(--color-cream); text-align: center; }
+  .contact-inner { max-width: 42rem; margin: 0 auto; }
+  .contact-mark { display: inline-block; margin: 0 auto 1.5rem; opacity: 0.95; }
   .contact-title { color: var(--color-cream); margin: 0; }
-  .contact-sub {
-    margin: 1.25rem auto 0;
-    max-width: 34rem;
-    font-size: 1.15rem;
-    color: color-mix(in srgb, var(--color-cream) 82%, transparent);
-  }
-  .contact-actions {
-    margin-top: 2.25rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.85rem;
-    justify-content: center;
-  }
+  .contact-sub { margin: 1.4rem auto 0; max-width: 34rem; font-size: var(--text-lead); line-height: 1.5; color: color-mix(in srgb, var(--color-cream) 82%, transparent); }
+  .contact-actions { margin-top: 2.4rem; display: flex; flex-wrap: wrap; gap: 0.85rem; justify-content: center; }
 
-  /* On phones the long email button must not force horizontal overflow:
-     stack full-width and allow the address to wrap. */
   @media (max-width: 540px) {
     .contact-actions { flex-direction: column; align-items: stretch; }
-    .contact-actions .btn {
-      width: 100%;
-      justify-content: center;
-      white-space: normal;
-      overflow-wrap: anywhere;
-    }
+    .contact-actions .btn { width: 100%; justify-content: center; white-space: normal; overflow-wrap: anywhere; }
   }
 </style>

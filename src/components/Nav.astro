@@ -3,10 +3,10 @@ import { Image } from 'astro:assets';
 import icon from '../assets/logo-icon.png';
 
 const links = [
-  { href: '#approach', label: 'Approach' },
-  { href: '#services', label: 'Services' },
+  { href: '#care', label: 'Care' },
+  { href: '#how', label: 'How it works' },
   { href: '#pricing', label: 'Pricing' },
-  { href: '#about', label: 'About' },
+  { href: '#about', label: 'Provider' },
   { href: '#faq', label: 'FAQ' },
 ];
 ---
@@ -14,7 +14,7 @@ const links = [
 <nav id="site-nav" class="site-nav">
   <div class="nav-inner">
     <a href="#top" class="nav-brand" aria-label="Primary Care and Beyond, home">
-      <Image src={icon} alt="" class="nav-icon" widths={[56, 112]} loading="eager" aria-hidden="true" />
+      <Image src={icon} alt="" widths={[56, 112]} class="nav-icon" loading="eager" aria-hidden="true" />
       <span class="nav-wordmark">
         <span class="nav-name">Primary Care</span>
         <span class="nav-sub">and Beyond</span>
@@ -25,9 +25,22 @@ const links = [
       {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
     </ul>
 
-    <a href="tel:+19412506561" class="btn btn-primary nav-cta">
-      <span aria-hidden="true">&#9742;</span> Call Liz
-    </a>
+    <div class="nav-right">
+      <a href="tel:+19412506561" class="btn btn-primary nav-cta">
+        <span aria-hidden="true">&#9742;</span> Call Liz
+      </a>
+
+      <details class="nav-menu" id="nav-menu">
+        <summary class="nav-toggle" aria-label="Open menu">
+          <span class="nav-burger" aria-hidden="true"></span>
+        </summary>
+        <div class="nav-sheet">
+          <ul>
+            {links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+          </ul>
+        </div>
+      </details>
+    </div>
   </div>
 </nav>
 
@@ -36,93 +49,92 @@ const links = [
     position: sticky;
     top: 0;
     z-index: 40;
-    background: color-mix(in srgb, var(--color-cream) 82%, transparent);
-    backdrop-filter: saturate(1.1) blur(10px);
+    background: color-mix(in srgb, var(--color-cream) 85%, transparent);
+    backdrop-filter: saturate(1.05) blur(12px);
     border-bottom: 1px solid transparent;
-    transition: border-color 0.3s var(--ease-out), background-color 0.3s var(--ease-out);
+    transition: border-color var(--dur) var(--ease), background-color var(--dur) var(--ease);
   }
-  .site-nav.is-scrolled {
-    border-bottom-color: color-mix(in srgb, var(--color-tan) 50%, transparent);
-    background: color-mix(in srgb, var(--color-cream) 92%, transparent);
-  }
+  .site-nav.is-scrolled { border-bottom-color: var(--hair); background: color-mix(in srgb, var(--color-cream) 93%, transparent); }
   .nav-inner {
     max-width: 75rem;
     margin: 0 auto;
-    padding: 0.8rem clamp(1.25rem, 4vw, 2rem);
+    padding: 0.7rem clamp(1.35rem, 4vw, 2.5rem);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1.5rem;
+    gap: 1.25rem;
   }
 
-  .nav-brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.7rem;
-    text-decoration: none;
-    flex: 0 0 auto;
-  }
-  .nav-icon {
-    height: 3rem;
-    width: auto;
-    transition: height 0.3s var(--ease-out);
-  }
-  .is-scrolled .nav-icon { height: 2.6rem; }
-  .nav-wordmark {
-    display: flex;
-    flex-direction: column;
-    line-height: 0.96;
-  }
-  .nav-name {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1.5rem;
-    color: var(--color-pine);
-    letter-spacing: 0.01em;
-  }
-  .nav-sub {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.05rem;
-    color: var(--color-terracotta-deep);
-  }
+  .nav-brand { display: inline-flex; align-items: center; gap: 0.65rem; text-decoration: none; flex: 0 0 auto; }
+  .nav-icon { height: 2.7rem; width: auto; transition: height var(--dur) var(--ease); }
+  .is-scrolled .nav-icon { height: 2.4rem; }
+  .nav-wordmark { display: flex; flex-direction: column; line-height: 0.94; }
+  .nav-name { font-family: var(--font-display); font-weight: 600; font-size: 1.4rem; color: var(--color-pine); }
+  .nav-sub { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 1rem; color: var(--color-terracotta-deep); }
 
-  .nav-links {
-    display: none;
-    gap: 2rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .nav-links a {
-    font-weight: 500;
-    font-size: 0.98rem;
-    color: var(--color-pine-ink);
-    text-decoration: none;
-    position: relative;
-    padding-bottom: 2px;
-  }
-  .nav-links a::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 1px;
-    width: 0;
-    background: var(--color-terracotta);
-    transition: width 0.2s var(--ease-out);
-  }
+  .nav-links { display: none; gap: 2rem; list-style: none; margin: 0; padding: 0; }
+  .nav-links a { font-weight: 500; font-size: 0.95rem; color: var(--color-pine-ink); text-decoration: none; position: relative; padding-bottom: 2px; }
+  .nav-links a::after { content: ''; position: absolute; left: 0; bottom: 0; height: 1px; width: 0; background: var(--color-terracotta); transition: width 0.2s var(--ease); }
   .nav-links a:hover { color: var(--color-pine); }
   .nav-links a:hover::after { width: 100%; }
 
-  .nav-cta { padding: 0.65rem 1.15rem; font-size: 0.95rem; }
+  .nav-right { display: flex; align-items: center; gap: 0.5rem; }
+  .nav-cta { padding: 0.58rem 1.1rem; font-size: 0.9rem; }
 
-  /* On small screens keep the icon + name, drop the italic line if cramped */
-  @media (max-width: 420px) {
-    .nav-sub { display: none; }
-    .nav-name { font-size: 1.3rem; }
+  /* Mobile menu: native <details> disclosure, no JS required to open */
+  .nav-menu { position: relative; }
+  .nav-toggle {
+    list-style: none;
+    cursor: pointer;
+    display: inline-grid;
+    place-items: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--hair-strong);
   }
-  @media (min-width: 880px) {
+  .nav-toggle::-webkit-details-marker { display: none; }
+  .nav-toggle:focus-visible { outline: 2px solid var(--color-terracotta); outline-offset: 3px; }
+  .nav-burger, .nav-burger::before, .nav-burger::after {
+    content: '';
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: var(--color-pine);
+    transition: transform var(--dur) var(--ease), opacity var(--dur) var(--ease);
+  }
+  .nav-burger { position: relative; }
+  .nav-burger::before { position: absolute; top: -6px; left: 0; }
+  .nav-burger::after { position: absolute; top: 6px; left: 0; }
+  .nav-menu[open] .nav-burger { background: transparent; }
+  .nav-menu[open] .nav-burger::before { transform: translateY(6px) rotate(45deg); }
+  .nav-menu[open] .nav-burger::after { transform: translateY(-6px) rotate(-45deg); }
+
+  .nav-sheet {
+    position: absolute;
+    top: calc(100% + 0.7rem);
+    right: 0;
+    min-width: 14rem;
+    background: var(--color-cream);
+    border: 1px solid var(--hair);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-frame);
+    padding: 0.5rem;
+  }
+  .nav-sheet ul { list-style: none; margin: 0; padding: 0; display: grid; }
+  .nav-sheet a {
+    display: block;
+    padding: 0.8rem 0.9rem;
+    border-radius: 3px;
+    font-weight: 600;
+    color: var(--color-pine);
+    text-decoration: none;
+  }
+  .nav-sheet a:hover { background: var(--color-sage-wash); }
+
+  @media (max-width: 420px) { .nav-sub { display: none; } .nav-name { font-size: 1.25rem; } }
+  @media (min-width: 900px) {
     .nav-links { display: flex; }
+    .nav-menu { display: none; }
   }
 </style>

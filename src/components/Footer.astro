@@ -8,15 +8,15 @@ const year = new Date().getFullYear();
 <footer class="footer">
   <div class="wrap footer-grid">
     <div class="footer-brand">
-      <a href="#top" class="footer-logo-brand" aria-label="Primary Care and Beyond, back to top">
+      <a href="#top" class="footer-logo" aria-label="Primary Care and Beyond, back to top">
         <Image src={iconCream} alt="" widths={[64, 128]} class="footer-icon" aria-hidden="true" />
         <span class="footer-wordmark">
           <span class="footer-name">Primary Care</span>
           <span class="footer-sub">and Beyond</span>
         </span>
       </a>
-      <p class="footer-tag">Your health, beyond the basics.</p>
-      <p class="footer-pillars">Primary Care &middot; Functional Medicine &middot; Weight Loss</p>
+      <p class="footer-tag">Primary care with time to go beyond the basics.</p>
+      <p class="footer-pillars">Primary Care &middot; Functional Medicine &middot; Weight Care</p>
     </div>
 
     <div class="footer-contact">
@@ -35,92 +35,33 @@ const year = new Date().getFullYear();
       Primary Care and Beyond LLC. This membership is a direct health care agreement under
       Fla. Stat. 624.27 and is not insurance, and not minimum essential coverage under the
       ACA. Telehealth services are for adults 18 and older who are physically located in
-      Florida. Functional medicine and weight-loss services are quoted before care.
+      Florida. Functional medicine and standalone weight care services are quoted before care.
     </p>
     <p class="footer-copy">&copy; {year} Primary Care and Beyond LLC. All rights reserved.</p>
   </div>
 </footer>
 
 <style>
-  .footer {
-    background: var(--color-pine-deep);
-    color: color-mix(in srgb, var(--color-cream) 82%, transparent);
-    padding: clamp(3rem, 6vw, 4.5rem) 0 2.5rem;
-  }
-  .footer-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-    padding-bottom: 2.5rem;
-    border-bottom: 1px solid rgba(251, 247, 241, 0.14);
-  }
-  .footer-logo-brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.7rem;
-    text-decoration: none;
-  }
-  .footer-icon { height: 3.25rem; width: auto; }
-  .footer-wordmark { display: flex; flex-direction: column; line-height: 0.96; }
-  .footer-name {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1.65rem;
-    color: var(--color-cream);
-  }
-  .footer-sub {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.15rem;
-    color: var(--color-sage-light);
-  }
-  .footer-tag {
-    font-family: var(--font-display);
-    font-size: 1.35rem;
-    font-style: italic;
-    color: var(--color-cream);
-    margin: 1rem 0 0.5rem;
-  }
-  .footer-pillars {
-    margin: 0;
-    font-size: 0.85rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--color-sage-light);
-  }
+  .footer { background: var(--color-pine-deep); color: color-mix(in srgb, var(--color-cream) 82%, transparent); padding: clamp(3rem, 6vw, 4.5rem) 0 2.5rem; }
+  .footer-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; padding-bottom: 2.5rem; border-bottom: 1px solid var(--hair-on-pine); }
+  .footer-logo { display: inline-flex; align-items: center; gap: 0.65rem; text-decoration: none; }
+  .footer-icon { height: 3rem; width: auto; }
+  .footer-wordmark { display: flex; flex-direction: column; line-height: 0.94; }
+  .footer-name { font-family: var(--font-display); font-weight: 600; font-size: 1.55rem; color: var(--color-cream); }
+  .footer-sub { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 1.1rem; color: var(--color-sage-light); }
+  .footer-tag { font-family: var(--font-display); font-size: 1.3rem; font-style: italic; color: var(--color-cream); margin: 1rem 0 0.6rem; }
+  .footer-pillars { margin: 0; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-sage-light); }
 
-  .footer-h {
-    color: var(--color-cream);
-    font-family: var(--font-body);
-    font-weight: 600;
-    font-size: 0.85rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    margin: 0 0 1rem;
-  }
+  .footer-h { color: var(--color-cream); font-family: var(--font-body); font-weight: 600; font-size: var(--text-label); letter-spacing: 0.18em; text-transform: uppercase; margin: 0 0 1rem; }
   .footer-contact ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
   .footer-contact li { display: flex; gap: 0.75rem; }
-  .footer-contact li span:first-child {
-    flex: 0 0 2.75rem;
-    color: var(--color-sage);
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    padding-top: 1px;
-  }
-  .footer-contact a {
-    color: color-mix(in srgb, var(--color-cream) 88%, transparent);
-    text-decoration: none;
-    min-width: 0;
-    overflow-wrap: anywhere;
-  }
+  .footer-contact li span:first-child { flex: 0 0 2.75rem; color: var(--color-sage); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; padding-top: 1px; }
+  .footer-contact a { color: color-mix(in srgb, var(--color-cream) 88%, transparent); text-decoration: none; min-width: 0; overflow-wrap: anywhere; }
   .footer-contact a:hover { color: var(--color-cream); text-decoration: underline; text-decoration-color: var(--color-terracotta); }
 
   .footer-legal { padding-top: 2rem; }
-  .footer-legal p { margin: 0; font-size: 0.82rem; line-height: 1.6; color: color-mix(in srgb, var(--color-cream) 60%, transparent); max-width: 60rem; }
+  .footer-legal p { margin: 0; font-size: 0.82rem; line-height: 1.6; color: color-mix(in srgb, var(--color-cream) 58%, transparent); max-width: 60rem; }
   .footer-copy { margin-top: 1rem !important; }
 
-  @media (min-width: 780px) {
-    .footer-grid { grid-template-columns: 1.4fr 1fr; align-items: start; }
-  }
+  @media (min-width: 780px) { .footer-grid { grid-template-columns: 1.4fr 1fr; align-items: start; } }
 </style>

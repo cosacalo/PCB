@@ -2,19 +2,19 @@
 import { Image } from 'astro:assets';
 import portrait from '../assets/liz-portrait.png';
 
-// MODULAR provider section. Today it holds one provider; as the practice grows,
-// add more entries to `providers` and the layout becomes a card grid with no
-// redesign. The (deferred) living-portrait video lives on each provider's photo.
+// Modular: add entries to `providers` and the layout becomes a grid, no
+// rebrand needed. The (deferred) living-portrait video lives on the figure.
 const providers = [
   {
     name: 'Elizabeth Hanke',
     credentials: 'APRN, FNP-BC',
     photo: portrait,
-    tags: ['Autonomous Florida APRN', 'Women’s health focus', 'Functional medicine'],
+    meta: ['Autonomous Florida APRN', 'Women’s health', 'Functional medicine'],
     bio: [
-      'Liz is an autonomous Florida nurse practitioner who founded Primary Care and Beyond to practice medicine the way it should feel: unhurried, personal, and honest about cost.',
-      'She spent years inside the rushed, insurance-driven system and watched patients, women especially, get brushed off, told it was just stress or just their age, and handed a prescription instead of an answer. She built this practice so that would not be the experience here.',
+      'Liz is an autonomous Florida nurse practitioner and the founder of Primary Care and Beyond. She created the practice to offer care that feels personal, thoughtful, and honest about cost.',
+      'After years in the insurance-driven system, she saw how often patients, especially women, felt rushed or dismissed when their symptoms did not fit a simple answer. Primary Care and Beyond was built for people who want time, context, and a provider who keeps looking with them.',
     ],
+    quote: 'The same provider, with time to understand the full picture.',
   },
 ];
 
@@ -23,47 +23,40 @@ const single = providers.length === 1;
 
 <section id="about" class="section about">
   <div class="wrap">
-    <div class="about-head" data-reveal>
-      <p class="eyebrow about-eyebrow">Your provider</p>
-      <h2 class="display-l">{single ? 'Meet your provider.' : 'Meet your care team.'}</h2>
-      <p class="about-lead prose-measure">
-        Direct care means one provider who actually knows you, and stays with you. Here is
-        who you will be working with.
+    <header class="about-head" data-reveal>
+      <h2 class="display-l about-title">{single ? 'Meet your provider.' : 'Meet your care team.'}</h2>
+      <p class="lead prose about-lead">
+        Direct care means you work with one provider who knows your history, your goals, and
+        what has already been tried.
       </p>
-    </div>
+    </header>
 
     <ul class={`providers ${single ? 'is-single' : ''}`}>
       {
         providers.map((p) => (
-          <li class="provider-card" data-reveal>
-            <div class="provider-photo">
+          <li class="provider" data-reveal>
+            <figure class="provider-figure">
               <Image
                 src={p.photo}
                 alt={`${p.name}, ${p.credentials}`}
                 widths={[360, 560, 720]}
-                sizes="(min-width: 880px) 22rem, 80vw"
+                sizes="(min-width: 880px) 23rem, 80vw"
                 class="provider-media"
               />
-              {/* Living-portrait video (enable later, per provider):
-              <video class="provider-media" autoplay loop muted playsinline preload="metadata"
-                poster="/media/liz-living-poster.jpg" aria-label={`${p.name}, ${p.credentials}`} data-living>
-                <source src="/media/liz-living.webm" type="video/webm" />
-                <source src="/media/liz-living.mp4" type="video/mp4" />
-              </video> */}
-            </div>
-
+            </figure>
             <div class="provider-body">
-              <h3 class="provider-name">
-                {p.name}<span class="provider-cred">{p.credentials}</span>
-              </h3>
-              <ul class="provider-tags">
-                {p.tags.map((t) => <li>{t}</li>)}
-              </ul>
-              {p.bio.map((para) => <p class="provider-para">{para}</p>)}
-              <p class="provider-promise">
-                The same provider, every visit, with the time to look for the root cause,
-                not just write a script.
+              <p class="label provider-cred">{p.credentials}</p>
+              <h3 class="provider-name display-m">{p.name}</h3>
+              <p class="provider-meta">
+                {p.meta.map((t, i) => (
+                  <>
+                    {i > 0 && <span class="provider-dot" aria-hidden="true">/</span>}
+                    <span>{t}</span>
+                  </>
+                ))}
               </p>
+              {p.bio.map((para) => <p class="provider-para">{para}</p>)}
+              <p class="provider-quote">{p.quote}</p>
             </div>
           </li>
         ))
@@ -74,91 +67,56 @@ const single = providers.length === 1;
 
 <style>
   .about { background: var(--color-cream-soft); }
-  .about-eyebrow { color: var(--color-sage-deep); margin-bottom: 1rem; }
-  .about-lead { margin-top: 1.3rem; font-size: 1.15rem; color: var(--color-pine-ink); }
+  .about-head { max-width: 44rem; }
+  .about-lead { margin-top: 1.3rem; }
 
-  .providers {
-    list-style: none;
-    margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  /* Multiple providers -> responsive card grid (no redesign needed) */
-  .providers:not(.is-single) {
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-  }
+  .providers { list-style: none; margin: clamp(2.75rem, 6vw, 4.5rem) 0 0; padding: 0; display: grid; gap: 2.5rem; }
+  .providers:not(.is-single) { grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); }
 
-  .provider-card {
-    background: var(--color-cream);
-    border: 1px solid color-mix(in srgb, var(--color-tan) 50%, transparent);
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: var(--shadow-card);
-    display: grid;
-    grid-template-columns: 1fr;
-  }
-  /* Single provider: portrait beside the bio, editorial and prominent */
-  .is-single .provider-card { grid-template-columns: 1fr; }
+  .provider { display: grid; grid-template-columns: 1fr; gap: clamp(1.75rem, 4vw, 3rem); align-items: start; }
 
-  .provider-photo {
-    position: relative;
-    background:
-      radial-gradient(120% 100% at 50% 0%, var(--color-cream) 0%, var(--color-sage-wash) 100%);
-    aspect-ratio: 4 / 5;
-    overflow: hidden;
-  }
-  .provider-media { width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; display: block; }
-
-  .provider-body { padding: clamp(1.75rem, 3vw, 2.5rem); }
-  .provider-name {
+  .provider-figure {
     margin: 0;
-    font-size: clamp(1.7rem, 2.6vw, 2.25rem);
-    display: flex;
-    flex-direction: column;
+    border: 1px solid var(--hair);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-frame);
+    overflow: hidden;
+    background: radial-gradient(120% 100% at 50% 0%, var(--color-cream) 0%, var(--color-sage-wash) 100%);
+    aspect-ratio: 4 / 5;
+    max-width: 23rem;
   }
-  .provider-cred {
-    font-family: var(--font-body);
-    font-weight: 600;
-    font-size: 0.8rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-terracotta-deep);
-    margin-top: 0.4rem;
-  }
-  .provider-tags {
-    list-style: none;
-    margin: 1rem 0 1.4rem;
-    padding: 0;
+  .provider-media { width: 100%; height: 100%; object-fit: cover; object-position: 50% 16%; display: block; }
+
+  .provider-cred { color: var(--color-terracotta-deep); margin: 0; }
+  .provider-name { margin: 0.5rem 0 0; }
+  .provider-meta {
+    margin: 0.8rem 0 1.5rem;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-  .provider-tags li {
-    font-size: 0.82rem;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-body);
     font-weight: 600;
-    color: var(--color-pine);
-    background: var(--color-sage-wash);
-    border-radius: 999px;
-    padding: 0.34rem 0.8rem;
+    font-size: var(--text-sm);
+    color: var(--color-sage-deep);
   }
-  .provider-para { margin: 0 0 1rem; color: var(--color-pine-ink); }
-  .provider-promise {
-    margin: 1.25rem 0 0;
-    padding-left: 1rem;
+  .provider-dot { color: var(--color-terracotta); }
+  .provider-para { margin: 0 0 1rem; color: var(--color-pine-ink); max-width: 40rem; }
+  .provider-quote {
+    margin: 1.4rem 0 0;
+    padding-left: 1.1rem;
     border-left: 2px solid var(--color-terracotta);
     font-family: var(--font-display);
-    font-size: 1.2rem;
     font-style: italic;
+    font-weight: 500;
+    font-size: var(--display-s);
+    line-height: 1.3;
     color: var(--color-pine);
+    max-width: 30rem;
   }
 
   @media (min-width: 880px) {
-    .is-single .provider-card {
-      grid-template-columns: 0.85fr 1.15fr;
-      align-items: stretch;
-    }
-    .is-single .provider-photo { aspect-ratio: auto; height: 100%; min-height: 26rem; }
+    .is-single .provider { grid-template-columns: 23rem 1fr; gap: clamp(3rem, 6vw, 5rem); }
+    .is-single .provider-body { padding-top: 0.5rem; }
   }
 </style>
