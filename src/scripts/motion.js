@@ -43,6 +43,7 @@ ready(() => {
     const lines = hero.querySelectorAll('.reveal-lines .line > span');
     const rule = hero.querySelector('[data-hero-rule]');
     if (rule) gsap.set(rule, { scaleX: 0, opacity: 1, transformOrigin: 'left center' });
+    const logoPaths = hero.querySelectorAll('[data-hero-logo] svg path');
 
     const tl = gsap.timeline({ defaults: { ease: 'expo.out' }, delay: 0.1 });
     tl.fromTo(hero.querySelector('[data-hero-kicker]'), { y: 14 }, { y: 0, opacity: 1, duration: 0.7 })
@@ -50,6 +51,11 @@ ready(() => {
       .to(rule, { scaleX: 1, duration: 0.9, ease: 'power3.inOut' }, '-=0.55')
       .fromTo(hero.querySelector('[data-hero-sub]'), { y: 18 }, { y: 0, opacity: 1, duration: 0.8 }, '-=0.7')
       .fromTo(hero.querySelectorAll('[data-hero-cta] > *'), { y: 16 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.1 }, '-=0.55');
+
+    // The logo mark materializes color-layer by color-layer, building while the copy animates in.
+    if (logoPaths.length) {
+      tl.to(logoPaths, { opacity: 1, duration: 0.7, stagger: 0.12, ease: 'power2.out' }, 0.55);
+    }
   }
 
   /* Scroll reveals via IntersectionObserver. Robust against anchor jumps and
@@ -79,6 +85,20 @@ ready(() => {
       });
       btn.addEventListener('pointerleave', () => gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1,0.4)' }));
     });
+
+    // Logo mark tilts gently toward the cursor (faux-3D, eased).
+    const heroEl = document.querySelector('[data-hero]');
+    const tilt = heroEl && heroEl.querySelector('[data-hero-logo] .hero-logo-tilt');
+    if (heroEl && tilt) {
+      const ry = gsap.quickTo(tilt, 'rotationY', { duration: 0.6, ease: 'power3' });
+      const rx = gsap.quickTo(tilt, 'rotationX', { duration: 0.6, ease: 'power3' });
+      heroEl.addEventListener('pointermove', (e) => {
+        const r = heroEl.getBoundingClientRect();
+        ry(((e.clientX - r.left) / r.width - 0.5) * 16);
+        rx(-((e.clientY - r.top) / r.height - 0.5) * 12);
+      });
+      heroEl.addEventListener('pointerleave', () => { ry(0); rx(0); });
+    }
   }
 
   ScrollTrigger.refresh();

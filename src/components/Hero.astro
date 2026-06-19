@@ -1,33 +1,39 @@
 ---
 import { useT, type Lang } from '../i18n';
+import logoSvg from '../assets/logo-icon.svg?raw';
 interface Props { lang?: Lang }
 const { lang = 'en' } = Astro.props;
 const t = useT(lang).hero;
 ---
 
 <header id="top" class="hero" data-hero>
-  <div class="hero-bloom" aria-hidden="true"></div>
-
   <div class="wrap hero-inner">
-    <p class="label hero-kicker" data-hero-kicker>{t.kicker}</p>
+    <div class="hero-copy">
+      <p class="label hero-kicker" data-hero-kicker>{t.kicker}</p>
 
-    <h1 class="hero-title reveal-lines">
-      {t.headlineLines.map((line) => (
-        <span class="line"><span set:html={line} /></span>
-      ))}
-    </h1>
+      <h1 class="hero-title reveal-lines">
+        {t.headlineLines.map((line) => (
+          <span class="line"><span set:html={line} /></span>
+        ))}
+      </h1>
 
-    <span class="hero-rule rule-draw" data-hero-rule aria-hidden="true"></span>
+      <span class="hero-rule rule-draw" data-hero-rule aria-hidden="true"></span>
 
-    <p class="hero-sub" data-hero-sub>{t.sub}</p>
+      <p class="hero-sub" data-hero-sub>{t.sub}</p>
 
-    <div class="hero-actions" data-hero-cta>
-      <a href="tel:+19412506561" class="btn btn-primary" data-magnetic>
-        <span aria-hidden="true">&#9742;</span> {t.call}
-      </a>
-      <a href="mailto:Elizabeth@primarycareandbeyond.com" class="link">
-        {t.email} <span class="arr" aria-hidden="true">&rarr;</span>
-      </a>
+      <div class="hero-actions" data-hero-cta>
+        <a href="tel:+19412506561" class="btn btn-primary" data-magnetic>
+          <span aria-hidden="true">&#9742;</span> {t.call}
+        </a>
+        <a href="mailto:Elizabeth@primarycareandbeyond.com" class="link">
+          {t.email} <span class="arr" aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-figure" aria-hidden="true" data-hero-logo>
+      <span class="hero-logo-glow"></span>
+      <div class="hero-logo-tilt"><Fragment set:html={logoSvg} /></div>
     </div>
   </div>
 </header>
@@ -35,31 +41,14 @@ const t = useT(lang).hero;
 <style>
   .hero { position: relative; overflow: hidden; background: var(--color-cream); }
 
-  .hero-bloom {
-    position: absolute;
-    top: -30vh;
-    right: -16vw;
-    width: 68vw;
-    height: 68vw;
-    max-width: 58rem;
-    max-height: 58rem;
-    z-index: 0;
-    pointer-events: none;
-    background: radial-gradient(
-      circle at center,
-      color-mix(in srgb, var(--color-sage) 26%, transparent) 0%,
-      color-mix(in srgb, var(--color-sage-wash) 50%, transparent) 40%,
-      transparent 68%
-    );
-  }
-
   .hero-inner {
     position: relative;
     z-index: 2;
     min-height: min(90vh, 52rem);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: center;
+    gap: clamp(2rem, 5vw, 4rem);
     padding-top: clamp(3.5rem, 7vw, 6rem);
     padding-bottom: clamp(3.5rem, 7vw, 6rem);
   }
@@ -89,6 +78,55 @@ const t = useT(lang).hero;
   }
 
   .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.4rem; margin-top: clamp(1.9rem, 4vw, 2.5rem); }
+
+  /* The living logo mark (hidden on small screens; the hero is type-led there) */
+  .hero-figure { display: none; }
+
+  .hero-logo-glow {
+    position: absolute;
+    inset: -12%;
+    border-radius: 50%;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 50% 46%, color-mix(in srgb, var(--color-sage) 42%, transparent) 0%, transparent 62%),
+      radial-gradient(circle at 64% 30%, color-mix(in srgb, var(--color-terracotta) 22%, transparent) 0%, transparent 55%);
+    filter: blur(18px);
+  }
+
+  .hero-logo-tilt { position: relative; z-index: 1; will-change: transform; transform-style: preserve-3d; }
+  .hero-figure :global(.pcb-mark) {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 12px 28px color-mix(in srgb, var(--color-pine) 16%, transparent));
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-figure :global(.pcb-mark) { animation: pcb-breathe 7s var(--ease) infinite alternate; transform-origin: 50% 60%; }
+    .hero-logo-glow { animation: pcb-glow 8s ease-in-out infinite alternate; }
+  }
+  @keyframes pcb-breathe {
+    from { transform: translateY(0) scale(1); }
+    to { transform: translateY(-8px) scale(1.035); }
+  }
+  @keyframes pcb-glow {
+    from { opacity: 0.7; transform: scale(0.97); }
+    to { opacity: 1; transform: scale(1.06); }
+  }
+
+  @media (min-width: 980px) {
+    .hero-inner { grid-template-columns: 1.05fr 0.95fr; }
+    .hero-figure {
+      display: grid;
+      place-items: center;
+      position: relative;
+      justify-self: end;
+      width: 100%;
+      max-width: 26rem;
+      perspective: 900px;
+    }
+  }
 
   @media (max-width: 560px) {
     .hero-title { font-size: clamp(2.1rem, 8.5vw, 2.8rem); line-height: 1.03; max-width: 16ch; }
