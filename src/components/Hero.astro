@@ -7,6 +7,12 @@ const t = useT(lang).hero;
 ---
 
 <header id="top" class="hero" data-hero>
+  <div class="atmos" aria-hidden="true">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+    <span class="blob blob-3"></span>
+  </div>
+
   <div class="wrap hero-inner">
     <div class="hero-copy">
       <p class="label hero-kicker" data-hero-kicker>{t.kicker}</p>
@@ -36,8 +42,9 @@ const t = useT(lang).hero;
 <!--
   Brand intro: the logo assembles in open space (icon draws in, the name swoops
   in from the right), then the whole lockup flies up and shrinks to become the
-  nav logo while the hero content takes its place. The flying lockup is a visual
-  twin of the nav brand so the hand-off is seamless. Runs once on load; skipped
+  nav logo while the hero content takes its place. The lockup is built LARGE so
+  the on-screen entrance renders at native resolution (crisp); the closing
+  flight scales it DOWN onto the real nav logo. Runs once on load; skipped
   entirely for no-JS / reduced-motion (gated by `.anim-ready`).
 -->
 <div class="brand-intro" data-brand-intro aria-hidden="true">
@@ -52,6 +59,21 @@ const t = useT(lang).hero;
 
 <style>
   .hero { position: relative; overflow: hidden; background: var(--color-cream); }
+
+  /* Living atmosphere: the soft green-hint wash from the prior hero. */
+  .atmos { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+  .blob { position: absolute; border-radius: 999px; filter: blur(70px); opacity: 0.55; }
+  .blob-1 { width: 46vw; height: 46vw; right: -8vw; top: -10vw; background: var(--color-sage-wash); }
+  .blob-2 { width: 32vw; height: 32vw; right: 18vw; top: 24vw; background: color-mix(in srgb, var(--color-terracotta) 22%, transparent); opacity: 0.35; }
+  .blob-3 { width: 38vw; height: 38vw; left: -12vw; bottom: -14vw; background: color-mix(in srgb, var(--color-sage) 28%, transparent); }
+  @media (prefers-reduced-motion: no-preference) {
+    .blob-1 { animation: drift1 22s ease-in-out infinite alternate; }
+    .blob-2 { animation: drift2 28s ease-in-out infinite alternate; }
+    .blob-3 { animation: drift3 26s ease-in-out infinite alternate; }
+  }
+  @keyframes drift1 { to { transform: translate3d(-4vw, 4vw, 0) scale(1.08); } }
+  @keyframes drift2 { to { transform: translate3d(3vw, -3vw, 0) scale(1.12); } }
+  @keyframes drift3 { to { transform: translate3d(5vw, -3vw, 0) scale(1.06); } }
 
   .hero-inner {
     position: relative;
@@ -97,14 +119,11 @@ const t = useT(lang).hero;
   }
 
   /* --------------------------------------------------------------------------
-     Brand intro overlay. The lockup is built at the nav's intrinsic size and
-     scaled up for the entrance, so the closing flight lands at scale 1 exactly
-     on the real nav logo. Hidden unless `.anim-ready` (JS + motion allowed).
+     Brand intro overlay. Built LARGE (native resolution = crisp), then scaled
+     DOWN onto the real nav logo by the timeline. The `.anim-ready` entrance /
+     hand-off states live in global.css (scoped styles can't target the
+     `.anim-ready` class on <html>).
   -------------------------------------------------------------------------- */
-  /* NOTE: the `.anim-ready` entrance/hidden states for the intro and nav logo
-     live in global.css. They must be global because `.anim-ready` sits on
-     <html>, and Astro's scoped styles would rewrite it to a cid that <html>
-     never carries, so a scoped rule would silently never apply. */
   .brand-intro {
     position: fixed;
     inset: 0;
@@ -117,21 +136,24 @@ const t = useT(lang).hero;
   .brand-intro-lockup {
     display: inline-flex;
     align-items: center;
-    gap: 0.65rem;
+    gap: clamp(0.7rem, 1.8vw, 1.15rem);
     transform-origin: 50% 50%;
     will-change: transform;
-    backface-visibility: hidden;
   }
 
   .brand-intro-icon { display: inline-flex; }
-  .brand-intro-icon :global(.pcb-mark) { display: block; height: 2.7rem; width: auto; overflow: visible; }
+  .brand-intro-icon :global(.pcb-mark) {
+    display: block;
+    height: clamp(4.5rem, 9vw, 7.5rem);
+    width: auto;
+    overflow: visible;
+  }
 
   .brand-intro-word { display: flex; flex-direction: column; line-height: 0.94; }
-  .brand-intro-name { font-family: var(--font-display); font-weight: 600; font-size: 1.4rem; color: var(--color-pine); }
-  .brand-intro-sub { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 1rem; color: var(--color-terracotta-deep); }
+  .brand-intro-name { font-family: var(--font-display); font-weight: 600; font-size: clamp(2rem, 4.4vw, 3.4rem); color: var(--color-pine); }
+  .brand-intro-sub { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: clamp(1.35rem, 3vw, 2.2rem); color: var(--color-terracotta-deep); }
 
   @media (max-width: 420px) {
     .brand-intro-sub { display: none; }
-    .brand-intro-name { font-size: 1.25rem; }
   }
 </style>

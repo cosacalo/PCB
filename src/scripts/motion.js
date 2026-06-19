@@ -70,16 +70,18 @@ ready(() => {
       const iconPaths = intro.querySelectorAll('[data-intro-icon] svg path');
       const word = intro.querySelector('[data-intro-word]');
 
-      // Measure source (lockup at natural size) and target (nav logo) centers.
+      // Measure source (lockup at its large native size) and target (nav logo).
+      // The lockup is built large so the on-screen entrance is crisp; the flight
+      // scales it DOWN onto the nav, which keeps it sharp the whole way.
       gsap.set(lockup, { scale: 1, x: 0, y: 0 });
       const L = lockup.getBoundingClientRect();
       const N = navBrand.getBoundingClientRect();
+      const landScale = N.width / L.width;
       const dx = (N.left + N.width / 2) - (L.left + L.width / 2);
       const dy = (N.top + N.height / 2) - (L.top + L.height / 2);
 
-      // Entrance state: large + centered, icon as a wireframe, name held right.
-      gsap.set(lockup, { scale: 2.6, x: 0, y: 0 });
-      gsap.set(word, { opacity: 0, x: 42 });
+      // Entrance state: centered at native size, icon as a wireframe, name held right.
+      gsap.set(word, { opacity: 0, x: 90 });
       iconPaths.forEach((p) => {
         const len = p.getTotalLength ? p.getTotalLength() : 0;
         p.style.stroke = p.getAttribute('fill');
@@ -98,7 +100,7 @@ ready(() => {
         .to(word, { opacity: 1, x: 0, duration: 0.7, ease: 'expo.out' }, '-=0.15')
         // 3. Beat, then the lockup flies up and shrinks onto the nav logo.
         .to({}, { duration: 0.35 })
-        .to(lockup, { x: dx, y: dy, scale: 1, duration: 1, ease: 'power3.inOut' })
+        .to(lockup, { x: dx, y: dy, scale: landScale, duration: 1, ease: 'power3.inOut' })
         // 4. Hand off to the real nav logo, dissolve the intro, reveal the page.
         .add(() => gsap.set(navBrand, { opacity: 1 }))
         .to(intro, { autoAlpha: 0, duration: 0.25, ease: 'power1.out' }, '-=0.02')
