@@ -83,6 +83,10 @@ const fontCss = `
     <!-- Gate initial hidden states so no-JS / reduced-motion never see a blank page -->
     <script is:inline>
       try {
+        // Reloads start at the top (not the restored scroll position) so the
+        // brand intro replays on reload. Deep links to #sections still jump and
+        // correctly skip the intro (it only runs at scrollY < 4 with no hash).
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
         if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
           document.documentElement.classList.add('anim-ready');
         }
