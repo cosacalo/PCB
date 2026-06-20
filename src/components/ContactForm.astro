@@ -1,0 +1,149 @@
+---
+import { useT, type Lang } from '../i18n';
+interface Props { lang?: Lang }
+const { lang = 'en' } = Astro.props;
+const f = useT(lang).contact.form;
+
+// ============================================================================
+// Formspree endpoint. Create a free form at https://formspree.io, then paste its
+// endpoint here (looks like https://formspree.io/f/abcdwxyz). Until this is set,
+// the form validates and shows the "please call or email" fallback instead of
+// sending. DO NOT enable/push to production until this is a real endpoint.
+// (Basin works the same way: swap in its POST URL.)
+//
+// PRIVACY: this is a CONTACT-ONLY form. Name + phone/email + general interest.
+// There is deliberately NO symptom/medical free-text field, because Formspree
+// is not a BAA-covered service. Keep it that way.
+// ============================================================================
+const ENDPOINT = 'https://formspree.io/f/REPLACE_WITH_FORM_ID';
+---
+
+<form id="callback-form" class="cform" action={ENDPOINT} method="POST" data-endpoint={ENDPOINT} novalidate>
+  <p class="cform-title">{f.title}</p>
+  <p class="cform-intro">{f.intro}</p>
+
+  <div class="cform-field">
+    <label for="cf-name">{f.name}</label>
+    <input id="cf-name" name="name" type="text" autocomplete="name" required />
+  </div>
+
+  <div class="cform-row">
+    <div class="cform-field">
+      <label for="cf-phone">{f.phone}</label>
+      <input id="cf-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" />
+    </div>
+    <div class="cform-field">
+      <label for="cf-email">{f.email}</label>
+      <input id="cf-email" name="email" type="email" autocomplete="email" />
+    </div>
+  </div>
+  <p class="cform-note">{f.contactNote}</p>
+
+  <div class="cform-field">
+    <label for="cf-interest">{f.interest}</label>
+    <select id="cf-interest" name="interest">
+      {f.interestOptions.map((o) => <option value={o}>{o}</option>)}
+    </select>
+  </div>
+
+  <div class="cform-field">
+    <label for="cf-time">{f.time}</label>
+    <input id="cf-time" name="best_time" type="text" placeholder={f.timePlaceholder} />
+  </div>
+
+  <!-- Honeypot: bots fill this, humans never see it. Formspree drops matches. -->
+  <input type="text" name="_gotcha" class="cform-gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
+  <input type="hidden" name="_subject" value="Callback request from primarycareandbeyond.com" />
+
+  <button type="submit" class="btn btn-primary cform-submit" data-default={f.submit} data-sending={f.sending}>{f.submit}</button>
+
+  <p class="cform-status" role="status" aria-live="polite" data-success={f.success} data-error={f.error} data-need={f.needContact}></p>
+</form>
+
+<style>
+  .cform { margin: 2.8rem auto 0; max-width: 32rem; text-align: left; }
+  .cform-title { font-family: var(--font-display); font-weight: 600; font-size: 1.6rem; color: var(--color-cream); margin: 0 0 0.4rem; }
+  .cform-intro { font-size: 0.95rem; line-height: 1.55; color: color-mix(in srgb, var(--color-cream) 78%, transparent); margin: 0 0 1.5rem; }
+
+  .cform-field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
+  .cform-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .cform label { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.02em; color: color-mix(in srgb, var(--color-cream) 88%, transparent); }
+
+  .cform input, .cform select {
+    width: 100%;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-pine-deep);
+    background: var(--color-cream);
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    padding: 0.7rem 0.8rem;
+    min-height: 2.9rem;
+  }
+  .cform input::placeholder { color: color-mix(in srgb, var(--color-pine-deep) 42%, transparent); }
+  .cform input:focus-visible, .cform select:focus-visible { outline: 2px solid var(--color-terracotta); outline-offset: 2px; }
+
+  .cform-note { font-size: 0.82rem; color: color-mix(in srgb, var(--color-cream) 62%, transparent); margin: -0.35rem 0 1.3rem; }
+  .cform-gotcha { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .cform-submit { width: 100%; justify-content: center; margin-top: 0.4rem; min-height: 3rem; }
+
+  .cform-status { margin: 0.9rem 0 0; font-size: 0.95rem; line-height: 1.4; min-height: 1.2em; text-align: center; }
+  .cform-status[data-kind='success'] { color: var(--color-sage-light); }
+  .cform-status[data-kind='error'] { color: #f0b8a6; }
+
+  @media (max-width: 480px) { .cform-row { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  const form = document.getElementById('callback-form');
+  if (form instanceof HTMLFormElement) {
+    const status = form.querySelector('.cform-status');
+    const btn = form.querySelector('.cform-submit');
+    const name = form.querySelector('#cf-name');
+    const phone = form.querySelector('#cf-phone');
+    const email = form.querySelector('#cf-email');
+    const endpoint = form.dataset.endpoint || '';
+
+    const setStatus = (msg, kind) => {
+      status.textContent = msg || '';
+      if (kind) status.setAttribute('data-kind', kind);
+      else status.removeAttribute('data-kind');
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      setStatus('', '');
+
+      if (!name.value.trim()) { name.focus(); return; }
+      if (!phone.value.trim() && !email.value.trim()) {
+        setStatus(status.dataset.need, 'error');
+        phone.focus();
+        return;
+      }
+      // Endpoint not configured yet: fail gracefully toward call/email.
+      if (!endpoint || endpoint.includes('REPLACE_WITH')) {
+        setStatus(status.dataset.error, 'error');
+        console.warn('[callback-form] Formspree endpoint is not configured.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = btn.dataset.sending;
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (!res.ok) throw new Error('bad status ' + res.status);
+        form.reset();
+        setStatus(status.dataset.success, 'success');
+      } catch (err) {
+        setStatus(status.dataset.error, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = btn.dataset.default;
+      }
+    });
+  }
+</script>

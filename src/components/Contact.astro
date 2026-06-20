@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import iconCream from '../assets/logo-icon-cream.png';
+import ContactForm from './ContactForm.astro';
 import { useT, type Lang } from '../i18n';
 interface Props { lang?: Lang }
 const { lang = 'en' } = Astro.props;
@@ -20,6 +21,8 @@ const t = useT(lang).contact;
         {t.email}
       </a>
     </div>
+
+    <ContactForm lang={lang} />
   </div>
 </section>
 
