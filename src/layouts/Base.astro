@@ -14,30 +14,104 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const ogImage = new URL(`${base}/og-image.png`, Astro.site);
 
-// MedicalBusiness structured data. Telehealth statewide today, so areaServed is
-// the State of Florida with no street address; add per-location LocalBusiness
-// once the Sarasota / Lakewood Ranch offices physically open.
-const businessLd = {
-  '@context': 'https://schema.org',
+// Structured-data graph: the practice (MedicalBusiness), the provider (Person),
+// and the website, cross-linked by @id so engines resolve one entity. Telehealth
+// statewide today, so areaServed is the State of Florida with no street address;
+// add per-location LocalBusiness once the Sarasota / Lakewood Ranch offices open.
+// `sameAs` (NPI registry, Google Business Profile, LinkedIn) to be added once
+// those public profiles exist; they materially help AI engines corroborate us.
+const siteOrigin = Astro.site ? Astro.site.origin : 'https://www.primarycareandbeyond.com';
+const logoUrl = new URL(`${base}/favicon-512.png`, Astro.site).href;
+const orgId = `${siteOrigin}/#practice`;
+const providerId = `${siteOrigin}/#provider`;
+
+const practiceLd = {
   '@type': 'MedicalBusiness',
+  '@id': orgId,
   name: 'Primary Care and Beyond',
+  alternateName: 'Primary Care and Beyond LLC',
   description,
-  url: canonical.href,
+  url: `${siteOrigin}/`,
   telephone: '+1-941-250-6561',
   email: 'Elizabeth@primarycareandbeyond.com',
   image: ogImage.href,
-  logo: new URL(`${base}/favicon-512.png`, Astro.site).href,
+  logo: logoUrl,
   priceRange: '$$',
+  slogan: 'Your health, beyond the basics.',
   knowsLanguage: ['en', 'es'],
+  availableLanguage: ['English', 'Spanish'],
   areaServed: { '@type': 'State', name: 'Florida' },
-  medicalSpecialty: 'PrimaryCare',
-  founder: {
-    '@type': 'Person',
-    name: 'Elizabeth Hanke',
-    honorificSuffix: 'APRN, FNP-BC',
-    jobTitle: 'Nurse Practitioner',
+  medicalSpecialty: ['PrimaryCare'],
+  founder: { '@id': providerId },
+  employee: { '@id': providerId },
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: '+1-941-250-6561',
+    email: 'Elizabeth@primarycareandbeyond.com',
+    contactType: 'customer service',
+    areaServed: 'US-FL',
+    availableLanguage: ['English', 'Spanish'],
   },
+  makesOffer: [
+    {
+      '@type': 'Offer',
+      name: 'Primary care membership',
+      category: 'Telehealth direct primary care',
+      priceCurrency: 'USD',
+      price: '150',
+      description:
+        "Monthly telehealth primary care membership for adults in Florida. Includes preventive care, chronic condition support, women's health, non-controlled prescriptions and refills, lab orders when indicated, medical weight care, and GLP-1 medication management when appropriate.",
+    },
+    {
+      '@type': 'Offer',
+      name: 'Functional medicine consultation',
+      category: 'Functional medicine',
+      priceCurrency: 'USD',
+      price: '375',
+      description:
+        'Root-cause functional medicine, available without a membership. Initial consultation 90 minutes; follow-ups and lab review billed per visit and quoted before care.',
+    },
+    {
+      '@type': 'Offer',
+      name: 'Standalone weight care',
+      category: 'Medical weight care',
+      description:
+        'Medical weight care available as a standalone service, with a written estimate before care begins.',
+    },
+  ],
 };
+
+const providerLd = {
+  '@type': 'Person',
+  '@id': providerId,
+  name: 'Elizabeth Hanke',
+  honorificSuffix: 'APRN, FNP-BC',
+  jobTitle: 'Autonomous Nurse Practitioner',
+  worksFor: { '@id': orgId },
+  knowsLanguage: ['en', 'es'],
+  knowsAbout: [
+    'Primary care',
+    'Functional medicine',
+    'Medical weight care',
+    "Women's health",
+    'Chronic disease management',
+  ],
+  hasCredential: [
+    { '@type': 'EducationalOccupationalCredential', credentialCategory: 'Advanced Practice Registered Nurse (APRN)' },
+    { '@type': 'EducationalOccupationalCredential', credentialCategory: 'Board-certified Family Nurse Practitioner (FNP-BC)' },
+  ],
+};
+
+const websiteLd = {
+  '@type': 'WebSite',
+  '@id': `${siteOrigin}/#website`,
+  name: 'Primary Care and Beyond',
+  url: `${siteOrigin}/`,
+  inLanguage: lang === 'es' ? 'es' : 'en',
+  publisher: { '@id': orgId },
+};
+
+const graphLd = { '@context': 'https://schema.org', '@graph': [practiceLd, providerLd, websiteLd] };
 const skip = lang === 'es' ? 'Saltar al contenido' : 'Skip to content';
 const fontCss = `
 @font-face{font-family:'Cormorant Garamond';src:url('${base}/fonts/CormorantGaramond.woff2') format('woff2');font-weight:300 700;font-style:normal;font-display:swap}
@@ -53,6 +127,9 @@ const fontCss = `
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="author" content="Elizabeth Hanke, APRN, FNP-BC" />
+    <meta name="theme-color" content="#33402a" />
     <link rel="canonical" href={canonical} />
 
     {locales.map((loc) => (
@@ -65,14 +142,21 @@ const fontCss = `
     <link rel="apple-touch-icon" href={`${base}/favicon-180.png`} />
 
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Primary Care and Beyond" />
     <meta property="og:locale" content={lang === 'es' ? 'es_US' : 'en_US'} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Primary Care and Beyond: telehealth primary care, functional medicine, and weight care in Florida." />
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
 
-    <script type="application/ld+json" is:inline set:html={JSON.stringify(businessLd)} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(graphLd)} />
 
     <Fragment set:html={`<style>${fontCss}</style>`} />
 

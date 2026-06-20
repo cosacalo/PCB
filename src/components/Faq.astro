@@ -3,7 +3,20 @@ import { useT, type Lang } from '../i18n';
 interface Props { lang?: Lang }
 const { lang = 'en' } = Astro.props;
 const t = useT(lang).faq;
+
+// FAQPage structured data so search and AI answer engines can extract the Q&As.
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: t.items.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
 ---
+
+<script type="application/ld+json" is:inline set:html={JSON.stringify(faqLd)} />
 
 <section id="faq" class="section faq">
   <div class="wrap faq-grid">
