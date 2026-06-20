@@ -81,6 +81,11 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Clear the fixed mobile Call bar so it never covers the footer. */
+@media (max-width: 899px) {
+  body { padding-bottom: calc(4.75rem + env(safe-area-inset-bottom)); }
+}
+
 h1, h2, h3, h4 {
   font-family: var(--font-display);
   font-weight: 500;

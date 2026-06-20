@@ -1,0 +1,35 @@
+---
+// Persistent Call action for mobile, where the bar-level CTA is hidden to make
+// room for the language toggle. Fixed to the bottom, mobile-only (<900px), so
+// the primary conversion is always reachable without scrolling. Desktop keeps
+// the Call CTA in the nav bar, so this is hidden there.
+import { useT, type Lang } from '../i18n';
+interface Props { lang?: Lang }
+const { lang = 'en' } = Astro.props;
+const t = useT(lang).hero;
+---
+
+<div class="callbar">
+  <a href="tel:+19412506561" class="btn btn-primary callbar-btn" data-magnetic>
+    <span aria-hidden="true">&#9742;</span> {t.call}
+  </a>
+</div>
+
+<style>
+  .callbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    display: none;
+    padding: 0.6rem clamp(1rem, 4vw, 1.5rem);
+    padding-bottom: calc(0.6rem + env(safe-area-inset-bottom));
+    background: color-mix(in srgb, var(--color-cream) 92%, transparent);
+    backdrop-filter: saturate(1.05) blur(12px);
+    border-top: 1px solid var(--hair);
+  }
+  .callbar-btn { width: 100%; justify-content: center; min-height: 3rem; font-size: 1rem; }
+
+  @media (max-width: 899px) { .callbar { display: block; } }
+</style>

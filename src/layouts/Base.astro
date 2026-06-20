@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { useT, routes, locales, type Lang } from '../i18n';
+import MobileCallBar from '../components/MobileCallBar.astro';
 
 interface Props { lang?: Lang }
 const { lang = 'en' } = Astro.props;
@@ -12,6 +13,31 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 // Normalize base so paths work whether BASE_URL is '/PCB', '/PCB/', or '/'.
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const ogImage = new URL(`${base}/og-image.png`, Astro.site);
+
+// MedicalBusiness structured data. Telehealth statewide today, so areaServed is
+// the State of Florida with no street address; add per-location LocalBusiness
+// once the Sarasota / Lakewood Ranch offices physically open.
+const businessLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MedicalBusiness',
+  name: 'Primary Care and Beyond',
+  description,
+  url: canonical.href,
+  telephone: '+1-941-250-6561',
+  email: 'Elizabeth@primarycareandbeyond.com',
+  image: ogImage.href,
+  logo: new URL(`${base}/favicon-512.png`, Astro.site).href,
+  priceRange: '$$',
+  knowsLanguage: ['en', 'es'],
+  areaServed: { '@type': 'State', name: 'Florida' },
+  medicalSpecialty: 'PrimaryCare',
+  founder: {
+    '@type': 'Person',
+    name: 'Elizabeth Hanke',
+    honorificSuffix: 'APRN, FNP-BC',
+    jobTitle: 'Nurse Practitioner',
+  },
+};
 const skip = lang === 'es' ? 'Saltar al contenido' : 'Skip to content';
 const fontCss = `
 @font-face{font-family:'Cormorant Garamond';src:url('${base}/fonts/CormorantGaramond.woff2') format('woff2');font-weight:300 700;font-style:normal;font-display:swap}
@@ -46,6 +72,8 @@ const fontCss = `
     <meta property="og:url" content={canonical} />
     <meta name="twitter:card" content="summary_large_image" />
 
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(businessLd)} />
+
     <Fragment set:html={`<style>${fontCss}</style>`} />
 
     <link rel="preload" href={`${base}/fonts/CormorantGaramond.woff2`} as="font" type="font/woff2" crossorigin />
@@ -68,6 +96,7 @@ const fontCss = `
       >{skip}</a
     >
     <slot />
+    <MobileCallBar lang={lang} />
     <div class="grain" aria-hidden="true"></div>
 
     <script src="../scripts/motion.js"></script>
