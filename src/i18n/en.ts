@@ -132,7 +132,7 @@ export const en = {
     weightTitle: 'Standalone weight care',
     weightIntro: 'Weight care is included for primary care members when appropriate. It is also available as a standalone service for patients who do not need a primary care membership.',
     weightNote: 'Standalone weight care pricing depends on the care plan, medication needs, labs, and follow-up schedule. You will receive a written estimate before care begins.',
-    promiseHtml: '<strong>No surprise billing.</strong> You will know the cost before care begins.',
+    promiseHtml: '<strong>You always know the price before care begins.</strong> No surprise bills, and a written estimate before any functional medicine or standalone weight care.',
   },
   about: {
     heading: 'Meet your provider.',

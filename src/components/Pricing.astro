@@ -116,10 +116,15 @@ const t = useT(lang).pricing;
 
   .promise {
     margin: clamp(2rem, 4vw, 3rem) 0 0;
-    padding-left: 1.1rem;
-    border-left: 2px solid var(--color-terracotta);
-    font-size: var(--text-base);
+    padding: clamp(1.1rem, 2.5vw, 1.5rem) clamp(1.25rem, 3vw, 1.75rem);
+    border: 1px solid color-mix(in srgb, var(--color-terracotta) 30%, var(--hair));
+    border-left: 3px solid var(--color-terracotta);
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--color-terracotta) 6%, var(--color-cream));
+    font-size: var(--text-lead);
+    line-height: 1.5;
     color: var(--color-pine-ink);
+    max-width: 46rem;
   }
   .promise :global(strong) { color: var(--color-pine); font-weight: 700; }
 

@@ -131,7 +131,7 @@ export const es = {
     weightTitle: 'Cuidado del peso independiente',
     weightIntro: 'El cuidado del peso está incluido para los miembros de atención primaria cuando es apropiado. También está disponible como servicio independiente para quienes no necesitan una membresía.',
     weightNote: 'El precio del cuidado del peso independiente depende del plan de atención, las necesidades de medicamentos, los laboratorios y el calendario de seguimiento. Recibirás un presupuesto por escrito antes de comenzar la atención.',
-    promiseHtml: '<strong>Sin facturas sorpresa.</strong> Sabrás el costo antes de comenzar la atención.',
+    promiseHtml: '<strong>Siempre sabes el precio antes de comenzar la atención.</strong> Sin facturas sorpresa, y un estimado por escrito antes de cualquier servicio de medicina funcional o cuidado del peso independiente.',
   },
   about: {
     heading: 'Conoce a tu proveedora.',
