@@ -90,33 +90,26 @@ const popLabel = lang === 'es' ? 'Qué significa' : 'What this means';
   }
   .path-tags li { display: flex; }
 
-  /* Tags are buttons: tap one to reveal a short definition. The dotted underline
-     signals there is more to read. */
+  /* The tag pills are now buttons, but they must look EXACTLY like the original
+     static pills: same font, padding, and size. Only the behaviour is new
+     (tap to reveal a definition). No underline, no border, no extra height. */
   .tag {
     font-family: var(--font-body);
     font-size: 0.78rem;
     font-weight: 600;
+    line-height: 1.7;
     color: var(--color-pine);
     background: var(--color-sage-wash);
-    border: 1px solid transparent;
+    border: 0;
     border-radius: 999px;
-    padding: 0.42rem 0.8rem;
-    min-height: 2.1rem;
-    display: inline-flex;
-    align-items: center;
+    padding: 0.3rem 0.7rem;
+    margin: 0;
     cursor: pointer;
-    text-decoration: underline dotted color-mix(in srgb, var(--color-pine) 32%, transparent);
-    text-underline-offset: 3px;
-    transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+    transition: background-color var(--dur) var(--ease);
   }
-  .tag:hover { background: color-mix(in srgb, var(--color-sage-wash) 65%, var(--color-sage)); }
+  .tag:hover { background: color-mix(in srgb, var(--color-sage-wash) 78%, var(--color-sage)); }
   .tag:focus-visible { outline: 2px solid var(--color-terracotta); outline-offset: 2px; }
-  .tag[aria-expanded='true'] {
-    background: var(--color-sage-light);
-    color: var(--color-pine-deep);
-    border-color: color-mix(in srgb, var(--color-sage-deep) 40%, transparent);
-    text-decoration-color: transparent;
-  }
+  .tag[aria-expanded='true'] { background: color-mix(in srgb, var(--color-sage-wash) 70%, var(--color-sage)); }
 
   /* Shared definition popover. Fixed so it escapes card overflow and clamps to
      the viewport on mobile. */
