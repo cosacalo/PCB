@@ -64,7 +64,7 @@ export const es = {
       {
         label: 'Servicio independiente',
         title: 'Medicina funcional',
-        body: 'Una mirada más a fondo a los síntomas que no se han explicado o no han mejorado. Puede incluir temas hormonales, síntomas de tiroides, salud digestiva, condiciones autoinmunes, fatiga crónica y una revisión detallada de laboratorios.',
+        body: 'Una mirada más a fondo a los síntomas que no se han explicado o no han mejorado. Puede incluir síntomas de tiroides, salud digestiva, condiciones autoinmunes, fatiga crónica y una revisión detallada de laboratorios.',
         note: 'Disponible sin membresía de atención primaria. Se cotiza antes de comenzar la atención.',
         tags: [
           { label: 'Tiroides', def: 'Una mirada más cercana a los síntomas de tiroides y a los labs cuando la energía, el peso o el ánimo no están bien.' },

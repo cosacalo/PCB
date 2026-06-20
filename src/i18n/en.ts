@@ -65,7 +65,7 @@ export const en = {
       {
         label: 'Separate service',
         title: 'Functional medicine',
-        body: 'A deeper look at symptoms that have not been explained or have not improved. This may include hormone concerns, thyroid symptoms, gut health, autoimmune issues, chronic fatigue, and detailed lab review.',
+        body: 'A deeper look at symptoms that have not been explained or have not improved. This may include thyroid symptoms, gut health, autoimmune issues, chronic fatigue, and detailed lab review.',
         note: 'Available without a primary care membership. Quoted before care begins.',
         tags: [
           { label: 'Thyroid', def: 'A closer look at thyroid symptoms and labs when energy, weight, or mood feel off.' },
