@@ -3,6 +3,7 @@ import { useT, type Lang } from '../i18n';
 interface Props { lang?: Lang }
 const { lang = 'en' } = Astro.props;
 const t = useT(lang).care;
+const popLabel = lang === 'es' ? 'Qué significa' : 'What this means';
 ---
 
 <section id="care" class="section care">
@@ -22,12 +23,29 @@ const t = useT(lang).care;
             <p class="path-body">{c.body}</p>
             <p class="path-note">{c.note}</p>
             <ul class="path-tags">
-              {c.tags.map((tag) => <li>{tag}</li>)}
+              {c.tags.map((tag) => (
+                <li>
+                  <button
+                    type="button"
+                    class="tag"
+                    aria-expanded="false"
+                    aria-controls="care-tagpop"
+                    data-def={tag.def}
+                  >
+                    {tag.label}
+                  </button>
+                </li>
+              ))}
             </ul>
           </article>
         ))
       }
     </div>
+  </div>
+
+  <div id="care-tagpop" class="tagpop" role="region" aria-label={popLabel} aria-live="polite" data-open="false">
+    <span class="tagpop-arrow" aria-hidden="true"></span>
+    <p class="tagpop-text"></p>
   </div>
 </section>
 
@@ -70,16 +88,155 @@ const t = useT(lang).care;
     flex-wrap: wrap;
     gap: 0.45rem;
   }
-  .path-tags li {
+  .path-tags li { display: flex; }
+
+  /* Tags are buttons: tap one to reveal a short definition. The dotted underline
+     signals there is more to read. */
+  .tag {
+    font-family: var(--font-body);
     font-size: 0.78rem;
     font-weight: 600;
     color: var(--color-pine);
     background: var(--color-sage-wash);
+    border: 1px solid transparent;
     border-radius: 999px;
-    padding: 0.3rem 0.7rem;
+    padding: 0.42rem 0.8rem;
+    min-height: 2.1rem;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: underline dotted color-mix(in srgb, var(--color-pine) 32%, transparent);
+    text-underline-offset: 3px;
+    transition: background-color var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+  }
+  .tag:hover { background: color-mix(in srgb, var(--color-sage-wash) 65%, var(--color-sage)); }
+  .tag:focus-visible { outline: 2px solid var(--color-terracotta); outline-offset: 2px; }
+  .tag[aria-expanded='true'] {
+    background: var(--color-sage-light);
+    color: var(--color-pine-deep);
+    border-color: color-mix(in srgb, var(--color-sage-deep) 40%, transparent);
+    text-decoration-color: transparent;
+  }
+
+  /* Shared definition popover. Fixed so it escapes card overflow and clamps to
+     the viewport on mobile. */
+  .tagpop {
+    position: fixed;
+    z-index: 55;
+    left: 0;
+    top: 0;
+    max-width: min(20rem, calc(100vw - 1.5rem));
+    background: var(--color-cream);
+    color: var(--color-pine-ink);
+    border: 1px solid var(--hair-strong);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-frame);
+    padding: 0.8rem 0.9rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(4px);
+    transition: opacity 0.15s var(--ease), transform 0.15s var(--ease), visibility 0s linear 0.15s;
+  }
+  .tagpop[data-open='true'] {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: opacity 0.15s var(--ease), transform 0.15s var(--ease);
+  }
+  .tagpop-text { margin: 0; font-size: var(--text-sm); line-height: 1.5; }
+  .tagpop-arrow {
+    position: absolute;
+    left: 1rem;
+    width: 10px;
+    height: 10px;
+    background: var(--color-cream);
+    border: 1px solid var(--hair-strong);
+    transform: rotate(45deg);
+  }
+  .tagpop[data-placement='below'] .tagpop-arrow { top: -6px; border-right: none; border-bottom: none; }
+  .tagpop[data-placement='above'] .tagpop-arrow { bottom: -6px; border-left: none; border-top: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tagpop { transition: visibility 0s linear 0s; }
   }
 
   @media (min-width: 880px) {
     .paths { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
   }
 </style>
+
+<script>
+  const pop = document.getElementById('care-tagpop');
+  const tags = Array.from(document.querySelectorAll('.path-tags .tag'));
+
+  if (pop && tags.length) {
+    const text = pop.querySelector('.tagpop-text');
+    const arrow = pop.querySelector('.tagpop-arrow');
+    let active = null;
+
+    const close = () => {
+      if (!active) return;
+      active.setAttribute('aria-expanded', 'false');
+      active = null;
+      pop.setAttribute('data-open', 'false');
+      // Clear text after the fade so screen readers do not read stale content.
+      window.setTimeout(() => { if (!active) text.textContent = ''; }, 160);
+    };
+
+    const place = (btn) => {
+      const r = btn.getBoundingClientRect();
+      const pad = 12;
+      const gap = 10;
+      const pw = pop.offsetWidth;
+      const ph = pop.offsetHeight;
+
+      let left = r.left + r.width / 2 - pw / 2;
+      left = Math.max(pad, Math.min(left, window.innerWidth - pw - pad));
+
+      let top, placement;
+      if (r.bottom + gap + ph <= window.innerHeight - pad) {
+        top = r.bottom + gap;
+        placement = 'below';
+      } else if (r.top - gap - ph >= pad) {
+        top = r.top - gap - ph;
+        placement = 'above';
+      } else {
+        top = Math.max(pad, Math.min(r.bottom + gap, window.innerHeight - ph - pad));
+        placement = 'below';
+      }
+
+      pop.style.left = `${Math.round(left)}px`;
+      pop.style.top = `${Math.round(top)}px`;
+      pop.setAttribute('data-placement', placement);
+
+      const arrowX = Math.max(10, Math.min(r.left + r.width / 2 - left - 5, pw - 20));
+      arrow.style.left = `${Math.round(arrowX)}px`;
+    };
+
+    const open = (btn) => {
+      text.textContent = btn.getAttribute('data-def') || '';
+      pop.setAttribute('data-open', 'true');
+      place(btn);
+      btn.setAttribute('aria-expanded', 'true');
+      active = btn;
+    };
+
+    tags.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (active === btn) { close(); return; }
+        if (active) active.setAttribute('aria-expanded', 'false');
+        open(btn);
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (active && !pop.contains(e.target)) close();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && active) { const b = active; close(); b.focus(); }
+    });
+    window.addEventListener('scroll', () => { if (active) close(); }, { passive: true });
+    window.addEventListener('resize', () => { if (active) close(); });
+  }
+</script>
