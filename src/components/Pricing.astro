@@ -3,6 +3,7 @@ import { useT, type Lang } from '../i18n';
 interface Props { lang?: Lang }
 const { lang = 'en' } = Astro.props;
 const t = useT(lang).pricing;
+const tel = '+19412506561';
 ---
 
 <section id="pricing" class="section pricing">
@@ -14,8 +15,10 @@ const t = useT(lang).pricing;
     </header>
 
     <div class="pricing-body">
-      <div class="membership" data-reveal>
-        <p class="label membership-label">{t.membershipLabel}</p>
+      <!-- FOUNDATION: the single anchor. Primary care is the base. -->
+      <article class="membership" data-reveal>
+        <p class="label membership-label">{t.foundationLabel}</p>
+        <h3 class="membership-name display-s">{t.membershipLabel}</h3>
         <p class="price"><span class="price-amt">{t.price}</span><span class="price-per">{t.per}</span></p>
         <p class="price-tag">{t.tag}</p>
 
@@ -33,15 +36,36 @@ const t = useT(lang).pricing;
         </ul>
 
         <p class="membership-foot">{t.membershipFoot}</p>
-        <a href="tel:+19412506561" class="btn btn-primary membership-cta">
+        <a href={`tel:${tel}`} class="btn btn-primary membership-cta">
           <span aria-hidden="true">&#9742;</span> {t.cta}
         </a>
-      </div>
+        <p class="bundle-note">{t.bundleNote}</p>
+      </article>
 
-      <div class="standalone">
-        <div class="block" data-reveal style="transition-delay:80ms">
-          <h3 class="block-title display-s">{t.fmTitle}</h3>
-          <p class="block-intro">{t.fmIntro}</p>
+      <!-- AND BEYOND: the deeper methods, editorial, subordinate but never a footnote. -->
+      <div class="beyond" data-reveal>
+        <div class="beyond-head">
+          <span class="rule-draw beyond-rule" aria-hidden="true"></span>
+          <p class="label beyond-label">{t.beyondLabel}</p>
+          <p class="beyond-lead">{t.beyondLead}</p>
+        </div>
+
+        <article class="bcol">
+          <div class="bcol-head">
+            <h3 class="bcol-title display-s">{t.weightTitle}</h3>
+            <p class="bprice"><span class="bprice-amt">{t.weightPrice}</span><span class="bprice-per">{t.weightPer}</span></p>
+          </div>
+          <p class="bcol-body">{t.weightBody}</p>
+          <p class="bcol-cross">{t.weightBundle}</p>
+          <a href={`tel:${tel}`} class="link bcol-cta">{t.weightCta} <span class="arr" aria-hidden="true">&rarr;</span></a>
+        </article>
+
+        <article class="bcol">
+          <div class="bcol-head">
+            <h3 class="bcol-title display-s">{t.fmTitle}</h3>
+            <p class="bprice"><span class="bprice-per bprice-per--solo">{t.fmPer}</span></p>
+          </div>
+          <p class="bcol-body">{t.fmIntro}</p>
           <ul class="rate-list">
             {
               t.rates.map((r) => (
@@ -52,13 +76,8 @@ const t = useT(lang).pricing;
               ))
             }
           </ul>
-        </div>
-
-        <div class="block" data-reveal style="transition-delay:160ms">
-          <h3 class="block-title display-s">{t.weightTitle}</h3>
-          <p class="block-intro">{t.weightIntro}</p>
-          <p class="block-note">{t.weightNote}</p>
-        </div>
+          <a href={`tel:${tel}`} class="link bcol-cta">{t.fmCta} <span class="arr" aria-hidden="true">&rarr;</span></a>
+        </article>
       </div>
     </div>
 
@@ -71,16 +90,17 @@ const t = useT(lang).pricing;
   .pricing-head { max-width: 50rem; }
   .pricing-title { margin: 1.1rem 0 0; }
   .pricing-title :global(em) { font-style: italic; color: var(--color-terracotta-deep); }
-  .pricing-lead { margin-top: 1.3rem; }
+  .pricing-lead { margin-top: 1.3rem; max-width: 44rem; }
 
   .pricing-body {
     margin-top: clamp(2.75rem, 6vw, 4.5rem);
     display: grid;
     grid-template-columns: 1fr;
-    gap: clamp(2rem, 4vw, 3.5rem);
+    gap: clamp(2.5rem, 5vw, 3.5rem);
     align-items: start;
   }
 
+  /* FOUNDATION: one filled card, the single anchor. */
   .membership {
     border: 1px solid var(--hair);
     border-radius: var(--radius);
@@ -89,7 +109,8 @@ const t = useT(lang).pricing;
     padding: clamp(2rem, 4vw, 2.85rem);
   }
   .membership-label { color: var(--color-sage-deep); }
-  .price { margin: 1rem 0 0; display: flex; align-items: baseline; gap: 0.5rem; }
+  .membership-name { margin: 0.5rem 0 0; color: var(--color-pine); }
+  .price { margin: 0.9rem 0 0; display: flex; align-items: baseline; gap: 0.5rem; }
   .price-amt { font-family: var(--font-display); font-weight: 500; font-size: clamp(3.5rem, 7vw, 5rem); line-height: 0.9; color: var(--color-pine); font-variant-numeric: lining-nums tabular-nums; letter-spacing: -0.02em; }
   .price-per { font-size: 1.05rem; color: var(--color-pine-ink); }
   .price-tag { margin: 0.45rem 0 0; color: var(--color-pine-ink); }
@@ -100,35 +121,46 @@ const t = useT(lang).pricing;
 
   .membership-foot { margin: 1.5rem 0 0; font-size: var(--text-sm); color: var(--color-pine-ink); opacity: 0.85; line-height: 1.6; }
   .membership-cta { margin-top: 1.4rem; width: 100%; justify-content: center; }
+  .bundle-note { margin: 1rem 0 0; font-size: var(--text-sm); color: var(--color-terracotta-deep); font-weight: 600; text-align: center; }
 
-  .standalone { display: grid; gap: clamp(1.75rem, 3.5vw, 2.5rem); align-content: start; }
-  .block { padding-top: 1.4rem; border-top: 1px solid var(--hair); }
-  .block-title { margin: 0; color: var(--color-pine); }
-  .block-intro { margin: 0.7rem 0 0; color: var(--color-pine-ink); font-size: var(--text-sm); line-height: 1.6; }
+  /* AND BEYOND: editorial column, no boxes. */
+  .beyond { display: flex; flex-direction: column; }
+  .beyond-head { margin-bottom: 0.4rem; }
+  .beyond-rule { width: clamp(3rem, 6vw, 4.5rem); margin-bottom: 1.1rem; }
+  .beyond-label { color: var(--color-sage-deep); }
+  .beyond-lead { margin: 0.55rem 0 0; font-size: var(--text-base); line-height: 1.6; color: var(--color-pine-ink); max-width: 38rem; }
 
-  .rate-list { list-style: none; margin: 1.3rem 0 0; padding: 0; }
-  .rate { display: flex; justify-content: space-between; align-items: baseline; gap: 1.5rem; padding: 0.95rem 0; border-bottom: 1px solid var(--hair); }
+  .bcol { margin-top: clamp(1.8rem, 3.2vw, 2.4rem); padding-top: 1.5rem; border-top: 1px solid var(--hair); display: flex; flex-direction: column; }
+  .bcol-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+  .bcol-title { margin: 0; color: var(--color-pine); }
+  .bprice { margin: 0; display: flex; align-items: baseline; gap: 0.4rem; white-space: nowrap; }
+  .bprice-amt { font-family: var(--font-display); font-weight: 500; font-size: clamp(2rem, 3.4vw, 2.6rem); line-height: 1; color: var(--color-pine); font-variant-numeric: lining-nums tabular-nums; }
+  .bprice-per { font-size: var(--text-sm); color: var(--color-pine-ink); }
+  .bprice-per--solo { font-weight: 600; color: var(--color-sage-deep); }
+  .bcol-body { margin: 0.85rem 0 0; color: var(--color-pine-ink); font-size: var(--text-sm); line-height: 1.6; }
+  .bcol-cross { margin: 0.9rem 0 0; font-size: var(--text-sm); color: var(--color-terracotta-deep); font-weight: 600; }
+
+  .rate-list { list-style: none; margin: 1.2rem 0 0; padding: 0; }
+  .rate { display: flex; justify-content: space-between; align-items: baseline; gap: 1.5rem; padding: 0.85rem 0; border-bottom: 1px solid var(--hair); }
   .rate-name { display: flex; flex-direction: column; font-weight: 600; color: var(--color-pine); }
   .rate-name em { font-style: normal; font-weight: 400; font-size: var(--text-sm); color: var(--color-pine-ink); opacity: 0.75; margin-top: 0.15rem; }
   .rate-price { font-family: var(--font-display); font-weight: 500; font-size: 1.6rem; color: var(--color-terracotta-deep); font-variant-numeric: lining-nums tabular-nums; }
 
-  .block-note { margin: 1.1rem 0 0; font-size: var(--text-sm); line-height: 1.6; color: var(--color-pine-ink); }
+  .bcol-cta { margin-top: 1.3rem; align-self: flex-start; font-weight: 600; }
 
+  /* PROMISE: editorial, no filled box. */
   .promise {
-    margin: clamp(2rem, 4vw, 3rem) 0 0;
-    padding: clamp(1rem, 2vw, 1.25rem) clamp(1.15rem, 2.5vw, 1.5rem);
-    border: 1px solid color-mix(in srgb, var(--color-terracotta) 30%, var(--hair));
-    border-left: 3px solid var(--color-terracotta);
-    border-radius: var(--radius);
-    background: color-mix(in srgb, var(--color-terracotta) 6%, var(--color-cream));
+    margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+    padding-top: clamp(1.2rem, 2.5vw, 1.6rem);
+    border-top: 1px solid var(--hair-strong);
     font-size: var(--text-base);
-    line-height: 1.55;
+    line-height: 1.6;
     color: var(--color-pine-ink);
     max-width: 46rem;
   }
-  .promise :global(strong) { color: var(--color-pine); font-weight: 700; }
+  .promise :global(strong) { color: var(--color-pine); font-weight: 600; }
 
   @media (min-width: 920px) {
-    .pricing-body { grid-template-columns: 0.95fr 1.05fr; gap: clamp(3rem, 6vw, 5rem); }
+    .pricing-body { grid-template-columns: 0.92fr 1.08fr; gap: clamp(3rem, 6vw, 5rem); }
   }
 </style>

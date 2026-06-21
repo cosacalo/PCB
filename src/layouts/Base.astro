@@ -58,9 +58,27 @@ const practiceLd = {
       name: 'Primary care membership',
       category: 'Telehealth direct primary care',
       priceCurrency: 'USD',
+      price: '175',
+      description:
+        "Monthly telehealth primary care membership for adults in Florida. Includes preventive care, chronic condition support, women's health, non-controlled prescriptions and refills, lab orders when indicated, care coordination, and messaging between visits.",
+    },
+    {
+      '@type': 'Offer',
+      name: 'Weight care membership',
+      category: 'Medical weight care',
+      priceCurrency: 'USD',
       price: '150',
       description:
-        "Monthly telehealth primary care membership for adults in Florida. Includes preventive care, chronic condition support, women's health, non-controlled prescriptions and refills, lab orders when indicated, medical weight care, and GLP-1 medication management when appropriate.",
+        'Monthly telehealth medical weight care membership: health history, lab review, lifestyle planning, and GLP-1 medication management when appropriate. Available on its own or bundled with primary care for $300 per month.',
+    },
+    {
+      '@type': 'Offer',
+      name: 'Primary care and weight care bundle',
+      category: 'Telehealth membership bundle',
+      priceCurrency: 'USD',
+      price: '300',
+      description:
+        'The primary care and weight care memberships together for $300 per month, saving $25 versus joining each separately.',
     },
     {
       '@type': 'Offer',
@@ -69,14 +87,7 @@ const practiceLd = {
       priceCurrency: 'USD',
       price: '375',
       description:
-        'Root-cause functional medicine, available without a membership. Initial consultation 90 minutes; follow-ups and lab review billed per visit and quoted before care.',
-    },
-    {
-      '@type': 'Offer',
-      name: 'Standalone weight care',
-      category: 'Medical weight care',
-      description:
-        'Medical weight care available as a standalone service, with a written estimate before care begins.',
+        'Root-cause functional medicine, billed per visit and quoted before care. Initial consultation 90 minutes ($375), follow-up ($200), extended follow-up ($300), and lab review ($150).',
     },
   ],
 };

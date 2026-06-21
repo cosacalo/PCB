@@ -1,11 +1,13 @@
 // Spanish copy (neutral Latin-American Spanish). Same shape and same brand
 // gates as en.ts. Reader-facing adjectives kept gender-neutral (the practice
-// serves all adults). "Cuidado del peso", never "pérdida de peso".
+// serves all adults). ONE integrated practice (primary care is the foundation;
+// weight care and functional medicine are the "and beyond" that make it work,
+// never a footnote or a menu of equals). "Cuidado del peso", never "pérdida de peso".
 export const es = {
   meta: {
     title: 'Primary Care and Beyond | Atención primaria por telesalud en Florida',
     description:
-      'Atención primaria por membresía, medicina funcional y cuidado del peso con Elizabeth Hanke, APRN, FNP-BC. Telesalud en toda Florida. Precios claros. Aceptando pacientes nuevos.',
+      'Atención primaria por telesalud en Florida que trata la raíz, con medicina funcional y cuidado del peso, de Elizabeth Hanke, APRN, FNP-BC. Atención primaria $175/mes, cuidado del peso $150/mes, combo $300/mes. Aceptando pacientes nuevos.',
   },
   nav: {
     links: [
@@ -44,28 +46,27 @@ export const es = {
     ],
   },
   care: {
-    heading: 'Atención primaria, medicina funcional y cuidado del peso.',
-    lead: 'Puedes venir a Primary Care and Beyond para atención primaria continua, una consulta más a fondo de medicina funcional o cuidado médico del peso. El cuidado del peso está incluido para los miembros de atención primaria y también está disponible como servicio independiente.',
-    cards: [
+    heading: 'Atención primaria que de verdad funciona.',
+    lead: 'La mayoría de la atención recurre a otra receta. Aquí, la atención primaria es la base, y los métodos más profundos que la hacen funcionar, la medicina funcional y el cuidado del peso, son parte de cómo se brinda la atención.',
+    foundation: {
+      label: 'La base',
+      title: 'Atención primaria',
+      body: 'Atención primaria continua por telesalud para adultos en Florida: cuidado preventivo, manejo de enfermedades crónicas, salud de la mujer, recetas y resurtidos de medicamentos no controlados, órdenes de laboratorio cuando están indicadas, coordinación de la atención y mensajes entre consultas.',
+      tags: [
+        { label: 'Cuidado preventivo', def: 'Chequeos de rutina, estudios de detección y orientación para mantenerte bien y detectar problemas a tiempo.' },
+        { label: 'Enfermedades crónicas', def: 'Manejo continuo de condiciones de largo plazo como presión alta, diabetes o problemas de tiroides.' },
+        { label: 'Resurtidos no controlados', def: 'Recetas y resurtidos de medicamentos de uso común. No se recetan sustancias controladas.' },
+        { label: 'Laboratorios indicados', def: 'Órdenes de laboratorio cuando son médicamente útiles. El costo del laboratorio se cobra aparte.' },
+        { label: 'Coordinación de la atención', def: 'Ayudamos a mantener conectados a tus especialistas, laboratorios y registros para que tu atención esté en sintonía.' },
+        { label: 'Mensajes entre consultas', def: 'Comunícate con Liz para preguntas no urgentes entre consultas.' },
+      ],
+    },
+    beyondLabel: 'Y más allá',
+    beyondLead: 'Los métodos más profundos que hacen que tu atención primaria funcione, integrados cuando tu salud lo necesita.',
+    beyond: [
       {
-        label: 'Membresía de atención primaria',
-        title: 'Atención primaria',
-        body: 'Atención primaria continua por telesalud para adultos en Florida. Incluye cuidado preventivo, manejo de enfermedades crónicas, salud de la mujer, recetas y resurtidos de medicamentos no controlados, órdenes de laboratorio cuando están indicadas, y cuidado médico del peso, incluido el manejo de medicamentos GLP-1 cuando es apropiado.',
-        note: '$150 al mes.',
-        tags: [
-          { label: 'Cuidado preventivo', def: 'Chequeos de rutina, estudios de detección y orientación para mantenerte bien y detectar problemas a tiempo.' },
-          { label: 'Enfermedades crónicas', def: 'Manejo continuo de condiciones de largo plazo como presión alta, diabetes o problemas de tiroides.' },
-          { label: 'Resurtidos no controlados', def: 'Recetas y resurtidos de medicamentos de uso común. No se recetan sustancias controladas.' },
-          { label: 'Laboratorios indicados', def: 'Órdenes de laboratorio cuando son médicamente útiles. El costo del laboratorio se cobra aparte.' },
-          { label: 'Incluye cuidado del peso', def: 'El cuidado médico del peso es parte de tu membresía cuando se ajusta a tus metas, sin costo extra.' },
-          { label: 'GLP-1 cuando aplica', def: 'Cuando es clínicamente apropiado, el medicamento GLP-1 puede ser parte de tu plan. El costo del medicamento es aparte.' },
-        ],
-      },
-      {
-        label: 'Servicio independiente',
         title: 'Medicina funcional',
-        body: 'Una mirada más a fondo a los síntomas que no se han explicado o no han mejorado. Puede incluir síntomas de tiroides, salud digestiva, condiciones autoinmunes, fatiga crónica y una revisión detallada de laboratorios.',
-        note: 'Disponible sin membresía de atención primaria. Se cotiza antes de comenzar la atención.',
+        body: 'Una mirada más profunda a la raíz cuando los síntomas no se han explicado o no han mejorado. Síntomas de tiroides, salud digestiva, condiciones autoinmunes, fatiga crónica y revisión detallada de laboratorios.',
         tags: [
           { label: 'Tiroides', def: 'Una mirada más cercana a los síntomas de tiroides y a los labs cuando la energía, el peso o el ánimo no están bien.' },
           { label: 'Salud digestiva', def: 'Evaluación de la digestión, la hinchazón y los síntomas digestivos que afectan cómo te sientes a diario.' },
@@ -75,10 +76,8 @@ export const es = {
         ],
       },
       {
-        label: 'Incluido o independiente',
         title: 'Cuidado del peso',
-        body: 'Cuidado médico del peso para quienes buscan apoyo clínico, no consejos genéricos. Puede incluir revisión de laboratorios, historia de salud, revisión de medicamentos, plan de estilo de vida y manejo de medicamentos GLP-1 cuando es apropiado.',
-        note: 'Incluido para los miembros de atención primaria. También disponible como servicio independiente sin membresía de atención primaria.',
+        body: 'Cuidado médico del peso con apoyo clínico real, no consejos genéricos: historia de salud, revisión de laboratorios, plan de estilo de vida y manejo de medicamentos GLP-1 cuando es apropiado.',
         tags: [
           { label: 'Cuidado del peso', def: 'Cuidado del peso con guía clínica, basado en tu historia de salud y tus metas, no consejos genéricos.' },
           { label: 'GLP-1 cuando aplica', def: 'Cuando es clínicamente apropiado, el medicamento GLP-1 puede ser parte de tu plan. El costo del medicamento es aparte.' },
@@ -94,17 +93,18 @@ export const es = {
     heading: 'Comenzar la atención es una&nbsp;conversación.',
     foot: 'La telesalud está disponible para adultos de 18 años o más que se encuentren en Florida durante cada consulta. Se planea atención presencial en Sarasota y Lakewood Ranch.',
     steps: [
-      { title: 'Comunícate', body: 'Llama o escríbele a Liz. Puedes hacer preguntas, contar lo que buscas y averiguar si la atención primaria, la medicina funcional o el cuidado del peso es lo adecuado para ti.' },
-      { title: 'Conversamos', body: 'Hablarás de tu historia de salud, tus inquietudes actuales, tus metas y las opciones de atención. Si un servicio tiene un costo aparte, sabrás el precio antes de comenzar.' },
-      { title: 'Comienza la atención', body: 'Empieza con el servicio que se ajuste a lo que necesitas. Puedes elegir la membresía de atención primaria, una consulta de medicina funcional o el cuidado del peso independiente.' },
+      { title: 'Comunícate', body: 'Llama o escríbele a Liz. Puedes hacer preguntas, contar lo que buscas y conversar sobre cómo la atención primaria, y el cuidado más profundo que la acompaña, podría ajustarse a ti.' },
+      { title: 'Conversamos', body: 'Hablarás de tu historia de salud, tus inquietudes actuales, tus metas y las opciones de atención. Siempre sabrás el precio antes de comenzar.' },
+      { title: 'Comienza la atención', body: 'Empieza con la membresía de atención primaria, la base, y agrega el cuidado del peso o la medicina funcional si tu salud lo necesita.' },
     ],
   },
   pricing: {
     label: 'Precios claros',
     headingHtml: 'Conoce el precio <em>antes</em> de empezar.',
-    lead: 'La membresía de atención primaria cuesta $150 al mes e incluye atención primaria y cuidado del peso cuando es apropiado. La medicina funcional y el cuidado del peso independiente también están disponibles sin membresía, con precios claros o un presupuesto por escrito antes de comenzar la atención.',
+    lead: 'La atención primaria es la base. El más allá, el cuidado del peso y la medicina funcional, es lo que hace que esa atención realmente funcione. Esto es lo que cuesta cada parte.',
+    foundationLabel: 'La base',
     membershipLabel: 'Membresía de atención primaria',
-    price: '$150',
+    price: '$175',
     per: 'al mes',
     tag: 'Atención primaria directa por telesalud',
     included: [
@@ -113,25 +113,31 @@ export const es = {
       'Salud de la mujer',
       'Recetas y resurtidos de medicamentos no controlados',
       'Órdenes de laboratorio cuando están indicadas',
-      'Cuidado médico del peso',
-      'Manejo de medicamentos GLP-1 cuando es apropiado',
       'Coordinación de la atención',
       'Mensajes entre consultas',
     ],
     membershipFoot: 'Sin copagos. Sin facturas sorpresa. Cancela con 30 días de aviso. No incluye el costo de medicamentos, laboratorios, imágenes ni farmacia.',
+    bundleNote: 'Agrega el cuidado del peso y paga $300 al mes por ambos, ahorrando $25.',
     cta: 'Llama para unirte',
+    beyondLabel: 'Y más allá',
+    beyondLead: 'Los métodos más profundos que hacen que tu atención primaria funcione, integrados cuando tu salud lo necesita.',
+    weightTitle: 'Cuidado del peso',
+    weightPrice: '$150',
+    weightPer: 'al mes',
+    weightBody: 'Cuidado médico del peso con apoyo clínico real, no consejos genéricos. Historia de salud, revisión de laboratorios, plan de estilo de vida y manejo de medicamentos GLP-1 cuando es apropiado.',
+    weightBundle: 'O $300 al mes en conjunto con la atención primaria.',
+    weightCta: 'Llama para agregar el cuidado del peso',
     fmTitle: 'Medicina funcional',
-    fmIntro: 'Disponible sin membresía de atención primaria. Se cobra por consulta y sabrás el costo antes de comenzar la atención.',
+    fmPer: 'Se cobra por consulta',
+    fmIntro: 'Una mirada más profunda a la raíz cuando los síntomas no se han explicado o no han mejorado. Siempre sabes el costo antes de comenzar la atención.',
     rates: [
       { name: 'Consulta inicial', detail: '90 minutos', price: '$375' },
       { name: 'Seguimiento', detail: '30 minutos', price: '$200' },
       { name: 'Seguimiento extendido', detail: '60 minutos', price: '$300' },
       { name: 'Revisión de laboratorios', detail: 'resultados y plan', price: '$150' },
     ],
-    weightTitle: 'Cuidado del peso independiente',
-    weightIntro: 'El cuidado del peso está incluido para los miembros de atención primaria cuando es apropiado. También está disponible como servicio independiente para quienes no necesitan una membresía.',
-    weightNote: 'El precio del cuidado del peso independiente depende del plan de atención, las necesidades de medicamentos, los laboratorios y el calendario de seguimiento. Recibirás un presupuesto por escrito antes de comenzar la atención.',
-    promiseHtml: '<strong>Siempre sabes el precio antes de comenzar la atención.</strong> Sin facturas sorpresa, y un estimado por escrito antes de cualquier servicio de medicina funcional o cuidado del peso independiente.',
+    fmCta: 'Llama para agendar una consulta',
+    promiseHtml: '<strong>Siempre sabes el precio antes de comenzar la atención.</strong> Las membresías tienen un precio mensual fijo. La medicina funcional se cotiza antes de tu consulta. Sin facturas sorpresa.',
   },
   about: {
     heading: 'Conoce a tu proveedora.',
@@ -150,14 +156,15 @@ export const es = {
     lead: 'Lo que la mayoría quiere saber antes de llamar.',
     items: [
       { q: '¿Esto es un seguro?', a: 'No. Primary Care and Beyond es una membresía de atención médica directa conforme al Estatuto de Florida 624.27. No es un seguro y no reemplaza la cobertura médica mayor. Conserva tu seguro para emergencias, atención hospitalaria, especialistas, imágenes, costos de farmacia y servicios fuera de la membresía.' },
-      { q: '¿Tengo que unirme a atención primaria para recibir medicina funcional o cuidado del peso?', a: 'No. La medicina funcional y el cuidado del peso independiente están disponibles sin membresía de atención primaria. Puedes unirte para atención primaria continua, agendar una consulta de medicina funcional o empezar con el cuidado del peso independiente.' },
-      { q: '¿Qué incluye la membresía de atención primaria de $150?', a: 'La membresía mensual de $150 cubre la atención primaria por telesalud, incluido el cuidado preventivo, el manejo de enfermedades crónicas, la salud de la mujer, el manejo y resurtido de medicamentos no controlados, las órdenes de laboratorio cuando están indicadas, el cuidado médico del peso, el manejo de medicamentos GLP-1 cuando es apropiado, la coordinación de la atención y los mensajes. No incluye el costo de medicamentos, laboratorios, imágenes, farmacia ni servicios externos.' },
-      { q: '¿Puedo recibir cuidado del peso sin unirme a atención primaria?', a: 'Sí. El cuidado del peso está incluido para los miembros de atención primaria y también está disponible como servicio independiente. El cuidado del peso independiente tiene su propio precio, según el plan de atención, las necesidades de medicamentos, los laboratorios y el calendario de seguimiento. Sabrás el costo antes de comenzar la atención.' },
-      { q: '¿El cuidado con GLP-1 está incluido?', a: 'El manejo de medicamentos GLP-1 puede estar incluido cuando es apropiado para los miembros de atención primaria. También puede ser parte del cuidado del peso independiente. El costo de los medicamentos, los laboratorios, la farmacia y la cobertura del seguro son aparte.' },
+      { q: '¿Cómo funcionan los precios?', a: 'La atención primaria es la base, una membresía de $175 al mes. El cuidado del peso es su propia membresía de $150 al mes. Combina ambas por $300 al mes y ahorra $25. La medicina funcional se cobra por consulta: consulta inicial $375, seguimiento $200, seguimiento extendido $300 y revisión de laboratorios $150. Siempre sabes el precio antes de comenzar la atención.' },
+      { q: '¿Tengo que unirme a atención primaria para recibir medicina funcional o cuidado del peso?', a: 'No. El cuidado del peso es su propia membresía y la medicina funcional se cobra por consulta, así que puedes empezar con cualquiera de las dos. Muchos pacientes las combinan con la atención primaria, la base, porque ahí es donde el cuidado más profundo funciona mejor.' },
+      { q: '¿Qué incluye la membresía de atención primaria de $175?', a: 'La membresía mensual de $175 cubre la atención primaria por telesalud: cuidado preventivo, manejo de enfermedades crónicas, salud de la mujer, manejo y resurtido de medicamentos no controlados, órdenes de laboratorio cuando están indicadas, coordinación de la atención y mensajes. No incluye el costo de medicamentos, laboratorios, imágenes, farmacia ni servicios externos.' },
+      { q: '¿El cuidado del peso es parte de la membresía de atención primaria?', a: 'No. El cuidado del peso es su propia membresía de $150 al mes. Puedes agregarlo a la atención primaria por $300 al mes en conjunto, ahorrando $25, o tenerlo por su cuenta. Incluye cuidado médico del peso con historia de salud, revisión de laboratorios, plan de estilo de vida y manejo de medicamentos GLP-1 cuando es apropiado.' },
+      { q: '¿El manejo de GLP-1 está incluido?', a: 'El manejo de medicamentos GLP-1 es parte de la membresía de cuidado del peso cuando es clínicamente apropiado. El costo de los medicamentos, los laboratorios, la farmacia y la cobertura del seguro son aparte.' },
       { q: '¿Por qué pagar una membresía de atención primaria si ya tengo seguro?', a: 'El seguro cubre tus necesidades médicas mayores. La membresía agrega algo distinto: consultas más largas, acceso directo a una sola proveedora y el tiempo para ver tu panorama completo. La mayoría de los miembros conservan su seguro y usan la membresía junto con él.' },
       { q: '¿Una enfermera practicante es suficiente, o necesito un médico?', a: 'Liz es APRN autónoma en Florida y enfermera practicante familiar certificada. Puede diagnosticar, tratar, ordenar laboratorios y recetar dentro de su ámbito de práctica. Si tu atención requiere un especialista o un médico, ella te ayudará a guiar ese siguiente paso.' },
       { q: '¿Dónde atienden y quién puede unirse?', a: 'La atención está disponible por telesalud para adultos de 18 años o más en toda Florida. Debes encontrarte en Florida durante cada consulta. Se planea atención presencial en Sarasota y Lakewood Ranch.' },
-      { q: '¿Qué no está incluido?', a: 'La membresía de atención primaria no incluye atención de emergencia, atención de urgencia, atención hospitalaria, honorarios de especialistas, laboratorios, imágenes, costos de farmacia, sustancias controladas, terapia hormonal por ahora, procedimientos presenciales ni el llenado de formularios de discapacidad, empleo o legales. La medicina funcional y el cuidado del peso independiente pueden tener costos aparte y se cotizan antes de la atención.' },
+      { q: '¿Qué no está incluido?', a: 'Ninguna membresía incluye atención de emergencia, atención de urgencia, atención hospitalaria, honorarios de especialistas, laboratorios, imágenes, costos de farmacia, sustancias controladas, terapia hormonal por ahora, procedimientos presenciales ni el llenado de formularios de discapacidad, empleo o legales. El cuidado del peso y la atención primaria son membresías mensuales fijas; la medicina funcional se cobra por consulta y se cotiza antes de la atención.' },
       { q: '¿Cómo empiezo?', a: 'Llama al 941.250.6561 o escribe a Elizabeth@primarycareandbeyond.com. Puedes hacer preguntas, conversar sobre tus opciones y elegir el camino de atención que se ajuste a lo que necesitas.' },
     ],
   },
@@ -186,10 +193,10 @@ export const es = {
   },
   footer: {
     tagline: 'Atención primaria con tiempo para ir más allá de lo básico.',
-    pillars: 'Atención primaria &middot; Medicina funcional &middot; Cuidado del peso',
+    pillars: 'Atención primaria &middot; y más allá',
     getInTouch: 'Comunícate',
     labels: { tel: 'Tel', fax: 'Fax', email: 'Correo', web: 'Web' },
-    legal: 'Primary Care and Beyond LLC. Esta membresía es un acuerdo de atención médica directa conforme al Estatuto de Florida 624.27 y no es un seguro, ni cobertura esencial mínima según la ACA. Los servicios de telesalud son para adultos de 18 años o más que se encuentren físicamente en Florida. Los servicios de medicina funcional y de cuidado del peso independiente se cotizan antes de la atención.',
+    legal: 'Primary Care and Beyond LLC. Estas membresías son un acuerdo de atención médica directa conforme al Estatuto de Florida 624.27 y no son un seguro, ni cobertura esencial mínima según la ACA. Los servicios de telesalud son para adultos de 18 años o más que se encuentren físicamente en Florida. La medicina funcional se cobra por consulta y se cotiza antes de la atención.',
     rights: 'Todos los derechos reservados.',
   },
 };

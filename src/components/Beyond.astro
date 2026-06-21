@@ -13,27 +13,42 @@ const popLabel = lang === 'es' ? 'Qué significa' : 'What this means';
       <p class="lead prose care-lead">{t.lead}</p>
     </header>
 
-    <div class="paths">
+    <!-- Foundation: primary care, the base. A boxed, elevated card so its
+         contents read as one grouped unit and it anchors the section. -->
+    <article class="card foundation-card" data-reveal>
+      <p class="label card-kicker">{t.foundation.label}</p>
+      <h3 class="card-title display-s">{t.foundation.title}</h3>
+      <p class="card-body">{t.foundation.body}</p>
+      <ul class="path-tags">
+        {
+          t.foundation.tags.map((tag) => (
+            <li>
+              <button type="button" class="tag" aria-expanded="false" aria-controls="care-tagpop" data-def={tag.def}>{tag.label}</button>
+            </li>
+          ))
+        }
+      </ul>
+    </article>
+
+    <!-- And beyond: the deeper methods. The single drawn rule introduces them;
+         the two are boxed together as a grouped pair so they clearly belong
+         to the practice, never a loose stack and never a footnote. -->
+    <div class="beyond-head" data-reveal>
+      <span class="rule-draw beyond-rule" aria-hidden="true"></span>
+      <p class="label beyond-label">{t.beyondLabel}</p>
+      <p class="beyond-lead prose">{t.beyondLead}</p>
+    </div>
+
+    <div class="beyond-grid">
       {
-        t.cards.map((c, i) => (
-          <article class="path" data-reveal style={`transition-delay:${i * 80}ms`}>
-            <span class="path-rule" aria-hidden="true"></span>
-            <p class="label path-label">{c.label}</p>
-            <h3 class="path-title display-s">{c.title}</h3>
-            <p class="path-body">{c.body}</p>
-            <p class="path-note">{c.note}</p>
+        t.beyond.map((m, i) => (
+          <article class="card beyond-card" data-reveal style={`transition-delay:${i * 80}ms`}>
+            <h3 class="card-title display-s">{m.title}</h3>
+            <p class="card-body">{m.body}</p>
             <ul class="path-tags">
-              {c.tags.map((tag) => (
+              {m.tags.map((tag) => (
                 <li>
-                  <button
-                    type="button"
-                    class="tag"
-                    aria-expanded="false"
-                    aria-controls="care-tagpop"
-                    data-def={tag.def}
-                  >
-                    {tag.label}
-                  </button>
+                  <button type="button" class="tag" aria-expanded="false" aria-controls="care-tagpop" data-def={tag.def}>{tag.label}</button>
                 </li>
               ))}
             </ul>
@@ -52,47 +67,41 @@ const popLabel = lang === 'es' ? 'Qué significa' : 'What this means';
 <style>
   .care { background: var(--color-cream); }
   .care-head { max-width: 52rem; }
-  .care-title { max-width: 18ch; }
-  .care-lead { margin-top: 1.3rem; }
+  .care-title { max-width: 20ch; }
+  .care-lead { margin-top: 1.3rem; max-width: 46rem; }
 
-  .paths {
-    margin-top: clamp(2.75rem, 6vw, 4.5rem);
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    align-items: start;
-  }
-
-  .path {
-    position: relative;
+  /* Cards are the grouping device: each card's contents (title, body, chips)
+     read as one unit, and stay grouped when stacked on mobile. */
+  .card {
     border: 1px solid var(--hair);
     border-radius: var(--radius);
-    background: color-mix(in srgb, #fff 35%, var(--color-cream));
-    padding: clamp(1.85rem, 3vw, 2.4rem);
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+    background: color-mix(in srgb, #fff 32%, var(--color-cream));
+    padding: clamp(1.85rem, 3.2vw, 2.6rem);
   }
-  .path-rule { display: block; width: 2.5rem; height: 2px; background: var(--color-terracotta); margin-bottom: 1.4rem; }
-  .path-label { margin: 0 0 0.7rem; color: var(--color-sage-deep); }
-  .path-title { margin: 0; color: var(--color-pine); }
-  .path-body { margin: 0.8rem 0 0; color: var(--color-pine-ink); font-size: var(--text-sm); line-height: 1.6; }
-  .path-note { margin: 1.1rem 0 0; font-size: var(--text-sm); font-weight: 600; color: var(--color-terracotta-deep); }
+  .card-kicker { margin: 0 0 0.7rem; color: var(--color-sage-deep); }
+  .card-title { margin: 0; color: var(--color-pine); }
+  .card-body { margin: 0.8rem 0 0; color: var(--color-pine-ink); font-size: var(--text-sm); line-height: 1.6; }
 
-  .path-tags {
-    list-style: none;
-    margin: 1.3rem 0 0;
-    padding: 1.3rem 0 0;
-    border-top: 1px solid var(--hair);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.45rem;
+  /* Foundation: full width + elevated, so primary care is the dominant anchor. */
+  .foundation-card {
+    margin-top: clamp(2.75rem, 6vw, 4.5rem);
+    background: color-mix(in srgb, #fff 48%, var(--color-cream));
+    box-shadow: var(--shadow-frame);
   }
+  .foundation-card .card-body { max-width: 58rem; }
+
+  /* "And beyond" turn: the single drawn rule, then the grouped pair below. */
+  .beyond-head { margin: clamp(2.75rem, 5.5vw, 4rem) 0 0; }
+  .beyond-rule { width: clamp(3rem, 6vw, 4.5rem); margin-bottom: 1.2rem; }
+  .beyond-label { margin: 0; color: var(--color-sage-deep); }
+  .beyond-lead { margin: 0.6rem 0 0; max-width: 42rem; color: var(--color-pine-ink); font-size: var(--text-base); line-height: 1.6; }
+
+  /* The beyond pair: two cards, secondary to the foundation (flat, no shadow). */
+  .beyond-grid { margin-top: clamp(1.6rem, 3.5vw, 2.4rem); display: grid; grid-template-columns: 1fr; gap: clamp(1.25rem, 3vw, 1.75rem); align-items: start; }
+
+  /* Service chips (tap to reveal a short definition), grouped inside each card. */
+  .path-tags { list-style: none; margin: 1.3rem 0 0; padding: 1.3rem 0 0; border-top: 1px solid var(--hair); display: flex; flex-wrap: wrap; gap: 0.45rem; }
   .path-tags li { display: flex; }
-
-  /* The tag pills are now buttons, but they must look EXACTLY like the original
-     static pills: same font, padding, and size. Only the behaviour is new
-     (tap to reveal a definition). No underline, no border, no extra height. */
   .tag {
     font-family: var(--font-body);
     font-size: 0.78rem;
@@ -111,8 +120,7 @@ const popLabel = lang === 'es' ? 'Qué significa' : 'What this means';
   .tag:focus-visible { outline: 2px solid var(--color-terracotta); outline-offset: 2px; }
   .tag[aria-expanded='true'] { background: color-mix(in srgb, var(--color-sage-wash) 70%, var(--color-sage)); }
 
-  /* Shared definition popover. Fixed so it escapes card overflow and clamps to
-     the viewport on mobile. */
+  /* Shared definition popover (fixed, clamps to viewport on mobile). */
   .tagpop {
     position: fixed;
     z-index: 55;
@@ -137,24 +145,14 @@ const popLabel = lang === 'es' ? 'Qué significa' : 'What this means';
     transition: opacity 0.15s var(--ease), transform 0.15s var(--ease);
   }
   .tagpop-text { margin: 0; font-size: var(--text-sm); line-height: 1.5; }
-  .tagpop-arrow {
-    position: absolute;
-    left: 1rem;
-    width: 10px;
-    height: 10px;
-    background: var(--color-cream);
-    border: 1px solid var(--hair-strong);
-    transform: rotate(45deg);
-  }
+  .tagpop-arrow { position: absolute; left: 1rem; width: 10px; height: 10px; background: var(--color-cream); border: 1px solid var(--hair-strong); transform: rotate(45deg); }
   .tagpop[data-placement='below'] .tagpop-arrow { top: -6px; border-right: none; border-bottom: none; }
   .tagpop[data-placement='above'] .tagpop-arrow { bottom: -6px; border-left: none; border-top: none; }
 
-  @media (prefers-reduced-motion: reduce) {
-    .tagpop { transition: visibility 0s linear 0s; }
-  }
+  @media (prefers-reduced-motion: reduce) { .tagpop { transition: visibility 0s linear 0s; } }
 
-  @media (min-width: 880px) {
-    .paths { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  @media (min-width: 860px) {
+    .beyond-grid { grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 3vw, 2rem); }
   }
 </style>
 
@@ -172,7 +170,6 @@ const popLabel = lang === 'es' ? 'Qué significa' : 'What this means';
       active.setAttribute('aria-expanded', 'false');
       active = null;
       pop.setAttribute('data-open', 'false');
-      // Clear text after the fade so screen readers do not read stale content.
       window.setTimeout(() => { if (!active) text.textContent = ''; }, 160);
     };
 

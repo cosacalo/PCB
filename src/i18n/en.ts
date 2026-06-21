@@ -1,12 +1,14 @@
 // English copy. Single source of truth for every visible string on the EN page.
 // Held to the brand gates: customer-obsessed (no competitor stabs), not a
-// women-only practice (women's health = one neutral service-line only), three
-// co-equal services, "weight care" (never "weight loss").
+// women-only practice (women's health = one neutral service-line only), ONE
+// integrated practice (primary care is the foundation; weight care and
+// functional medicine are the "and beyond" that make it work, never a footnote
+// or a menu of equals), "weight care" (never "weight loss").
 export const en = {
   meta: {
     title: 'Primary Care and Beyond | Telehealth Primary Care in Florida',
     description:
-      'Membership based primary care, functional medicine, and weight care from Elizabeth Hanke, APRN, FNP-BC. Telehealth across Florida. Clear pricing. Now accepting new patients.',
+      'Telehealth primary care in Florida that treats the root cause, with functional medicine and weight care, from Elizabeth Hanke, APRN, FNP-BC. Primary care $175/mo, weight care $150/mo, bundle $300/mo. Now accepting new patients.',
   },
   nav: {
     links: [
@@ -45,28 +47,27 @@ export const en = {
     ],
   },
   care: {
-    heading: 'Primary care, functional medicine, and weight care.',
-    lead: 'You can come to Primary Care and Beyond for ongoing primary care, a deeper functional medicine visit, or medical weight care. Weight care is included for primary care members and is also available as a standalone service.',
-    cards: [
+    heading: 'Primary care that actually works.',
+    lead: 'Most care reaches for another prescription. Here, primary care is the foundation, and the deeper methods that make it work, functional medicine and weight care, are part of how the care is delivered.',
+    foundation: {
+      label: 'The foundation',
+      title: 'Primary care',
+      body: 'Ongoing telehealth primary care for adults in Florida: preventive care, chronic condition support, women’s health, prescriptions and refills for non-controlled medications, lab orders when indicated, care coordination, and messaging between visits.',
+      tags: [
+        { label: 'Preventive care', def: 'Routine checkups, screenings, and guidance to help you stay well and catch problems early.' },
+        { label: 'Chronic condition support', def: 'Ongoing care for long-term conditions like high blood pressure, diabetes, or thyroid issues.' },
+        { label: 'Non-controlled refills', def: 'Prescriptions and refills for everyday medications. Controlled substances are not prescribed.' },
+        { label: 'Labs when indicated', def: 'Lab work ordered when it is medically useful. Lab fees are billed by the lab, not included.' },
+        { label: 'Care coordination', def: 'We help keep your specialists, labs, and records connected so your care stays on the same page.' },
+        { label: 'Messaging between visits', def: 'Reach Liz with non-urgent questions between visits.' },
+      ],
+    },
+    beyondLabel: 'And beyond',
+    beyondLead: 'The deeper methods that make your primary care work, brought in when your health calls for them.',
+    beyond: [
       {
-        label: 'Primary care membership',
-        title: 'Primary care',
-        body: 'Ongoing telehealth primary care for adults in Florida. This includes preventive care, chronic condition support, women’s health, prescriptions and refills for non-controlled medications, lab orders when medically indicated, and medical weight care including GLP-1 medication management when appropriate.',
-        note: '$150 per month.',
-        tags: [
-          { label: 'Preventive care', def: 'Routine checkups, screenings, and guidance to help you stay well and catch problems early.' },
-          { label: 'Chronic condition support', def: 'Ongoing care for long-term conditions like high blood pressure, diabetes, or thyroid issues.' },
-          { label: 'Non-controlled refills', def: 'Prescriptions and refills for everyday medications. Controlled substances are not prescribed.' },
-          { label: 'Labs when indicated', def: 'Lab work ordered when it is medically useful. Lab fees are billed by the lab, not included.' },
-          { label: 'Weight care included', def: 'Medical weight care is part of your membership when it fits your goals, at no extra cost.' },
-          { label: 'GLP-1 when appropriate', def: 'When it is clinically appropriate, GLP-1 medication can be part of your plan. Medication cost is separate.' },
-        ],
-      },
-      {
-        label: 'Separate service',
         title: 'Functional medicine',
-        body: 'A deeper look at symptoms that have not been explained or have not improved. This may include thyroid symptoms, gut health, autoimmune issues, chronic fatigue, and detailed lab review.',
-        note: 'Available without a primary care membership. Quoted before care begins.',
+        body: 'A deeper, root-cause look when symptoms have not been explained or have not improved. Thyroid symptoms, gut health, autoimmune concerns, chronic fatigue, and detailed lab review.',
         tags: [
           { label: 'Thyroid', def: 'A closer look at thyroid symptoms and labs when energy, weight, or mood feel off.' },
           { label: 'Gut health', def: 'Evaluation of digestion, bloating, and gut symptoms that affect how you feel each day.' },
@@ -76,10 +77,8 @@ export const en = {
         ],
       },
       {
-        label: 'Included or standalone',
         title: 'Weight care',
-        body: 'Medical weight care for people who want clinical support, not one-size-fits-all advice. Care may include lab review, health history, medication review, lifestyle planning, and GLP-1 medication management when appropriate.',
-        note: 'Included for primary care members. Also available as a standalone service without a primary care membership.',
+        body: 'Medical weight care with real clinical support, not one-size-fits-all advice: health history, lab review, lifestyle planning, and GLP-1 medication management when appropriate.',
         tags: [
           { label: 'Medical weight care', def: 'Clinician-guided weight care built around your health history and goals, not generic advice.' },
           { label: 'GLP-1 when appropriate', def: 'When it is clinically appropriate, GLP-1 medication can be part of your plan. Medication cost is separate.' },
@@ -95,17 +94,18 @@ export const en = {
     heading: 'Starting care is a&nbsp;conversation.',
     foot: 'Telehealth is available for adults 18 and older who are located in Florida at the time of each visit. Sarasota and Lakewood Ranch in-person care is planned.',
     steps: [
-      { title: 'Reach out', body: 'Call or email Liz. You can ask questions, share what you are looking for, and find out whether primary care, functional medicine, or weight care is the right fit.' },
-      { title: 'Talk it through', body: 'You will talk through your health history, current concerns, goals, and care options. If a service has a separate cost, you will know the price before care begins.' },
-      { title: 'Begin care', body: 'Start with the service that fits your needs. You may choose ongoing primary care membership, a functional medicine visit, or standalone weight care.' },
+      { title: 'Reach out', body: 'Call or email Liz. You can ask questions, share what you are looking for, and talk through how primary care, and the deeper care beyond it, could fit you.' },
+      { title: 'Talk it through', body: 'You will talk through your health history, current concerns, goals, and care options. You will always know the price before care begins.' },
+      { title: 'Begin care', body: 'Start with the primary care membership, the foundation, and add weight care or functional medicine if and when your health calls for it.' },
     ],
   },
   pricing: {
     label: 'Clear pricing',
     headingHtml: 'Know the price <em>before</em> you start.',
-    lead: 'Primary care membership is $150 per month and includes primary care plus weight care when appropriate. Functional medicine and standalone weight care are also available without a primary care membership, with clear pricing or a written estimate before care begins.',
+    lead: 'Primary care is the foundation. The beyond, weight care and functional medicine, is what makes that care actually work. Here is what each part costs.',
+    foundationLabel: 'The foundation',
     membershipLabel: 'Primary care membership',
-    price: '$150',
+    price: '$175',
     per: 'per month',
     tag: 'Telehealth direct primary care',
     included: [
@@ -114,25 +114,31 @@ export const en = {
       'Women’s health care',
       'Prescriptions and refills for non-controlled medications',
       'Lab orders when medically indicated',
-      'Medical weight care',
-      'GLP-1 medication management when appropriate',
       'Care coordination',
       'Messaging between visits',
     ],
     membershipFoot: 'No copays. No surprise bills. Cancel with 30 days notice. Medication costs, lab fees, imaging fees, and pharmacy fees are not included.',
+    bundleNote: 'Add weight care and pay $300 a month for both, saving $25.',
     cta: 'Call to join',
+    beyondLabel: 'And beyond',
+    beyondLead: 'The deeper methods that make your primary care work, brought in when your health calls for them.',
+    weightTitle: 'Weight care',
+    weightPrice: '$150',
+    weightPer: 'per month',
+    weightBody: 'Medical weight care with real clinical support, not one-size-fits-all advice. Health history, lab review, lifestyle planning, and GLP-1 medication management when appropriate.',
+    weightBundle: 'Or $300 a month bundled with primary care.',
+    weightCta: 'Call to add weight care',
     fmTitle: 'Functional medicine',
-    fmIntro: 'Available without a primary care membership. Visits are billed per visit, and you will know the cost before care begins.',
+    fmPer: 'Billed per visit',
+    fmIntro: 'A deeper, root-cause look when symptoms have not been explained or have not improved. You always know the cost before care begins.',
     rates: [
       { name: 'Initial consultation', detail: '90 minutes', price: '$375' },
       { name: 'Follow-up', detail: '30 minutes', price: '$200' },
       { name: 'Extended follow-up', detail: '60 minutes', price: '$300' },
       { name: 'Lab review', detail: 'results and plan', price: '$150' },
     ],
-    weightTitle: 'Standalone weight care',
-    weightIntro: 'Weight care is included for primary care members when appropriate. It is also available as a standalone service for patients who do not need a primary care membership.',
-    weightNote: 'Standalone weight care pricing depends on the care plan, medication needs, labs, and follow-up schedule. You will receive a written estimate before care begins.',
-    promiseHtml: '<strong>You always know the price before care begins.</strong> No surprise bills, and a written estimate before any functional medicine or standalone weight care.',
+    fmCta: 'Call to book a visit',
+    promiseHtml: '<strong>You always know the price before care begins.</strong> Memberships are a flat monthly price. Functional medicine is quoted before your visit. No surprise bills, ever.',
   },
   about: {
     heading: 'Meet your provider.',
@@ -151,14 +157,15 @@ export const en = {
     lead: 'What most people want to know before they call.',
     items: [
       { q: 'Is this insurance?', a: 'No. Primary Care and Beyond is a direct health care membership under Florida Statute 624.27. It is not insurance and does not replace major medical coverage. Keep insurance for emergencies, hospital care, specialists, imaging, pharmacy costs, and services outside the membership.' },
-      { q: 'Do I have to join primary care to get functional medicine or weight care?', a: 'No. Functional medicine and standalone weight care are available without a primary care membership. You can join for ongoing primary care, schedule a functional medicine visit, or start with standalone weight care.' },
-      { q: 'What is included in the $150 primary care membership?', a: 'The $150 monthly membership covers telehealth primary care, including preventive care, chronic condition support, women’s health, medication management and refills for non-controlled medications, lab orders when indicated, medical weight care, GLP-1 medication management when appropriate, care coordination, and messaging. Medication costs, lab fees, imaging fees, pharmacy fees, and outside services are not included.' },
-      { q: 'Can I do weight care without joining primary care?', a: 'Yes. Weight care is included for primary care members and is also available as a standalone service. Standalone weight care has its own pricing, based on the care plan, medication needs, labs, and follow-up schedule. You will know the cost before care begins.' },
-      { q: 'Is GLP-1 care included?', a: 'GLP-1 medication management may be included when appropriate for primary care members. It may also be part of standalone weight care. Medication costs, lab fees, pharmacy fees, and insurance coverage are separate.' },
+      { q: 'How does pricing work?', a: 'Primary care is the foundation, a membership at $175 per month. Weight care is its own membership at $150 per month. Bundle both for $300 per month and save $25. Functional medicine is billed per visit: initial consultation $375, follow-up $200, extended follow-up $300, and lab review $150. You always know the price before care begins.' },
+      { q: 'Do I have to join primary care to get functional medicine or weight care?', a: 'No. Weight care is its own membership, and functional medicine is billed per visit, so you can start with either one. Many patients pair them with primary care, the foundation, because that is where the deeper care works best.' },
+      { q: 'What is included in the $175 primary care membership?', a: 'The $175 monthly membership covers telehealth primary care: preventive care, chronic condition support, women’s health, medication management and refills for non-controlled medications, lab orders when indicated, care coordination, and messaging. Medication costs, lab fees, imaging fees, pharmacy fees, and outside services are not included.' },
+      { q: 'Is weight care part of the primary care membership?', a: 'No. Weight care is its own membership at $150 per month. You can add it to primary care for $300 per month together, saving $25, or have it on its own. It includes medical weight care with health history, lab review, lifestyle planning, and GLP-1 medication management when appropriate.' },
+      { q: 'Is GLP-1 medication management included?', a: 'GLP-1 medication management is part of the weight care membership when it is clinically appropriate. Medication costs, lab fees, pharmacy fees, and insurance coverage are separate.' },
       { q: 'Why pay for primary care membership if I already have insurance?', a: 'Insurance covers your major medical needs. The membership adds something different: longer visits, direct access to one provider, and the time to look at your full picture. Most members keep their insurance and use the membership alongside it.' },
       { q: 'Is a nurse practitioner enough, or do I need a doctor?', a: 'Liz is an autonomous Florida APRN and board-certified family nurse practitioner. She can diagnose, treat, order labs, and prescribe within her scope of practice. If your care requires a specialist or physician, she will help guide that next step.' },
       { q: 'Where do you practice, and who can join?', a: 'Care is available by telehealth for adults 18 and older across Florida. You must be located in Florida during each visit. Sarasota and Lakewood Ranch in-person care is planned.' },
-      { q: 'What is not included?', a: 'The primary care membership does not include emergency care, urgent care, hospital care, specialist fees, lab fees, imaging fees, pharmacy costs, controlled substances, hormone therapy at this time, in-person procedures, or disability, employment, or legal forms. Functional medicine and standalone weight care may have separate costs and are quoted before care begins.' },
+      { q: 'What is not included?', a: 'No membership includes emergency care, urgent care, hospital care, specialist fees, lab fees, imaging fees, pharmacy costs, controlled substances, hormone therapy at this time, in-person procedures, or disability, employment, or legal forms. Weight care and primary care are flat monthly memberships; functional medicine is billed per visit and quoted before care begins.' },
       { q: 'How do I get started?', a: 'Call 941.250.6561 or email Elizabeth@primarycareandbeyond.com. You can ask questions, talk through your options, and choose the care path that fits your needs.' },
     ],
   },
@@ -187,10 +194,10 @@ export const en = {
   },
   footer: {
     tagline: 'Primary care with time to go beyond the basics.',
-    pillars: 'Primary Care &middot; Functional Medicine &middot; Weight Care',
+    pillars: 'Primary Care &middot; and Beyond',
     getInTouch: 'Get in touch',
     labels: { tel: 'Tel', fax: 'Fax', email: 'Email', web: 'Web' },
-    legal: 'Primary Care and Beyond LLC. This membership is a direct health care agreement under Fla. Stat. 624.27 and is not insurance, and not minimum essential coverage under the ACA. Telehealth services are for adults 18 and older who are physically located in Florida. Functional medicine and standalone weight care services are quoted before care.',
+    legal: 'Primary Care and Beyond LLC. These memberships are a direct health care agreement under Fla. Stat. 624.27 and are not insurance, and not minimum essential coverage under the ACA. Telehealth services are for adults 18 and older who are physically located in Florida. Functional medicine is billed per visit and quoted before care.',
     rights: 'All rights reserved.',
   },
 };
