@@ -16,48 +16,75 @@ const f = useT(lang).contact.form;
 // is not a BAA-covered service. Keep it that way.
 // ============================================================================
 const ENDPOINT = 'https://formspree.io/f/mjgdnlyz';
+
+// Reused brand check mark (same glyph as the pricing ticks).
+const checkPath = 'm5 10.5 3.2 3L15 6.5';
 ---
 
 <form id="callback-form" class="cform" action={ENDPOINT} method="POST" data-endpoint={ENDPOINT} novalidate>
-  <p class="cform-title">{f.title}</p>
-  <p class="cform-intro">{f.intro}</p>
+  <div class="cform-body">
+    <p class="cform-title">{f.title}</p>
+    <p class="cform-intro">{f.intro}</p>
 
-  <div class="cform-field">
-    <label for="cf-name">{f.name}</label>
-    <input id="cf-name" name="name" type="text" autocomplete="name" required />
-  </div>
-
-  <div class="cform-row">
     <div class="cform-field">
-      <label for="cf-phone">{f.phone}</label>
-      <input id="cf-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" />
+      <label for="cf-name">{f.name} <span class="cform-req">{f.required}</span></label>
+      <div class="cform-input">
+        <input id="cf-name" name="name" type="text" autocomplete="name" required aria-describedby="cf-name-error" />
+        <svg class="cform-ok" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d={checkPath} stroke-linecap="round" stroke-linejoin="round" /></svg>
+      </div>
+      <p class="cform-error" id="cf-name-error" data-msg={f.nameError} role="alert"></p>
     </div>
+
+    <div class="cform-row">
+      <div class="cform-field">
+        <label for="cf-phone">{f.phone}</label>
+        <div class="cform-input">
+          <input id="cf-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" aria-describedby="cf-phone-error cf-contact-error" />
+          <svg class="cform-ok" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d={checkPath} stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </div>
+        <p class="cform-error" id="cf-phone-error" data-msg={f.phoneError} role="alert"></p>
+      </div>
+      <div class="cform-field">
+        <label for="cf-email">{f.email}</label>
+        <div class="cform-input">
+          <input id="cf-email" name="email" type="email" autocomplete="email" aria-describedby="cf-email-error cf-contact-error" />
+          <svg class="cform-ok" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d={checkPath} stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </div>
+        <p class="cform-error" id="cf-email-error" data-msg={f.emailError} role="alert"></p>
+      </div>
+    </div>
+    <p class="cform-note">{f.contactNote}</p>
+    <p class="cform-error" id="cf-contact-error" data-msg={f.needContact} role="alert"></p>
+
     <div class="cform-field">
-      <label for="cf-email">{f.email}</label>
-      <input id="cf-email" name="email" type="email" autocomplete="email" />
+      <label for="cf-interest">{f.interest}</label>
+      <select id="cf-interest" name="interest">
+        {f.interestOptions.map((o) => <option value={o}>{o}</option>)}
+      </select>
     </div>
+
+    <div class="cform-field">
+      <label for="cf-time">{f.time} <span class="cform-opt">{f.optional}</span></label>
+      <input id="cf-time" name="best_time" type="text" placeholder={f.timePlaceholder} />
+    </div>
+
+    <!-- Honeypot: bots fill this, humans never see it. Formspree drops matches. -->
+    <input type="text" name="_gotcha" class="cform-gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
+    <input type="hidden" name="_subject" value="Callback request from primarycareandbeyond.com" />
+
+    <button type="submit" class="btn btn-primary cform-submit" data-default={f.submit} data-sending={f.sending}>{f.submit}</button>
+
+    <p class="cform-status" role="status" aria-live="polite" data-checkfields={f.checkFields} data-error={f.error}></p>
   </div>
-  <p class="cform-note">{f.contactNote}</p>
 
-  <div class="cform-field">
-    <label for="cf-interest">{f.interest}</label>
-    <select id="cf-interest" name="interest">
-      {f.interestOptions.map((o) => <option value={o}>{o}</option>)}
-    </select>
+  <!-- Prominent confirmation, shown in place of the form after a successful send. -->
+  <div class="cform-done" hidden role="status" aria-live="polite" tabindex="-1">
+    <span class="cform-done-check" aria-hidden="true">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2"><path d={checkPath} stroke-linecap="round" stroke-linejoin="round" /></svg>
+    </span>
+    <p class="cform-done-title">{f.successTitle}</p>
+    <p class="cform-done-text">{f.success}</p>
   </div>
-
-  <div class="cform-field">
-    <label for="cf-time">{f.time}</label>
-    <input id="cf-time" name="best_time" type="text" placeholder={f.timePlaceholder} />
-  </div>
-
-  <!-- Honeypot: bots fill this, humans never see it. Formspree drops matches. -->
-  <input type="text" name="_gotcha" class="cform-gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
-  <input type="hidden" name="_subject" value="Callback request from primarycareandbeyond.com" />
-
-  <button type="submit" class="btn btn-primary cform-submit" data-default={f.submit} data-sending={f.sending}>{f.submit}</button>
-
-  <p class="cform-status" role="status" aria-live="polite" data-success={f.success} data-error={f.error} data-need={f.needContact}></p>
 </form>
 
 <style>
@@ -66,58 +93,186 @@ const ENDPOINT = 'https://formspree.io/f/mjgdnlyz';
   .cform-intro { font-size: 0.95rem; line-height: 1.55; color: color-mix(in srgb, var(--color-cream) 78%, transparent); margin: 0 0 1.5rem; }
 
   .cform-field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
-  .cform-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .cform-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
   .cform label { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.02em; color: color-mix(in srgb, var(--color-cream) 88%, transparent); }
+  .cform-req { font-weight: 700; font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-sage-light); margin-left: 0.3rem; }
+  .cform-opt { font-weight: 600; font-size: 0.74rem; letter-spacing: 0.06em; text-transform: uppercase; color: #bcb4a4; margin-left: 0.3rem; }
 
+  .cform-input { position: relative; display: flex; }
   .cform input, .cform select {
     width: 100%;
     font-family: var(--font-body);
     font-size: 1rem;
     color: var(--color-pine-deep);
     background: var(--color-cream);
-    border: 1px solid transparent;
+    border: 2px solid transparent;
     border-radius: var(--radius);
     padding: 0.7rem 0.8rem;
     min-height: 2.9rem;
+    transition: border-color var(--dur) var(--ease), background-color var(--dur) var(--ease);
   }
+  .cform-input input { padding-right: 2.5rem; }
   .cform input::placeholder { color: color-mix(in srgb, var(--color-pine-deep) 42%, transparent); }
-  .cform input:focus-visible, .cform select:focus-visible { outline: 2px solid var(--color-terracotta); outline-offset: 2px; }
+  /* Cream focus ring: terracotta fails 3:1 contrast on the pine section. */
+  .cform input:focus-visible, .cform select:focus-visible { outline: 2px solid var(--color-cream); outline-offset: 2px; }
 
-  .cform-note { font-size: 0.82rem; color: color-mix(in srgb, var(--color-cream) 62%, transparent); margin: -0.35rem 0 1.3rem; }
+  /* Field states: high-contrast cues that read on the dark section (WCAG AA). */
+  .cform input.is-error { border-color: #e3795c; background: color-mix(in srgb, #f4c4b4 16%, var(--color-cream)); }
+  .cform input.is-valid { border-color: var(--color-sage-light); }
+  .cform-ok {
+    position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%) scale(0.8);
+    width: 1.2rem; height: 1.2rem; color: var(--color-sage-deep);
+    opacity: 0; transition: opacity 0.16s var(--ease), transform 0.16s var(--ease); pointer-events: none;
+  }
+  .cform input.is-valid + .cform-ok { opacity: 1; transform: translateY(-50%) scale(1); }
+
+  .cform-error { margin: 0.4rem 0 0; font-size: 0.86rem; line-height: 1.4; font-weight: 600; color: #f4c4b4; }
+  .cform-error:empty { display: none; }
+
+  .cform-note { font-size: 0.82rem; color: color-mix(in srgb, var(--color-cream) 62%, transparent); margin: -0.35rem 0 0.2rem; }
+  #cf-contact-error { margin-top: 0.3rem; margin-bottom: 0.9rem; }
   .cform-gotcha { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
-  .cform-submit { width: 100%; justify-content: center; margin-top: 0.4rem; min-height: 3rem; }
+  .cform-submit { width: 100%; justify-content: center; margin-top: 0.9rem; min-height: 3rem; }
 
-  .cform-status { margin: 0.9rem 0 0; font-size: 0.95rem; line-height: 1.4; min-height: 1.2em; text-align: center; }
-  .cform-status[data-kind='success'] { color: var(--color-sage-light); }
-  .cform-status[data-kind='error'] { color: #f0b8a6; }
+  .cform-status { margin: 0.9rem 0 0; font-size: 0.95rem; line-height: 1.4; min-height: 1.2em; text-align: center; font-weight: 600; }
+  .cform-status[data-kind='error'] { color: #f4c4b4; }
+
+  /* Confirmation panel: unmissable. */
+  .cform-done { text-align: center; padding: 1.5rem 0 0.5rem; }
+  .cform-done:focus-visible { outline: none; }
+  .cform-done-check {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 3.1rem; height: 3.1rem; border-radius: 50%;
+    border: 2px solid var(--color-sage-light); color: var(--color-sage-light);
+  }
+  .cform-done-check svg { width: 1.65rem; height: 1.65rem; }
+  .cform-done-title { font-family: var(--font-display); font-weight: 600; font-size: 1.6rem; color: var(--color-cream); margin: 1rem 0 0.5rem; }
+  .cform-done-text { font-size: 1rem; line-height: 1.6; color: color-mix(in srgb, var(--color-cream) 82%, transparent); max-width: 27rem; margin: 0 auto; }
 
   @media (max-width: 480px) { .cform-row { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) {
+    .cform input, .cform-ok { transition: none; }
+  }
 </style>
 
 <script>
   const form = document.getElementById('callback-form');
   if (form instanceof HTMLFormElement) {
+    const body = form.querySelector('.cform-body');
+    const done = form.querySelector('.cform-done');
     const status = form.querySelector('.cform-status');
     const btn = form.querySelector('.cform-submit');
     const name = form.querySelector('#cf-name');
     const phone = form.querySelector('#cf-phone');
     const email = form.querySelector('#cf-email');
+    const errName = form.querySelector('#cf-name-error');
+    const errPhone = form.querySelector('#cf-phone-error');
+    const errEmail = form.querySelector('#cf-email-error');
+    const errContact = form.querySelector('#cf-contact-error');
     const endpoint = form.dataset.endpoint || '';
+
+    const emailLooksValid = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    // US phone: 10 digits, or 11 with a leading country-code 1.
+    const phoneDigits = (raw) => {
+      let d = (raw || '').replace(/\D/g, '');
+      if (d.length === 11 && d[0] === '1') d = d.slice(1);
+      return d;
+    };
+    const formatPhone = (raw) => {
+      const d = phoneDigits(raw);
+      if (d.length === 10) return '(' + d.slice(0, 3) + ') ' + d.slice(3, 6) + '-' + d.slice(6);
+      return raw;
+    };
+
+    const markError = (input, errEl) => {
+      input.classList.add('is-error');
+      input.classList.remove('is-valid');
+      input.setAttribute('aria-invalid', 'true');
+      if (errEl) errEl.textContent = errEl.dataset.msg || '';
+    };
+    const markValid = (input, errEl) => {
+      input.classList.remove('is-error');
+      input.classList.add('is-valid');
+      input.removeAttribute('aria-invalid');
+      if (errEl) errEl.textContent = '';
+    };
+    const markNeutral = (input, errEl) => {
+      input.classList.remove('is-error', 'is-valid');
+      input.removeAttribute('aria-invalid');
+      if (errEl) errEl.textContent = '';
+    };
+
+    const validateName = (show) => {
+      if (name.value.trim()) { markValid(name, errName); return true; }
+      if (show) markError(name, errName); else markNeutral(name, errName);
+      return false;
+    };
+    // Phone is optional, but if given it must be a real (>=10 digit) number.
+    // Formatting to (XXX) XXX-XXXX happens on blur/submit (show=true) only,
+    // so it never fights the cursor while they type.
+    const validatePhone = (show) => {
+      const raw = phone.value.trim();
+      if (!raw) { markNeutral(phone, errPhone); return true; }
+      if (phoneDigits(raw).length >= 10) {
+        if (show) phone.value = formatPhone(raw);
+        markValid(phone, errPhone);
+        return true;
+      }
+      if (show) markError(phone, errPhone); else markNeutral(phone, errPhone);
+      return false;
+    };
+    // Email is optional, so empty is allowed; only a malformed address is an error.
+    const validateEmail = (show) => {
+      const v = email.value.trim();
+      if (!v) { markNeutral(email, errEmail); return true; }
+      if (emailLooksValid(v)) { markValid(email, errEmail); return true; }
+      if (show) markError(email, errEmail);
+      return false;
+    };
+    // Clear the "add a phone or email" message + its pair-flags once satisfied,
+    // without disturbing a field that has its own (format) error.
+    const refreshPair = () => {
+      if (phone.value.trim() || email.value.trim()) {
+        errContact.textContent = '';
+        if (!phone.value.trim()) { phone.classList.remove('is-error'); phone.removeAttribute('aria-invalid'); }
+        if (!email.value.trim()) { email.classList.remove('is-error'); email.removeAttribute('aria-invalid'); }
+      }
+    };
 
     const setStatus = (msg, kind) => {
       status.textContent = msg || '';
-      if (kind) status.setAttribute('data-kind', kind);
-      else status.removeAttribute('data-kind');
+      if (kind) status.setAttribute('data-kind', kind); else status.removeAttribute('data-kind');
     };
+
+    // Feedback as they leave each field.
+    name.addEventListener('blur', () => validateName(true));
+    phone.addEventListener('blur', () => { validatePhone(true); refreshPair(); });
+    email.addEventListener('blur', () => { validateEmail(true); refreshPair(); });
+    // Clear errors as soon as they fix them, without nagging mid-type (no format on input).
+    name.addEventListener('input', () => { if (name.value.trim()) validateName(true); });
+    phone.addEventListener('input', () => { validatePhone(false); refreshPair(); });
+    email.addEventListener('input', () => { validateEmail(false); refreshPair(); });
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       setStatus('', '');
 
-      if (!name.value.trim()) { name.focus(); return; }
-      if (!phone.value.trim() && !email.value.trim()) {
-        setStatus(status.dataset.need, 'error');
-        phone.focus();
+      const okName = validateName(true);
+      const okPhone = validatePhone(true);
+      const okEmail = validateEmail(true);
+      const hasContact = !!(phone.value.trim() || email.value.trim());
+      if (!hasContact) {
+        errContact.textContent = errContact.dataset.msg || '';
+        phone.classList.add('is-error'); phone.setAttribute('aria-invalid', 'true');
+        email.classList.add('is-error'); email.setAttribute('aria-invalid', 'true');
+      } else {
+        errContact.textContent = '';
+      }
+
+      if (!okName || !okPhone || !okEmail || !hasContact) {
+        setStatus(status.dataset.checkfields, 'error');
+        const firstBad = !okName ? name : (!hasContact || !okPhone ? phone : email);
+        firstBad.focus();
         return;
       }
       // Endpoint not configured yet: fail gracefully toward call/email.
@@ -136,11 +291,13 @@ const ENDPOINT = 'https://formspree.io/f/mjgdnlyz';
           headers: { Accept: 'application/json' },
         });
         if (!res.ok) throw new Error('bad status ' + res.status);
-        form.reset();
-        setStatus(status.dataset.success, 'success');
+        // Replace the form with an unmissable confirmation.
+        body.hidden = true;
+        done.hidden = false;
+        done.focus();
+        done.scrollIntoView({ block: 'center', behavior: 'smooth' });
       } catch (err) {
         setStatus(status.dataset.error, 'error');
-      } finally {
         btn.disabled = false;
         btn.textContent = btn.dataset.default;
       }
