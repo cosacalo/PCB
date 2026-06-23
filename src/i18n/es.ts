@@ -24,7 +24,7 @@ export const es = {
   hero: {
     kicker: 'Telesalud para adultos en Florida',
     headlineLines: ['Atención primaria con', 'tiempo de ir <em>más allá de lo básico.</em>'],
-    sub: 'Trabaja con una enfermera practicante de Florida que tiene el tiempo para escucharte, conocer tu historia y entender lo que tus síntomas podrían estar diciéndote.',
+    sub: 'Aquí por fin te escuchan, con una enfermera practicante de Florida que conoce toda tu historia y busca qué está pasando en realidad.',
     call: 'Llama al 941.250.6561',
     email: 'Escríbele a Liz',
   },
@@ -34,7 +34,7 @@ export const es = {
       'Tal vez tus análisis salieron normales, pero seguías con cansancio, niebla mental, malestar o la sensación de no ser tú. Tal vez te dijeron que esperaras, que controlaras el estrés, que bajaras de peso o que probaras una receta más.',
     body2:
       'En Primary Care and Beyond tienes el tiempo para hablar del panorama completo y decidir qué tipo de atención tiene sentido para ti.',
-    strong: 'Aquí se trata de que te escuchen y de buscar qué está pasando en realidad.',
+    strong: 'El problema nunca fuiste tú. Aquí se trata de que te escuchen y de buscar qué está pasando en realidad.',
     link: 'Mira cómo funciona la atención',
     frame: 'Lo que muchos pacientes escuchan antes de encontrar una atención más profunda',
     lines: [
@@ -156,13 +156,13 @@ export const es = {
     lead: 'Lo que la mayoría quiere saber antes de llamar.',
     items: [
       { q: '¿Esto es un seguro?', a: 'No. Primary Care and Beyond es una membresía de atención médica directa conforme al Estatuto de Florida 624.27. No es un seguro y no reemplaza la cobertura médica mayor. Conserva tu seguro para emergencias, atención hospitalaria, especialistas, imágenes, costos de farmacia y servicios fuera de la membresía.' },
+      { q: '¿Una enfermera practicante es suficiente, o necesito un médico?', a: 'Liz es enfermera practicante familiar certificada con la licencia autónoma de Florida, la autorización del estado para diagnosticar, tratar, ordenar laboratorios y recetar por su cuenta. Si tu atención llega a necesitar un especialista o un médico, ella te ayuda a guiar ese siguiente paso.' },
+      { q: '¿Por qué pagar una membresía de atención primaria si ya tengo seguro?', a: 'El seguro cubre tus necesidades médicas mayores. La membresía agrega algo distinto: consultas más largas, acceso directo a una sola proveedora y el tiempo para ver tu panorama completo. La mayoría de los miembros conservan su seguro y usan la membresía junto con él.' },
       { q: '¿Cómo funcionan los precios?', a: 'La atención primaria es la base, una membresía de $175 al mes. El cuidado del peso es su propia membresía de $150 al mes. Combina ambas por $300 al mes y ahorra $25. La medicina funcional se cobra por consulta: consulta inicial $375, seguimiento $200, seguimiento extendido $300 y revisión de laboratorios $150. Siempre sabes el precio antes de comenzar la atención.' },
-      { q: '¿Tengo que unirme a atención primaria para recibir medicina funcional o cuidado del peso?', a: 'No. El cuidado del peso es su propia membresía y la medicina funcional se cobra por consulta, así que puedes empezar con cualquiera de las dos. Muchos pacientes las combinan con la atención primaria, la base, porque ahí es donde el cuidado más profundo funciona mejor.' },
       { q: '¿Qué incluye la membresía de atención primaria de $175?', a: 'La membresía mensual de $175 cubre la atención primaria por telesalud: cuidado preventivo, manejo de enfermedades crónicas, salud de la mujer, manejo y resurtido de medicamentos no controlados, órdenes de laboratorio cuando están indicadas, coordinación de la atención y mensajes. No incluye el costo de medicamentos, laboratorios, imágenes, farmacia ni servicios externos.' },
+      { q: '¿Tengo que unirme a atención primaria para recibir medicina funcional o cuidado del peso?', a: 'No. El cuidado del peso es su propia membresía y la medicina funcional se cobra por consulta, así que puedes empezar con cualquiera de las dos. Muchos pacientes las combinan con la atención primaria, la base, porque ahí es donde el cuidado más profundo funciona mejor.' },
       { q: '¿El cuidado del peso es parte de la membresía de atención primaria?', a: 'No. El cuidado del peso es su propia membresía de $150 al mes. Puedes agregarlo a la atención primaria por $300 al mes en conjunto, ahorrando $25, o tenerlo por su cuenta. Incluye cuidado médico del peso con historia de salud, revisión de laboratorios, plan de estilo de vida y manejo de medicamentos GLP-1 cuando es apropiado.' },
       { q: '¿El manejo de GLP-1 está incluido?', a: 'El manejo de medicamentos GLP-1 es parte de la membresía de cuidado del peso cuando es clínicamente apropiado. El costo de los medicamentos, los laboratorios, la farmacia y la cobertura del seguro son aparte.' },
-      { q: '¿Por qué pagar una membresía de atención primaria si ya tengo seguro?', a: 'El seguro cubre tus necesidades médicas mayores. La membresía agrega algo distinto: consultas más largas, acceso directo a una sola proveedora y el tiempo para ver tu panorama completo. La mayoría de los miembros conservan su seguro y usan la membresía junto con él.' },
-      { q: '¿Una enfermera practicante es suficiente, o necesito un médico?', a: 'Liz es APRN autónoma en Florida y enfermera practicante familiar certificada. Puede diagnosticar, tratar, ordenar laboratorios y recetar dentro de su ámbito de práctica. Si tu atención requiere un especialista o un médico, ella te ayudará a guiar ese siguiente paso.' },
       { q: '¿Dónde atienden y quién puede unirse?', a: 'La atención está disponible por telesalud para adultos de 18 años o más en toda Florida. Debes encontrarte en Florida durante cada consulta. Se planea atención presencial en Sarasota y Lakewood Ranch.' },
       { q: '¿Qué no está incluido?', a: 'Ninguna membresía incluye atención de emergencia, atención de urgencia, atención hospitalaria, honorarios de especialistas, laboratorios, imágenes, costos de farmacia, sustancias controladas, terapia hormonal por ahora, procedimientos presenciales ni el llenado de formularios de discapacidad, empleo o legales. El cuidado del peso y la atención primaria son membresías mensuales fijas; la medicina funcional se cobra por consulta y se cotiza antes de la atención.' },
       { q: '¿Cómo empiezo?', a: 'Llama al 941.250.6561 o escribe a Elizabeth@primarycareandbeyond.com. Puedes hacer preguntas, conversar sobre tus opciones y elegir el camino de atención que se ajuste a lo que necesitas.' },
@@ -170,7 +170,7 @@ export const es = {
   },
   contact: {
     heading: 'Empieza con una&nbsp;conversación.',
-    sub: 'Sin pagos en línea. Sin presión. Llama o escríbele a Liz, haz tus preguntas y averigua si Primary Care and Beyond es lo adecuado para ti.',
+    sub: 'Sin pagos en línea. Sin presión. Solo una conversación honesta para ver si Primary Care and Beyond es lo adecuado para ti. Llama o escríbele a Liz y pregúntale lo que quieras.',
     phone: '941.250.6561',
     email: 'Elizabeth@primarycareandbeyond.com',
     form: {

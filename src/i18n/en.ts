@@ -25,7 +25,7 @@ export const en = {
   hero: {
     kicker: 'Telehealth care for adults in Florida',
     headlineLines: ['Primary care with time', 'to go <em>beyond the basics.</em>'],
-    sub: 'Work with one Florida nurse practitioner who has the time to listen, learn your history, and understand what your symptoms may be telling you.',
+    sub: 'Here, you are finally heard by one Florida nurse practitioner who learns your whole story and looks for what is really going on.',
     call: 'Call 941.250.6561',
     email: 'Email Liz',
   },
@@ -35,7 +35,7 @@ export const en = {
       'Maybe your labs looked normal, but you still felt tired, foggy, uncomfortable, or unlike yourself. Maybe you were told to wait, manage stress, lose weight, or try one more prescription.',
     body2:
       'At Primary Care and Beyond, you get time to talk through the full picture and decide what kind of care makes sense next.',
-    strong: 'You are here to be heard, and to look for what is actually going on.',
+    strong: 'The problem was never you. You are here to be heard, and to look for what is actually going on.',
     link: 'See how care works',
     frame: 'Things patients often hear before they find deeper care',
     lines: [
@@ -157,13 +157,13 @@ export const en = {
     lead: 'What most people want to know before they call.',
     items: [
       { q: 'Is this insurance?', a: 'No. Primary Care and Beyond is a direct health care membership under Florida Statute 624.27. It is not insurance and does not replace major medical coverage. Keep insurance for emergencies, hospital care, specialists, imaging, pharmacy costs, and services outside the membership.' },
+      { q: 'Is a nurse practitioner enough, or do I need a doctor?', a: 'Liz is a board-certified family nurse practitioner with Florida’s autonomous license, the state’s authorization to diagnose, treat, order labs, and prescribe on her own. If your care ever needs a specialist or physician, she helps guide that next step.' },
+      { q: 'Why pay for primary care membership if I already have insurance?', a: 'Insurance covers your major medical needs. The membership adds something different: longer visits, direct access to one provider, and the time to look at your full picture. Most members keep their insurance and use the membership alongside it.' },
       { q: 'How does pricing work?', a: 'Primary care is the foundation, a membership at $175 per month. Weight care is its own membership at $150 per month. Bundle both for $300 per month and save $25. Functional medicine is billed per visit: initial consultation $375, follow-up $200, extended follow-up $300, and lab review $150. You always know the price before care begins.' },
-      { q: 'Do I have to join primary care to get functional medicine or weight care?', a: 'No. Weight care is its own membership, and functional medicine is billed per visit, so you can start with either one. Many patients pair them with primary care, the foundation, because that is where the deeper care works best.' },
       { q: 'What is included in the $175 primary care membership?', a: 'The $175 monthly membership covers telehealth primary care: preventive care, chronic condition support, women’s health, medication management and refills for non-controlled medications, lab orders when indicated, care coordination, and messaging. Medication costs, lab fees, imaging fees, pharmacy fees, and outside services are not included.' },
+      { q: 'Do I have to join primary care to get functional medicine or weight care?', a: 'No. Weight care is its own membership, and functional medicine is billed per visit, so you can start with either one. Many patients pair them with primary care, the foundation, because that is where the deeper care works best.' },
       { q: 'Is weight care part of the primary care membership?', a: 'No. Weight care is its own membership at $150 per month. You can add it to primary care for $300 per month together, saving $25, or have it on its own. It includes medical weight care with health history, lab review, lifestyle planning, and GLP-1 medication management when appropriate.' },
       { q: 'Is GLP-1 medication management included?', a: 'GLP-1 medication management is part of the weight care membership when it is clinically appropriate. Medication costs, lab fees, pharmacy fees, and insurance coverage are separate.' },
-      { q: 'Why pay for primary care membership if I already have insurance?', a: 'Insurance covers your major medical needs. The membership adds something different: longer visits, direct access to one provider, and the time to look at your full picture. Most members keep their insurance and use the membership alongside it.' },
-      { q: 'Is a nurse practitioner enough, or do I need a doctor?', a: 'Liz is an autonomous Florida APRN and board-certified family nurse practitioner. She can diagnose, treat, order labs, and prescribe within her scope of practice. If your care requires a specialist or physician, she will help guide that next step.' },
       { q: 'Where do you practice, and who can join?', a: 'Care is available by telehealth for adults 18 and older across Florida. You must be located in Florida during each visit. Sarasota and Lakewood Ranch in-person care is planned.' },
       { q: 'What is not included?', a: 'No membership includes emergency care, urgent care, hospital care, specialist fees, lab fees, imaging fees, pharmacy costs, controlled substances, hormone therapy at this time, in-person procedures, or disability, employment, or legal forms. Weight care and primary care are flat monthly memberships; functional medicine is billed per visit and quoted before care begins.' },
       { q: 'How do I get started?', a: 'Call 941.250.6561 or email Elizabeth@primarycareandbeyond.com. You can ask questions, talk through your options, and choose the care path that fits your needs.' },
@@ -171,7 +171,7 @@ export const en = {
   },
   contact: {
     heading: 'Start with a&nbsp;conversation.',
-    sub: 'No checkout. No pressure. Call or email Liz, ask your questions, and find out whether Primary Care and Beyond is the right fit.',
+    sub: 'No checkout. No pressure. Just one honest conversation to see if Primary Care and Beyond is the right fit. Call or email Liz and ask her anything.',
     phone: '941.250.6561',
     email: 'Elizabeth@primarycareandbeyond.com',
     form: {
