@@ -58,10 +58,19 @@ const bookHref = bookRoutes[lang];
     z-index: 40;
     background: color-mix(in srgb, var(--color-cream) 85%, transparent);
     backdrop-filter: saturate(1.05) blur(12px);
+    -webkit-backdrop-filter: saturate(1.05) blur(12px);
     border-bottom: 1px solid transparent;
-    transition: border-color var(--dur) var(--ease), background-color var(--dur) var(--ease);
+    transition: background-color 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+      border-color 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+      backdrop-filter 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+      box-shadow 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
   }
-  .site-nav.is-scrolled { border-bottom-color: var(--hair); background: color-mix(in srgb, var(--color-cream) 93%, transparent); }
+  /* Base + mobile: stays a full-width frosted bar on scroll. */
+  .site-nav.is-scrolled {
+    border-bottom-color: var(--hair);
+    background: color-mix(in srgb, var(--color-cream) 93%, transparent);
+    box-shadow: 0 1px 2px rgba(30, 39, 22, 0.06);
+  }
   .nav-inner {
     max-width: 75rem;
     margin: 0 auto;
@@ -70,6 +79,41 @@ const bookHref = bookRoutes[lang];
     align-items: center;
     justify-content: space-between;
     gap: 1.25rem;
+    border: 1px solid transparent;
+    transition: max-width 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+      padding 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+      background-color 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+      border-color 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+      border-radius 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+      box-shadow 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  /* Desktop: contract into a pinned, rounded, frosted bar. Ported from the
+     experiment spec, mapped to our cream palette + pine hairline; the nav stays
+     sticky so it pins flush at the top with no offset, and the side gaps appear
+     as the inner narrows (1200px -> 1120px) while the outer clears. */
+  @media (min-width: 768px) {
+    .site-nav.is-scrolled {
+      background-color: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border-bottom-color: transparent;
+    }
+    .site-nav.is-scrolled .nav-inner {
+      max-width: 70rem;
+      padding-block: 0.5rem;
+      padding-inline: 1.5rem;
+      background: color-mix(in srgb, var(--color-cream) 92%, transparent);
+      backdrop-filter: blur(12px) saturate(140%);
+      -webkit-backdrop-filter: blur(12px) saturate(140%);
+      border-color: var(--hair-strong);
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 1px 2px rgba(30, 39, 22, 0.06), 0 8px 24px rgba(30, 39, 22, 0.08);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .site-nav, .nav-inner { transition: none; }
   }
 
   .nav-brand { display: inline-flex; align-items: center; gap: 0.65rem; text-decoration: none; flex: 0 0 auto; }
