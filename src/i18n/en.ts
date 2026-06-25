@@ -19,6 +19,7 @@ export const en = {
       { href: '#faq', label: 'FAQ' },
     ],
     cta: 'Call Liz',
+    book: 'Book a visit',
     toggle: 'Español',
     toggleAria: 'Ver este sitio en español',
   },
@@ -174,6 +175,7 @@ export const en = {
     sub: 'No checkout. No pressure. Just one honest conversation to see if Primary Care and Beyond is the right fit. Call or email Liz and ask her anything.',
     phone: '941.250.6561',
     email: 'Elizabeth@primarycareandbeyond.com',
+    book: 'Book a visit',
     form: {
       title: 'Prefer we reach out?',
       intro: 'Leave your details and Liz will get back to you. Please do not include medical or symptom details here. We will cover that securely when we talk.',
@@ -198,6 +200,20 @@ export const en = {
       success: 'Thank you. Liz will reach out soon. If you need care right away, call 941.250.6561.',
       error: 'Something went wrong. Please call 941.250.6561 or email Liz instead.',
     },
+  },
+  booking: {
+    metaTitle: 'Book a visit | Primary Care and Beyond',
+    metaDescription:
+      'Schedule a telehealth visit with Elizabeth Hanke, APRN, FNP-BC: primary care, functional medicine, and weight care for adults in Florida.',
+    heading: 'Book your visit.',
+    intro:
+      'Choose a time that works for you. If you would rather talk it through first, call or email Liz and we will find the right fit together.',
+    capLabel: 'Secure scheduling',
+    capNote: 'Your details stay private.',
+    loading: 'Loading the calendar…',
+    fallbackLead: 'Calendar not loading? Call ',
+    fallbackMid: ' or email ',
+    fallbackEnd: ' and Liz will set it up with you.',
   },
   footer: {
     tagline: 'Primary care with time to go beyond the basics.',

@@ -3,11 +3,11 @@ import '../styles/global.css';
 import { useT, routes, locales, type Lang } from '../i18n';
 import MobileCallBar from '../components/MobileCallBar.astro';
 
-interface Props { lang?: Lang }
-const { lang = 'en' } = Astro.props;
+interface Props { lang?: Lang; title?: string; description?: string }
+const { lang = 'en', title: titleProp, description: descriptionProp } = Astro.props;
 const meta = useT(lang).meta;
-const title = meta.title;
-const description = meta.description;
+const title = titleProp ?? meta.title;
+const description = descriptionProp ?? meta.description;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
 // Normalize base so paths work whether BASE_URL is '/PCB', '/PCB/', or '/'.

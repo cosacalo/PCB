@@ -1,0 +1,223 @@
+---
+import Footer from './Footer.astro';
+import { Image } from 'astro:assets';
+import icon from '../assets/logo-icon.png';
+import { useT, routes, type Lang } from '../i18n';
+
+interface Props { lang?: Lang }
+const { lang = 'en' } = Astro.props;
+const t = useT(lang);
+const b = t.booking;
+const homeHref = routes[lang];
+const callLabel = t.nav.cta;
+
+// Charm Health public booking calendar, embedded from the practice's Charm EHR.
+// Patient details entered here go into Charm (HIPAA / BAA covered), which is the
+// right place for them, unlike the contact form. We contain the widget in an
+// on-brand frame; its interior is a cross-origin iframe we cannot restyle, so the
+// brand lives in the page chrome and the frame around it.
+const CHARM_BOOKING =
+  'https://ehr.charmtracker.com/publicCal.sas?method=getCal&digest=f7c03ad3a6f2bb2078cb6de16427fdaedc146156e877a32d08179fabb56380cb66e98fcf386c01413995007a025c50d8d95fcbc3b76e32a2';
+---
+
+<header class="book-bar">
+  <div class="book-bar-inner">
+    <a href={homeHref} class="book-brand" aria-label="Primary Care and Beyond, home">
+      <Image src={icon} alt="" widths={[56, 112]} class="book-icon" loading="eager" aria-hidden="true" />
+      <span class="book-wordmark">
+        <span class="book-name">Primary Care</span>
+        <span class="book-sub">and Beyond</span>
+      </span>
+    </a>
+    <a href="tel:+19412506561" class="btn btn-primary book-call">
+      <span aria-hidden="true">&#9742;</span> {callLabel}
+    </a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="section book">
+    <div class="wrap book-wrap">
+      <h1 class="display-l book-title">{b.heading}</h1>
+      <span class="rule-draw book-rule"></span>
+      <p class="lead prose book-intro">{b.intro}</p>
+
+      <div class="book-frame">
+        <div class="book-cap">
+          <span class="book-cap-label">{b.capLabel}</span>
+          <span class="book-cap-note">{b.capNote}</span>
+        </div>
+
+        <div class="book-stage">
+          <div class="book-loading" data-book-loading aria-hidden="true">
+            <span class="book-skel book-skel-title"></span>
+            <span class="book-skel book-skel-sub"></span>
+            <div class="book-skel-grid">
+              <span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span>
+            </div>
+            <p class="book-loading-text">{b.loading}</p>
+          </div>
+
+          <iframe
+            class="book-iframe"
+            data-book-iframe
+            title={b.heading}
+            src={CHARM_BOOKING}
+            width="100%"
+            height="1000"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </div>
+
+      <p class="book-fallback">
+        {b.fallbackLead}<a href="tel:+19412506561">941.250.6561</a>{b.fallbackMid}<a
+          href="mailto:Elizabeth@primarycareandbeyond.com">Elizabeth@primarycareandbeyond.com</a
+        >{b.fallbackEnd}
+      </p>
+    </div>
+  </section>
+</main>
+
+<Footer lang={lang} />
+
+<script>
+  // Fade the calendar in once Charm's iframe finishes loading. The `load` event
+  // fires for cross-origin iframes (we just can't read inside), so this is safe.
+  // A timeout backstop guarantees we never leave the loader up if `load` is missed.
+  const frame = document.querySelector('[data-book-iframe]');
+  const loader = document.querySelector('[data-book-loading]');
+  if (frame) {
+    let done = false;
+    const reveal = () => {
+      if (done) return;
+      done = true;
+      frame.classList.add('is-ready');
+      if (loader) loader.classList.add('is-done');
+    };
+    frame.addEventListener('load', reveal);
+    window.setTimeout(reveal, 8000);
+  }
+</script>
+
+<style>
+  /* Minimal focused header for a transactional page: logo home + Call. */
+  .book-bar {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: color-mix(in srgb, var(--color-cream) 90%, transparent);
+    backdrop-filter: saturate(1.05) blur(12px);
+    border-bottom: 1px solid var(--hair);
+  }
+  .book-bar-inner {
+    max-width: 75rem;
+    margin: 0 auto;
+    padding: 0.7rem clamp(1.35rem, 4vw, 2.5rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .book-brand { display: inline-flex; align-items: center; gap: 0.65rem; text-decoration: none; }
+  .book-icon { height: 2.7rem; width: auto; }
+  .book-wordmark { display: flex; flex-direction: column; line-height: 0.94; }
+  .book-name { font-family: var(--font-display); font-weight: 600; font-size: 1.4rem; color: var(--color-pine); }
+  .book-sub { font-family: var(--font-display); font-style: italic; font-weight: 500; font-size: 1rem; color: var(--color-terracotta-deep); }
+  .book-call { padding: 0.58rem 1.1rem; font-size: 0.9rem; min-height: 2.75rem; }
+
+  .book { background: var(--color-cream); }
+  .book-wrap { max-width: 58rem; }
+  .book-title { margin: 0; }
+  .book-rule { width: 3.25rem; margin: 1.1rem 0 0; }
+  .book-intro { margin-top: 1.3rem; }
+
+  /* The Charm widget, contained on-brand: our hairline, our 4px radius, a tinted
+     frame shadow, corners clipped. A branded cap bridges our page into the
+     widget; the calendar interior stays Charm's (cross-origin, not stylable). */
+  .book-frame {
+    margin-top: clamp(2rem, 4vw, 3rem);
+    border: 1px solid var(--hair);
+    border-radius: var(--radius);
+    background: var(--color-cream);
+    box-shadow: var(--shadow-frame);
+    overflow: hidden;
+  }
+
+  .book-cap {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.8rem clamp(0.9rem, 2.5vw, 1.25rem);
+    background: var(--color-cream-soft);
+    border-bottom: 1px solid var(--hair);
+  }
+  .book-cap-label {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-terracotta-deep);
+  }
+  .book-cap-note { font-size: 0.82rem; color: var(--color-sage-deep); }
+
+  .book-stage { position: relative; min-height: 1000px; background: var(--color-cream); }
+
+  .book-iframe {
+    display: block;
+    width: 100%;
+    border: 0;
+    min-height: 1000px;
+    opacity: 0;
+    transition: opacity 0.5s var(--ease);
+  }
+  .book-iframe.is-ready { opacity: 1; }
+
+  /* Loading placeholder: a calendar-shaped skeleton, faded out once Charm loads. */
+  .book-loading {
+    position: absolute;
+    inset: 0;
+    padding: clamp(1.25rem, 4vw, 2.25rem);
+    background: var(--color-cream);
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    transition: opacity 0.4s var(--ease);
+  }
+  .book-loading.is-done { opacity: 0; pointer-events: none; }
+  .book-skel { display: block; border-radius: 4px; background: var(--color-cream-soft); position: relative; overflow: hidden; }
+  .book-skel-title { width: 60%; height: 1.5rem; }
+  .book-skel-sub { width: 38%; height: 1rem; }
+  .book-skel-grid { margin-top: 0.6rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }
+  .book-skel-grid span { height: 4.5rem; border-radius: 4px; background: var(--color-cream-soft); position: relative; overflow: hidden; }
+  .book-loading-text { margin-top: 0.4rem; font-size: 0.9rem; color: var(--color-sage-deep); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .book-skel::after, .book-skel-grid span::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      transform: translateX(-100%);
+      background: linear-gradient(90deg, transparent, color-mix(in srgb, #fff 70%, transparent), transparent);
+      animation: book-shimmer 1.5s infinite;
+    }
+  }
+  @keyframes book-shimmer { to { transform: translateX(100%); } }
+  @media (prefers-reduced-motion: reduce) {
+    .book-iframe { transition: none; }
+    .book-loading { transition: none; }
+  }
+
+  .book-fallback { margin-top: 1.5rem; font-size: 0.92rem; color: var(--color-sage-deep); }
+  .book-fallback a { color: var(--color-terracotta-deep); text-decoration: underline; text-underline-offset: 2px; }
+
+  @media (max-width: 480px) { .book-cap-note { display: none; } }
+  @media (max-width: 420px) {
+    .book-sub { display: none; }
+    .book-name { font-size: 1.25rem; }
+  }
+</style>

@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import Booking from '../components/Booking.astro';
+import { useT } from '../i18n';
+
+const lang = 'en';
+const b = useT(lang).booking;
+---
+
+<Base lang={lang} title={b.metaTitle} description={b.metaDescription}>
+  <Booking lang={lang} />
+</Base>

@@ -1,17 +1,21 @@
 ---
-// Persistent Call action for mobile, where the bar-level CTA is hidden to make
-// room for the language toggle. Fixed to the bottom, mobile-only (<900px), so
-// the primary conversion is always reachable without scrolling. Desktop keeps
-// the Call CTA in the nav bar, so this is hidden there.
-import { useT, type Lang } from '../i18n';
+// Persistent mobile action bar. Two peer actions: Book (filled primary, the
+// site-wide conversion goal) and Call (outline secondary), matching every other
+// surface. Fixed to the bottom, mobile-only (<900px), over the safe-area inset.
+// Desktop keeps these actions in the nav, so this is hidden there.
+import { useT, bookRoutes, type Lang } from '../i18n';
 interface Props { lang?: Lang }
 const { lang = 'en' } = Astro.props;
-const t = useT(lang).hero;
+const t = useT(lang);
+const bookHref = bookRoutes[lang];
 ---
 
 <div class="callbar">
-  <a href="tel:+19412506561" class="btn btn-primary callbar-btn" data-magnetic>
-    <span aria-hidden="true">&#9742;</span> {t.call}
+  <a href={bookHref} class="btn btn-primary callbar-btn" data-magnetic>
+    {t.nav.book}
+  </a>
+  <a href="tel:+19412506561" class="btn btn-outline callbar-btn">
+    <span aria-hidden="true">&#9742;</span> {t.nav.cta}
   </a>
 </div>
 
@@ -23,13 +27,22 @@ const t = useT(lang).hero;
     bottom: 0;
     z-index: 50;
     display: none;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
     padding: 0.6rem clamp(1rem, 4vw, 1.5rem);
     padding-bottom: calc(0.6rem + env(safe-area-inset-bottom));
     background: color-mix(in srgb, var(--color-cream) 92%, transparent);
     backdrop-filter: saturate(1.05) blur(12px);
     border-top: 1px solid var(--hair);
   }
-  .callbar-btn { width: 100%; justify-content: center; min-height: 3rem; font-size: 1rem; }
+  .callbar-btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 3rem;
+    font-size: 0.95rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
 
-  @media (max-width: 899px) { .callbar { display: block; } }
+  @media (max-width: 899px) { .callbar { display: grid; } }
 </style>

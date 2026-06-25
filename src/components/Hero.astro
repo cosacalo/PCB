@@ -1,9 +1,11 @@
 ---
-import { useT, type Lang } from '../i18n';
+import { useT, bookRoutes, type Lang } from '../i18n';
 import logoSvg from '../assets/logo-icon.svg?raw';
 interface Props { lang?: Lang }
 const { lang = 'en' } = Astro.props;
 const t = useT(lang).hero;
+const tNav = useT(lang).nav;
+const bookHref = bookRoutes[lang];
 ---
 
 <header id="top" class="hero" data-hero>
@@ -28,7 +30,8 @@ const t = useT(lang).hero;
       <p class="hero-sub" data-hero-sub>{t.sub}</p>
 
       <div class="hero-actions" data-hero-cta>
-        <a href="tel:+19412506561" class="btn btn-primary" data-magnetic>
+        <a href={bookHref} class="btn btn-primary" data-magnetic>{tNav.book}</a>
+        <a href="tel:+19412506561" class="btn btn-outline">
           <span aria-hidden="true">&#9742;</span> {t.call}
         </a>
         <a href="mailto:Elizabeth@primarycareandbeyond.com" class="link">

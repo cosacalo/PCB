@@ -14,6 +14,12 @@ export const routes: Record<Lang, string> = {
   es: `${base}/es/`,
 };
 
+// Booking page path per language, base-path aware.
+export const bookRoutes: Record<Lang, string> = {
+  en: `${base}/book`,
+  es: `${base}/es/book`,
+};
+
 export function useT(lang: Lang) {
   return ui[lang] ?? ui[defaultLang];
 }

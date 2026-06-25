@@ -18,6 +18,7 @@ export const es = {
       { href: '#faq', label: 'Preguntas' },
     ],
     cta: 'Llamar a Liz',
+    book: 'Reservar visita',
     toggle: 'English',
     toggleAria: 'View this site in English',
   },
@@ -173,6 +174,7 @@ export const es = {
     sub: 'Sin pagos en línea. Sin presión. Solo una conversación honesta para ver si Primary Care and Beyond es lo adecuado para ti. Llama o escríbele a Liz y pregúntale lo que quieras.',
     phone: '941.250.6561',
     email: 'Elizabeth@primarycareandbeyond.com',
+    book: 'Reservar visita',
     form: {
       title: '¿Prefieres que te contactemos?',
       intro: 'Deja tus datos y Liz se comunicará contigo. Por favor no incluyas detalles médicos ni de síntomas aquí. Eso lo veremos de forma segura cuando hablemos.',
@@ -197,6 +199,20 @@ export const es = {
       success: 'Gracias. Liz se comunicará contigo pronto. Si necesitas atención de inmediato, llama al 941.250.6561.',
       error: 'Algo salió mal. Por favor llama al 941.250.6561 o escríbele a Liz.',
     },
+  },
+  booking: {
+    metaTitle: 'Reservar visita | Primary Care and Beyond',
+    metaDescription:
+      'Agenda una consulta por telesalud con Elizabeth Hanke, APRN, FNP-BC: atención primaria, medicina funcional y cuidado del peso para adultos en Florida.',
+    heading: 'Reserva tu visita.',
+    intro:
+      'Elige un horario que te funcione. Si prefieres conversarlo primero, llama o escríbele a Liz y juntos encontraremos lo más adecuado para ti.',
+    capLabel: 'Agenda segura',
+    capNote: 'Tus datos se mantienen privados.',
+    loading: 'Cargando el calendario…',
+    fallbackLead: '¿El calendario no carga? Llama al ',
+    fallbackMid: ' o escribe a ',
+    fallbackEnd: ' y Liz lo configurará contigo.',
   },
   footer: {
     tagline: 'Atención primaria con tiempo para ir más allá de lo básico.',

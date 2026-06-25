@@ -1,12 +1,13 @@
 ---
 import { Image } from 'astro:assets';
 import icon from '../assets/logo-icon.png';
-import { useT, otherLang, routes, type Lang } from '../i18n';
+import { useT, otherLang, routes, bookRoutes, type Lang } from '../i18n';
 
 interface Props { lang?: Lang }
 const { lang = 'en' } = Astro.props;
 const t = useT(lang).nav;
 const otherHref = routes[otherLang(lang)];
+const bookHref = bookRoutes[lang];
 ---
 
 <nav id="site-nav" class="site-nav">
@@ -26,9 +27,11 @@ const otherHref = routes[otherLang(lang)];
     <div class="nav-right">
       <a class="nav-lang" href={otherHref} hreflang={otherLang(lang)} aria-label={t.toggleAria}>{t.toggle}</a>
 
-      <a href="tel:+19412506561" class="btn btn-primary nav-cta">
+      <a href="tel:+19412506561" class="btn btn-outline nav-cta">
         <span aria-hidden="true">&#9742;</span> {t.cta}
       </a>
+
+      <a href={bookHref} class="btn btn-primary nav-book-cta">{t.book}</a>
 
       <details class="nav-menu" id="nav-menu">
         <summary class="nav-toggle" aria-label="Menu">
@@ -38,7 +41,8 @@ const otherHref = routes[otherLang(lang)];
           <ul>
             {t.links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
           </ul>
-          <a href="tel:+19412506561" class="btn btn-primary nav-sheet-cta">
+          <a href={bookHref} class="btn btn-primary nav-sheet-cta">{t.book}</a>
+          <a href="tel:+19412506561" class="btn btn-outline nav-sheet-book">
             <span aria-hidden="true">&#9742;</span> {t.cta}
           </a>
         </div>
@@ -85,10 +89,15 @@ const otherHref = routes[otherLang(lang)];
   .nav-links a:hover::after { width: 100%; }
 
   .nav-right { display: flex; align-items: center; gap: 0.6rem; }
-  /* The bar-level Call CTA is desktop-only; on mobile it lives in the menu
-     sheet so the bar has room to show the language toggle. */
-  .nav-cta { display: none; padding: 0.58rem 1.1rem; font-size: 0.9rem; min-height: 2.75rem; }
-  .nav-sheet-cta { width: 100%; justify-content: center; margin-top: 0.5rem; }
+  /* Bar action buttons (outline Call + filled Book) are desktop-only; on mobile
+     they live in the menu sheet so the bar has room for the language toggle. */
+  .nav-cta, .nav-book-cta {
+    display: none;
+    padding: 0.55rem 1.05rem;
+    font-size: 0.9rem;
+    min-height: 2.75rem;
+  }
+  .nav-sheet-cta, .nav-sheet-book { width: 100%; justify-content: center; margin-top: 0.5rem; }
 
   /* Language toggle: a quiet pill in the bar, visible on every breakpoint. */
   .nav-lang {
@@ -150,13 +159,13 @@ const otherHref = routes[otherLang(lang)];
     padding: 0.5rem;
   }
   .nav-sheet ul { list-style: none; margin: 0; padding: 0; display: grid; }
-  .nav-sheet a { display: block; padding: 0.8rem 0.9rem; border-radius: 3px; font-weight: 600; color: var(--color-pine); text-decoration: none; }
-  .nav-sheet a:hover { background: var(--color-sage-wash); }
+  .nav-sheet ul a { display: block; padding: 0.8rem 0.9rem; border-radius: 3px; font-weight: 600; color: var(--color-pine); text-decoration: none; }
+  .nav-sheet ul a:hover { background: var(--color-sage-wash); }
 
   @media (max-width: 420px) { .nav-sub { display: none; } .nav-name { font-size: 1.25rem; } }
   @media (min-width: 900px) {
     .nav-links { display: flex; }
-    .nav-cta { display: inline-flex; }
+    .nav-cta, .nav-book-cta { display: inline-flex; }
     .nav-menu { display: none; }
   }
 </style>

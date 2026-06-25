@@ -2,10 +2,11 @@
 import { Image } from 'astro:assets';
 import iconCream from '../assets/logo-icon-cream.png';
 import ContactForm from './ContactForm.astro';
-import { useT, type Lang } from '../i18n';
+import { useT, bookRoutes, type Lang } from '../i18n';
 interface Props { lang?: Lang }
 const { lang = 'en' } = Astro.props;
 const t = useT(lang).contact;
+const bookHref = bookRoutes[lang];
 ---
 
 <section id="contact" class="section contact">
@@ -14,7 +15,10 @@ const t = useT(lang).contact;
     <h2 class="display-l contact-title" set:html={t.heading} />
     <p class="contact-sub">{t.sub}</p>
     <div class="contact-actions">
-      <a href="tel:+19412506561" class="btn btn-on-pine" data-magnetic>
+      <a href={bookHref} class="btn btn-on-pine" data-magnetic>
+        {t.book}
+      </a>
+      <a href="tel:+19412506561" class="btn btn-ghost-pine">
         <span aria-hidden="true">&#9742;</span> {t.phone}
       </a>
       <a href="mailto:Elizabeth@primarycareandbeyond.com" class="btn btn-ghost-pine">
