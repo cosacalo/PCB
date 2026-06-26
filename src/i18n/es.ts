@@ -26,7 +26,7 @@ export const es = {
     kicker: 'Telesalud para adultos en Florida',
     headlineLines: ['Atención primaria con', 'tiempo de ir <em>más allá de lo básico.</em>'],
     sub: 'Aquí por fin te escuchan, con una enfermera practicante de Florida que conoce toda tu historia y busca qué está pasando en realidad.',
-    call: 'Llama al 941.390.3224',
+    call: 'Llama al 941.222.1771',
     email: 'Escríbele a Liz',
   },
   empathy: {
@@ -166,13 +166,13 @@ export const es = {
       { q: '¿El manejo de GLP-1 está incluido?', a: 'El manejo de medicamentos GLP-1 es parte de la membresía de cuidado del peso cuando es clínicamente apropiado. El costo de los medicamentos, los laboratorios, la farmacia y la cobertura del seguro son aparte.' },
       { q: '¿Dónde atienden y quién puede unirse?', a: 'La atención está disponible por telesalud para adultos de 18 años o más en toda Florida. Debes encontrarte en Florida durante cada consulta. Se planea atención presencial en Sarasota y Lakewood Ranch.' },
       { q: '¿Qué no está incluido?', a: 'Ninguna membresía incluye atención de emergencia, atención de urgencia, atención hospitalaria, honorarios de especialistas, laboratorios, imágenes, costos de farmacia, sustancias controladas, terapia hormonal por ahora, procedimientos presenciales ni el llenado de formularios de discapacidad, empleo o legales. El cuidado del peso y la atención primaria son membresías mensuales fijas; la medicina funcional se cobra por consulta y se cotiza antes de la atención.' },
-      { q: '¿Cómo empiezo?', a: 'Llama al 941.390.3224 o escribe a Elizabeth@primarycareandbeyond.com. Puedes hacer preguntas, conversar sobre tus opciones y elegir el camino de atención que se ajuste a lo que necesitas.' },
+      { q: '¿Cómo empiezo?', a: 'Llama al 941.222.1771 o escribe a Elizabeth@primarycareandbeyond.com. Puedes hacer preguntas, conversar sobre tus opciones y elegir el camino de atención que se ajuste a lo que necesitas.' },
     ],
   },
   contact: {
     heading: 'Empieza con una&nbsp;conversación.',
     sub: 'Sin pagos en línea. Sin presión. Solo una conversación honesta para ver si Primary Care and Beyond es lo adecuado para ti. Llama o escríbele a Liz y pregúntale lo que quieras.',
-    phone: '941.390.3224',
+    phone: '941.222.1771',
     email: 'Elizabeth@primarycareandbeyond.com',
     book: 'Reservar visita',
     form: {
@@ -196,8 +196,8 @@ export const es = {
       checkFields: 'Por favor revisa los campos marcados arriba.',
       needContact: 'Agrega un teléfono o un correo para que Liz pueda contactarte.',
       successTitle: 'Solicitud enviada.',
-      success: 'Gracias. Liz se comunicará contigo pronto. Si necesitas atención de inmediato, llama al 941.390.3224.',
-      error: 'Algo salió mal. Por favor llama al 941.390.3224 o escríbele a Liz.',
+      success: 'Gracias. Liz se comunicará contigo pronto. Si necesitas atención de inmediato, llama al 941.222.1771.',
+      error: 'Algo salió mal. Por favor llama al 941.222.1771 o escríbele a Liz.',
     },
   },
   booking: {

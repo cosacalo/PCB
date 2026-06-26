@@ -27,7 +27,7 @@ export const en = {
     kicker: 'Telehealth care for adults in Florida',
     headlineLines: ['Primary care with time', 'to go <em>beyond the basics.</em>'],
     sub: 'Here, you are finally heard by one Florida nurse practitioner who learns your whole story and looks for what is really going on.',
-    call: 'Call 941.390.3224',
+    call: 'Call 941.222.1771',
     email: 'Email Liz',
   },
   empathy: {
@@ -167,13 +167,13 @@ export const en = {
       { q: 'Is GLP-1 medication management included?', a: 'GLP-1 medication management is part of the weight care membership when it is clinically appropriate. Medication costs, lab fees, pharmacy fees, and insurance coverage are separate.' },
       { q: 'Where do you practice, and who can join?', a: 'Care is available by telehealth for adults 18 and older across Florida. You must be located in Florida during each visit. Sarasota and Lakewood Ranch in-person care is planned.' },
       { q: 'What is not included?', a: 'No membership includes emergency care, urgent care, hospital care, specialist fees, lab fees, imaging fees, pharmacy costs, controlled substances, hormone therapy at this time, in-person procedures, or disability, employment, or legal forms. Weight care and primary care are flat monthly memberships; functional medicine is billed per visit and quoted before care begins.' },
-      { q: 'How do I get started?', a: 'Call 941.390.3224 or email Elizabeth@primarycareandbeyond.com. You can ask questions, talk through your options, and choose the care path that fits your needs.' },
+      { q: 'How do I get started?', a: 'Call 941.222.1771 or email Elizabeth@primarycareandbeyond.com. You can ask questions, talk through your options, and choose the care path that fits your needs.' },
     ],
   },
   contact: {
     heading: 'Start with a&nbsp;conversation.',
     sub: 'No checkout. No pressure. Just one honest conversation to see if Primary Care and Beyond is the right fit. Call or email Liz and ask her anything.',
-    phone: '941.390.3224',
+    phone: '941.222.1771',
     email: 'Elizabeth@primarycareandbeyond.com',
     book: 'Book a visit',
     form: {
@@ -197,8 +197,8 @@ export const en = {
       checkFields: 'Please check the highlighted fields above.',
       needContact: 'Please add a phone number or an email so Liz can reach you.',
       successTitle: 'Request sent.',
-      success: 'Thank you. Liz will reach out soon. If you need care right away, call 941.390.3224.',
-      error: 'Something went wrong. Please call 941.390.3224 or email Liz instead.',
+      success: 'Thank you. Liz will reach out soon. If you need care right away, call 941.222.1771.',
+      error: 'Something went wrong. Please call 941.222.1771 or email Liz instead.',
     },
   },
   booking: {
